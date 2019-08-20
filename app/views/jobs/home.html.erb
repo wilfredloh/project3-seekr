@@ -16,14 +16,14 @@
 <h3>Application Deadline </h3>
 <ul>
 	<% @deadline.each do |job| %>
-		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline%></li>
+		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
 	<% end %>
 </ul>
 
 <h3>Upcoming Interviews </h3>
 <ul>
 	<% @deadline.each do |job| %>
-		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline%></li>
+		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
 	<% end %>
 </ul>
 
@@ -31,7 +31,7 @@
 
 	<ul>
 	<% @recent.each do |job| %>
-		<li><%=job.title%>-<%=job.comp_name%> Moved to<%=job.status%> <%=job.updated_at.strftime("%d/%b %I:%M %p") %></li>
+		<li><%=job.title%>-<%=job.comp_name%> Moved to<%=job.status%> <%=job.updated_at.strftime("%d %b, %I:%M %p") %></li>
 	<% end %>
 </ul>
 
