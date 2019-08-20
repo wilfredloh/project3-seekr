@@ -40,17 +40,19 @@
 			<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
 			  <div class="card-header">Application Deadline</div>
 			  <div class="card-body">
-				   <ul>
-				   	<% if @deadline.length == 0 %>
-				   		<p> No deadlines! </p>
-				   	<% else %>
-							<% @deadline.each do |job| %>
-						 		<a href=<%= job_path(job)%>>
-								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></li>
-						 		</a>
-							<% end %>
-						<% end %>
-					</ul>
+			  	<ul>
+	          <% if @deadline.length == 0 %>
+              <p> No upcoming interviews! </p>
+	          <% else %>
+	            <% @deadline.each do |job| %>
+	            	<% if job.deadline != nil %>
+			            <a href=<%= job_path(job)%>>
+		                <li><%=job.deadline.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%></li>
+			            </a>
+			           <% end %>
+	            <% end %>
+	          <% end %>
+          </ul>
 			  </div>
 			</div>
 
@@ -60,17 +62,19 @@
 		<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
 			  <div class="card-header">Upcoming Interviews</div>
 			  <div class="card-body">
-				  <ul>
-				  	<% if @deadline.length == 0 %>
-				   		<p> No upcoming interviews! </p>
-				   	<% else %>
-							<% @deadline.each do |job| %>
-							<a href=<%= job_path(job)%>>
-								<li><%=job.deadline.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%>  </li>
-							</a>
-							<% end %>
-						<% end %>
-					</ul>
+			  	<ul>
+	          <% if @interview.length == 0 %>
+              <p> No upcoming interviews! </p>
+	          <% else %>
+	            <% @interview.each do |job| %>
+	            	<% if job.interview != nil %>
+			            <a href=<%= job_path(job)%>>
+		                <li><%=job.interview.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%></li>
+			            </a>
+			           <% end %>
+	            <% end %>
+	          <% end %>
+          </ul>
 			  </div>
 			</div>
 

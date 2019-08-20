@@ -23,19 +23,55 @@ before_action :authenticate_user!, :except => [ :home ]
       @count = count
 
       # getting all deadlines/interviews of this user
-      @deadline = @jobs.sort_by{|job| job.deadline}
-      # @upcoming = @jobs.sort_by{|job| job.interview}
+      deadline = []
+      interview = []
+      @jobs.each do |job|
+        if job.deadline != nil #&& job.deadline >= today
+          deadline.push(job)
+        end
+        if job.interview != nil #&& job.deadline >= today
+          interview.push(job)
+        end
+      end
+      @deadline = deadline
+      @interview = interview
     end
 
+
+
+
+
     def index
-      @jobs = Job.all
+      @jobs = Job.all.where(user_id: current_user)
+      @sorted
+      if params[:sortby] == "status-asc"
+        sorted = @jobs.sort_by{|job| job.status}
+        @sorted = sorted
+      elsif params[:sortby] == "deadline-asc"
+        # sorted = @jobs.sort_by{|job| job.deadline}
+      #   @sorted = sorted.reverse
+      elsif params[:sortby] == "deadline-des"
+        # @sorted = @jobs.sort_by{|job| job.deadline}
+      else
+        @sorted = @jobs.sort_by{|job| job.id}
+      end
+      # @interview = @jobs.sort_by{|job| job.interview}
+      # @deadline = @jobs.sort_by{|job| job.deadline}
     end
+
+
+
+
 
 
     def status
       @job_saved = Job.where(status: "saved")
       @job_applied = Job.where(status: "submitted application")
       @job_interview = Job.where("status like ?", "%interview%")
+    end
+
+    def show
+      @job = Job.find(params[:id])
     end
 
     def new
@@ -65,10 +101,6 @@ before_action :authenticate_user!, :except => [ :home ]
       redirect_to root_path
     end
 
-    def show
-      @job = Job.find(params[:id])
-    end
-
     def destroy
       @job = Job.find(params[:id])
       @job.destroy
@@ -78,6 +110,6 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :status)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status)
     end
 end
