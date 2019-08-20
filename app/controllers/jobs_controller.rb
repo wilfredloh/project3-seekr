@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+
 before_action :authenticate_user!, :except => [ :show, :index, :create, :destroy ]
     def new
       @job = Job.new
@@ -6,6 +7,12 @@ before_action :authenticate_user!, :except => [ :show, :index, :create, :destroy
 
     def index
       @jobs = Job.all
+    end
+
+    def status
+      @job_saved = Job.where(status: "saved")
+      @job_applied = Job.where(status: "submitted application")
+      @job_interview = Job.where("status like ?", "%interview%")
     end
 
   def create
