@@ -1,0 +1,31 @@
+<h1>Edit Jobs (EDIT)</h1>
+<%= form_with scope: :job, model: @job, local: true do |form| %>
+  <p>
+    <%= form.label :comp_name %><br>
+    <%= form.text_field :comp_name %>
+  </p>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_area :title %>
+  </p>
+  <p>
+    <%= form.label :location %><br>
+    <%= form.text_area :location %>
+  </p>
+  <p>
+    <%= form.label :salary %><br>
+    <%= form.text_area :salary %>
+  </p>
+  <p>
+    <%= form.label :url %><br>
+    <%= form.text_area :url %>
+  </p>
+  <p>
+    <%= form.label :deadline %><br>
+    <%= form.text_area :deadline %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'Home', root_path %>
