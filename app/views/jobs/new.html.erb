@@ -1,0 +1,44 @@
+<h1> Add new page </h1>
+<%= form_with scope: :job, url: jobs_path, local: true do |form| %>
+  <p>
+    <%= form.label :'company name' %><br>
+    <%= form.text_field :comp_name %>
+  </p>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+  <p>
+    <%= form.label :location %><br>
+    <%= form.text_area :location %>
+  </p>
+  <p>
+    <%= form.label :salary %><br>
+    <%=form.select :salary, raw("<option>1,000-1,500</option><option>1,500-2,000</option><option>2,000-2,500</option><option>2,500-3,000</option><option>3,000-3,500</option><option>3,500-4,500</option><option>4,500-5,000</option>") %>
+  </p>
+  <p>
+    <%= form.label :'job listing url'%><br>
+    <%= form.text_field :url %>
+  </p>
+   <p>
+    <%= form.label :deadline %><br>
+    <%= form.date_field :deadline %>
+  </p>
+  <p>
+   <%= form.label :status %><br>
+   <%=form.select :status, raw('<option>Saved</option><option>Preparing application</option><option>Submitted application</option><option>Preparing for interview</option><option>First interview</option><option>Second Interview</option><option>Third Interview</option><option>Forth Interview</option>
+       <option>Offer received</option><option>Accepted</option><option>Rejected</option>') %>
+ </p>
+  <p>
+    <%= form.label :industry %><br>
+    <%= form.text_field :ind %>
+  </p>
+  <p>
+    <%= form.label :"user id" %><br>
+    <%= form.text_field :user_id %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'Home', root_path %>
