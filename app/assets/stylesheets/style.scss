@@ -14,3 +14,23 @@
 	margin: 12px;
 	padding: 12px;
 }
+
+.footer-row{
+	justify-content: center;
+	text-align: center;
+	color: white;
+}
+
+#dashboard{
+	justify-content: center;
+	text-align: center;
+}
+
+#dash-list {
+ overflow-y: scroll;
+ height: 22rem;
+}
+
+.content{
+	min-height: 80vh;
+}
