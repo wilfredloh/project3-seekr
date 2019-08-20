@@ -1,69 +1,85 @@
 <% if user_signed_in? %>
 
-<h1>Hello! This is your dashboard</h1>
+<h1 id="dashboard">Hello! This is your dashboard</h1>
+<div class="container">
+  <div class="row">
+	<div class="col-sm-4">
 
-<p> <%= @count %> jobs applied today </p>
+		<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-body">
+				<p class="card-text"><%= @count %> jobs applied today</p>
+			  </div>
+			</div>
 
-<h3><%= link_to 'Stats', jobs_path %> </h3>
+		<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-header">Statistic</div>
+			  <div class="card-body">
+				<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+			  </div>
+			</div>
 
-<ul>
-	<li><%=@added%> Added</li>
-	<li><%=@applied%> Applied</li>
-	<li><%=@offer%> Offers</li>
-	<li><%=@rejected%> Rejected</li>
-</ul>
+	</div>
 
-<h3>Application Deadline </h3>
-<ul>
-	<% @deadline.each do |job| %>
-		<a href=<%= job_path(job)%>>
-		<li> <%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li> </a>
-	<% end %>
-</ul>
+	<div class="col-sm-4">
 
-<h3>Upcoming Interviews </h3>
-<ul>
-	<% @deadline.each do |job| %>
-		<a href=<%= job_path(job)%>>
-		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li></a>
-	<% end %>
-</ul>
+		<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-header"><%= link_to 'Status', jobs_path %></div>
+			  <div class="card-body">
+				<ul>
+						<li><%=@added%> Added</li>
+						<li><%=@applied%> Applied</li>
+						<li><%=@offer%> Offers</li>
+						<li><%=@rejected%> Rejected</li>
+					</ul>
+					<div class="col text-center">
+						<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Go to Jobs</button>'.html_safe, jobs_path %>
+					</div>
+			  </div>
+			</div>
 
-<h3>Recent Activity </h3>
+			<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-header">Application Deadline</div>
+			  <div class="card-body">
+				   <ul>
+						<% @deadline.each do |job| %>
+			 <a href=<%= job_path(job)%>>
+							<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
+			 </a>
+						<% end %>
+					</ul>
+			  </div>
+			</div>
 
-	<ul>
-	<% @recent.each do |job| %>
-		<a href=<%= job_path(job)%>>
-		<li><%=job.title%>-<%=job.comp_name%> <br>Moved to <%=job.status%> [ <%=job.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
-	<% end %>
-</ul>
+	</div>
 
+	<div class="col-sm-4">
+		<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-header">Upcoming Interviews</div>
+			  <div class="card-body">
+				  <ul>
+						<% @deadline.each do |job| %>
+						<a href=<%= job_path(job)%>>
+							<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
+						</a>
+						<% end %>
+					</ul>
+			  </div>
+			</div>
 
-<table>
-  <tr>
-    <th>Company Name</th>
-    <th>Title</th>
-    <th>Location</th>
-    <th>Salary</th>
-    <th>Url</th>
-    <th>Deadline</th>
-  </tr>
-  <% @jobs.each do |job| %>
-    <tr>
-      <td><%= job.comp_name %></td>
-      <td><%= job.title %></td>
-      <td><%= job.location %></td>
-      <td><%= job.salary %></td>
-      <td><%= job.url %></td>
-      <td><%= job.deadline %></td>
-      <td><%= link_to 'Show', job_path(job) %></td>
-      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
-<%= link_to 'Add job', new_job_path %>
-
-
+			<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
+			  <div class="card-header">Recent Activity</div>
+			  <div class="card-body">
+					<ul>
+					<% @messages.each do |message| %>
+					<a href= <%=job_path(message.job_id)%>>
+						<li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+					<% end %>
+					</ul>
+			  </div>
+			</div>
+  </div>
+</div>
+</div>
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
