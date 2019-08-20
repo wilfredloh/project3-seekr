@@ -1,0 +1,57 @@
+<% if user_signed_in? %>
+  <div id="sortBy" class="form-group">
+    <select class="custom-select" style="width:200px;">
+      <option selected="">Sort by</option>
+      <option value="1">Status</option>
+      <option value="2">Deadline</option>
+    </select>
+
+		  <div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
+		  <label class="btn btn-secondary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
+		  </label>
+		  <label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option3" autocomplete="off"> Grid
+		  </label>
+		</div>
+
+  </div>
+
+
+<h1 class="text-center">All Applications</h1>
+<div id="jobsTable">
+		<table class="table table-info">
+		  <thead>
+		    <tr>
+		      <th scope="col">Company</th>
+		      <th scope="col">Title</th>
+		      <th scope="col">Location</th>
+		      <th scope="col">Salary</th>
+		      <th scope="col">Url</th>
+		      <th scope="col">Deadline</th>
+		      <th scope="col">Status</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr class="table-light" >
+		    	<% @jobs.each do |job| %>
+		      <td><%= job.comp_name %></td>
+		      <td><%= job.title %></td>
+		      <td><%= job.location %></td>
+		      <td><%= job.salary %></td>
+		      <td><%= job.url %></td>
+		      <td><%= job.deadline %></td>
+		      <td><%= job.status %></td>
+		      <td><%= link_to 'Show', job_path(job) %></td>
+		      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		    </tr>
+		     <% end %>
+		  </tbody>
+		</table>
+		<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
+	</div>
+
+<% else%>
+<h1>UR NOT LOGGED IN</h1>
+<%= link_to 'log in', new_user_session_url %>
+<% end %>
