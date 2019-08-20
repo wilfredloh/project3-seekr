@@ -3,6 +3,7 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def home
       @jobs = Job.all
+      @messages = Message.all
       @added = @jobs.where(status:"saved").length
       @applied = @jobs.where(status:"submitted application").length
       @offer = @jobs.where(status:"Offer").length
@@ -18,6 +19,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @deadline = @jobs.sort_by{|job| job.deadline}
       # @upcoming = @jobs.sort_by{|job| job.interview}
       @recent = @jobs.sort_by{|job| job.updated_at}.reverse!
+
     end
 
     def index
@@ -30,8 +32,10 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def create
       @job = Job.new(job_params)
+      @message = Message.new(description:"Created a new job #{@job.title}", job: @job)
       @job.user = current_user
       @job.save
+      @message.save
       redirect_to root_path
     end
 
@@ -41,6 +45,8 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def update
       @job = Job.find(params[:id])
+      @message = Message.new(description:"Updated job #{@job.title}", job: @job)
+
       @job.update(job_params)
       redirect_to root_path
     end

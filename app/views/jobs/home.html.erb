@@ -4,38 +4,46 @@
 
 <p> <%= @count %> jobs applied today </p>
 
-<h3>Stats</h3>
+<h3><%= link_to 'Stats', jobs_path %> </h3>
 
 <ul>
-	<li><%=@added%> Added</li>
-	<li><%=@applied%> Applied</li>
-	<li><%=@offer%> Offers</li>
-	<li><%=@rejected%> Rejected</li>
+    <li><%=@added%> Added</li>
+    <li><%=@applied%> Applied</li>
+    <li><%=@offer%> Offers</li>
+    <li><%=@rejected%> Rejected</li>
 </ul>
 
 <h3>Application Deadline </h3>
 <ul>
-	<% @deadline.each do |job| %>
-		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
-	<% end %>
+    <% @deadline.each do |job| %>
+        <a href=<%= job_path(job)%>>
+        <li> <%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li> </a>
+    <% end %>
 </ul>
 
 <h3>Upcoming Interviews </h3>
 <ul>
-	<% @deadline.each do |job| %>
-		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
-	<% end %>
+    <% @deadline.each do |job| %>
+        <a href=<%= job_path(job)%>>
+        <li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li></a>
+    <% end %>
 </ul>
 
 <h3>Recent Activity </h3>
 
 	<ul>
-	<% @recent.each do |job| %>
-		<li><%=job.title%>-<%=job.comp_name%> Moved to<%=job.status%> <%=job.updated_at.strftime("%d %b, %I:%M %p") %></li>
-	<% end %>
-</ul>
+    <% @recent.each do |job| %>
+        <a href=<%= job_path(job)%>>
+        <li><%=job.title%>-<%=job.comp_name%> <br>Moved to <%=job.status%> [ <%=job.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+    <% end %>
+	</ul>
 
-
+	<ul>
+    <% @messages.each do |message| %>
+        <a href= <%=job_path(message.job_id)%>>
+        <li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+    <% end %>
+	</ul>
 
 
 
