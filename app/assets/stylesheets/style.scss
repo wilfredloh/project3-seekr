@@ -1,0 +1,46 @@
+#jobsTable{
+	width: 950px;
+	height: 900px;
+	justify-content: center;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#changeView{
+	float: right;
+}
+
+#sortBy{
+	margin: 12px;
+	padding: 12px;
+}
+
+.footer-row{
+	justify-content: center;
+	text-align: center;
+	color: white;
+}
+
+#dashboard{
+	justify-content: center;
+	text-align: center;
+}
+
+#dash-list {
+ overflow-y: scroll;
+ height: 22rem;
+}
+
+.content{
+	min-height: 80vh;
+}
+
+.job-list {
+ 	overflow-y: scroll;
+  height: 22rem;
+ }
+
+.card-link {
+ 	color: black;
+ 	cursor: pointer;
+ }
