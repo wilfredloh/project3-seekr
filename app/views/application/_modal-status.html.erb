@@ -1,0 +1,65 @@
+<div class="modal fade bd-example-modal-lg" id="show-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    	<button type="button" class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-header flex-column p-4">
+        <p class="modal-title ">Status: <%= job.status.capitalize %></p>
+        <h3><%= job.comp_name.capitalize %></h3>
+        <h5 class = "font-italic"><%= job.title.capitalize %></h5>
+      </div>
+
+      <div class="modal-body row justify-content-center">
+       	<div class = "job-info">
+       		<p class = "p-2 m-0 font-weight-bold">GENERAL INFO</p>
+
+       		<table class="table table-borderless border-right">
+					  <tbody>
+					    <tr>
+					      <td>Company</td>
+					      <td><%= job.comp_name.capitalize %></td>
+
+					    </tr>
+					    <tr>
+					      <td>Title</td>
+					      <td><%= job.title.capitalize %></td>
+					    </tr>
+					    <tr>
+					      <td>Location</td>
+					      <td><%= job.location.capitalize %></td>
+					    </tr>
+					    <tr>
+					      <td>Salary</td>
+					      <td><%= job.salary %></td>
+					    </tr>
+					    <tr>
+					      <td>URL</td>
+					      <td><%= job.url %></td>
+					    </tr>
+					  </tbody>
+					</table>
+      	</div>
+
+      	<div class = "job-dates">
+      		<p class = "p-2 m-0 font-weight-bold">Key Dates</p>
+       		<table class="table table-borderless">
+					  <tbody>
+					    <tr>
+					      <td>Application Deadline</td>
+					      <td><%= job.deadline %></td>
+					    </tr>
+					  </tbody>
+					</table>
+      	</div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href = <%= edit_job_path (job.id)%>>
+        	<button type="button" class="btn btn-primary"> Edit Details</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

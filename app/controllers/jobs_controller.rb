@@ -19,11 +19,17 @@ before_action :authenticate_user!, :except => [ :home ]
       @deadline = @jobs.sort_by{|job| job.deadline}
       # @upcoming = @jobs.sort_by{|job| job.interview}
       @recent = @jobs.sort_by{|job| job.updated_at}.reverse!
-
     end
 
     def index
       @jobs = Job.all
+    end
+
+
+    def status
+      @job_saved = Job.where(status: "saved")
+      @job_applied = Job.where(status: "submitted application")
+      @job_interview = Job.where("status like ?", "%interview%")
     end
 
     def new
@@ -64,6 +70,6 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :status)
     end
 end

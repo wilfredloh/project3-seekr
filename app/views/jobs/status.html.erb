@@ -1,0 +1,114 @@
+<% if user_signed_in? %>
+<%= link_to 'Log out', destroy_user_session_url, method: :delete %><br>
+<%= link_to 'Add job', new_job_path %>
+
+<h1 class = "text-center">All Application</h1>
+
+<div class = "row container">
+
+	<div class = "col saved">
+		<div class = "status-header text-center my-4">
+			<h4> Saved </h4>
+			<small> <%= @job_saved.length %> JOBS </small>
+		</div>
+		<% @job_saved.each do |job| %>
+			<div class = "card regular mb-3">
+				<a class = "card-link" data-toggle="modal" data-target="#show-modal">
+					<div class = "description text-center mt-3 mb-2">
+						<p class = "font-weight-bold mb-0">
+							<%= job.comp_name.capitalize %>
+						</p>
+						<p>
+							<%= job.title.capitalize %>
+						</p>
+						<small>
+							== <%= job.status.capitalize %> ==
+						</small>
+					</div>
+					<div class="card-footer pr-2 text-right">
+						<small>
+							Added on <%= job. created_at.to_date %>
+						</small>
+					</div>
+				</a>
+			</div>
+			<%= render "modal-status", job: job %>
+		<%end%>
+	</div>
+
+	<div class = "col applied">
+		<div class = "status-header text-center my-4">
+			<h4> Applied </h4>
+			<small> <%= @job_applied.length %> JOBS </small>
+		</div>
+		<% @job_applied.each do |job| %>
+			<div class = "card regular mb-3">
+				<a class = "card-link" data-toggle="modal" data-target="#show-modal">
+					<div class = "description text-center mt-3 mb-2">
+						<p class = "font-weight-bold mb-0">
+							<%= job.comp_name.capitalize %>
+						</p>
+						<p>
+							<%= job.title.capitalize %>
+						</p>
+						<small>
+							== <%= job.status.capitalize %> ==
+						</small>
+					</div>
+					<div class="card-footer pr-2 text-right">
+						<small>
+							Added on <%= job. created_at.to_date %>
+						</small>
+					</div>
+				</a>
+			</div>
+			<%= render "modal-status", job: job %>
+		<%end%>
+	</div>
+
+	<div class = "col interviewing">
+		<div class = "status-header text-center my-4">
+			<h4> Interview </h4>
+			<small> <%= @job_interview.length %> JOBS </small>
+		</div>
+		<div class = "job-list">
+			<% @job_interview.each do |job| %>
+				<div class = "card regular mb-3">
+					<a class = "card-link" data-toggle="modal" data-target="#show-modal">
+						<div class = "description text-center mt-3 mb-2">
+							<p class = "font-weight-bold mb-0">
+								<%= job.comp_name.capitalize %>
+							</p>
+							<p>
+								<%= job.title.capitalize %>
+							</p>
+							<small>
+								== <%= job.status.capitalize %> ==
+							</small>
+						</div>
+						<div class="card-footer pr-2 text-right">
+							<small>
+								Added on <%= job.created_at.to_date %>
+							</small>
+						</div>
+					</a>
+				</div>
+				<%= render "modal-status", job: job %>
+			<%end%>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<% else%>
+<h1>UR NOT LOGGED IN</h1>
+<%= link_to 'log in', new_user_session_url %>
+<% end %>
