@@ -1,10 +1,10 @@
 class JobsController < ApplicationController
-before_action :authenticate_user!, :except => [ :show, :index, :create, :destroy ]
+before_action :authenticate_user!, :except => [ :home ]
 
     def home
       @jobs = Job.all
-      @added = @jobs.where(status:"Saved").length
-      @applied = @jobs.where(status:"Submitted").length
+      @added = @jobs.where(status:"saved").length
+      @applied = @jobs.where(status:"submitted application").length
       @offer = @jobs.where(status:"Offer").length
       @rejected = @jobs.where(status:"Rejected").length
 
@@ -15,8 +15,9 @@ before_action :authenticate_user!, :except => [ :show, :index, :create, :destroy
         end
       end
       @count = count
-
       @deadline = @jobs.sort_by{|job| job.deadline}
+      # @upcoming = @jobs.sort_by{|job| job.interview}
+      @recent = @jobs.sort_by{|job| job.updated_at}.reverse!
     end
 
     def index
