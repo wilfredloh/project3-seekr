@@ -1,0 +1,73 @@
+<% if user_signed_in? %>
+
+<h1>Hello! This is your dashboard</h1>
+
+<p> <%= @count %> jobs applied today </p>
+
+<h3>Stats</h3>
+
+<ul>
+	<li><%=@added%> Added</li>
+	<li><%=@applied%> Applied</li>
+	<li><%=@offer%> Offers</li>
+	<li><%=@rejected%> Rejected</li>
+</ul>
+
+<h3>Application Deadline </h3>
+<ul>
+	<% @jobs.each do |job| %>
+		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline%></li>
+	<% end %>
+	<%= @deadline %>
+</ul>
+
+<h3>Upcoming Interviews </h3>
+<ul>
+	<% @jobs.each do |job| %>
+		<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline%></li>
+	<% end %>
+</ul>
+
+<h3>Recent Activity </h3>
+<ul>
+	<li>Title - Company</li>
+	<li>Moved to Offers</li>
+	<li>Title - Company</li>
+	<li>Moved to Interview 2</li>
+</ul>
+
+
+
+
+
+
+<table>
+  <tr>
+    <th>Company Name</th>
+    <th>Title</th>
+    <th>Location</th>
+    <th>Salary</th>
+    <th>Url</th>
+    <th>Deadline</th>
+  </tr>
+  <% @jobs.each do |job| %>
+    <tr>
+      <td><%= job.comp_name %></td>
+      <td><%= job.title %></td>
+      <td><%= job.location %></td>
+      <td><%= job.salary %></td>
+      <td><%= job.url %></td>
+      <td><%= job.deadline %></td>
+      <td><%= link_to 'Show', job_path(job) %></td>
+      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'Add job', new_job_path %>
+
+
+
+<% else%>
+<h1>UR NOT LOGGED IN</h1>
+<%= link_to 'log in', new_user_session_url %>
+<% end %>
