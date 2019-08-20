@@ -34,3 +34,13 @@
 .content{
 	min-height: 80vh;
 }
+
+.job-list {
+ 	overflow-y: scroll;
+  height: 22rem;
+ }
+
+.card-link {
+ 	color: black;
+ 	cursor: pointer;
+ }
