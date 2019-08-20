@@ -1,103 +1,55 @@
 <% if user_signed_in? %>
-<%= link_to 'Log out', destroy_user_session_url, method: :delete %><br>
-<%= link_to 'Add job', new_job_path %>
+  <div id="sortBy" class="form-group">
+    <select class="custom-select" style="width:200px;">
+      <option selected="">Sort by</option>
+      <option value="1">Status</option>
+      <option value="2">Deadline</option>
+    </select>
 
-<h1>Listing Jobs (INDEX)</h1>
-<table>
-  <tr>
-    <th>Company Name</th>
-    <th>Title</th>
-    <th>Location</th>
-    <th>Salary</th>
-    <th>Url</th>
-    <th>Deadline</th>
-  </tr>
-  <% @jobs.each do |job| %>
-    <tr>
-      <td><%= job.comp_name %></td>
-      <td><%= job.title %></td>
-      <td><%= job.location %></td>
-      <td><%= job.salary %></td>
-      <td><%= job.url %></td>
-      <td><%= job.deadline %></td>
-      <td><%= link_to 'Show', job_path(job) %></td>
-      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
+		  <div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
+		  <label class="btn btn-secondary active">
+		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
+		  </label>
+		  <label class="btn btn-secondary">
+		    <input type="radio" name="options" id="option3" autocomplete="off"> Grid
+		  </label>
+		</div>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Type</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="table-active">
-      <th scope="row">Active</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr>
-      <th scope="row">Default</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-primary">
-      <th scope="row">Primary</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-secondary">
-      <th scope="row">Secondary</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-success">
-      <th scope="row">Success</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-danger">
-      <th scope="row">Danger</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-warning">
-      <th scope="row">Warning</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-info">
-      <th scope="row">Info</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-light">
-      <th scope="row">Light</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-dark">
-      <th scope="row">Dark</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-  </tbody>
-</table>
+  </div>
+
+
+<h1 class="text-center">All Applications</h1>
+<div id="jobsTable">
+		<table class="table table-info">
+		  <thead>
+		    <tr>
+		      <th scope="col">Company</th>
+		      <th scope="col">Title</th>
+		      <th scope="col">Location</th>
+		      <th scope="col">Salary</th>
+		      <th scope="col">Url</th>
+		      <th scope="col">Deadline</th>
+		      <th scope="col">Status</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr class="table-light" >
+		    	<% @jobs.each do |job| %>
+		      <td><%= job.comp_name %></td>
+		      <td><%= job.title %></td>
+		      <td><%= job.location %></td>
+		      <td><%= job.salary %></td>
+		      <td><%= job.url %></td>
+		      <td><%= job.deadline %></td>
+		      <td><%= job.status %></td>
+		      <td><%= link_to 'Show', job_path(job) %></td>
+		      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		    </tr>
+		     <% end %>
+		  </tbody>
+		</table>
+		<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
+	</div>
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
