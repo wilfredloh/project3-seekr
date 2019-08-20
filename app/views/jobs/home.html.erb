@@ -46,7 +46,7 @@
 				   	<% else %>
 							<% @deadline.each do |job| %>
 						 		<a href=<%= job_path(job)%>>
-								<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
+								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></li>
 						 		</a>
 							<% end %>
 						<% end %>
@@ -66,7 +66,7 @@
 				   	<% else %>
 							<% @deadline.each do |job| %>
 							<a href=<%= job_path(job)%>>
-								<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
+								<li><%=job.deadline.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%>  </li>
 							</a>
 							<% end %>
 						<% end %>
@@ -78,10 +78,14 @@
 			  <div class="card-header">Recent Activity</div>
 			  <div class="card-body">
 					<ul>
-					<% @messages.each do |message| %>
-					<a href= <%=job_path(message.job_id)%>>
-						<li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
-					<% end %>
+						<% if @messages.length == 0 %>
+				   		<p> No messages! </p>
+				   	<% else %>
+							<% @messages.each do |message| %>
+							<a href= <%=job_path(message.job_id)%>>
+								<li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+							<% end %>
+						<% end %>
 					</ul>
 
 			  </div>

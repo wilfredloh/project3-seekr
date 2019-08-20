@@ -2,13 +2,18 @@ class JobsController < ApplicationController
 before_action :authenticate_user!, :except => [ :home ]
 
     def home
+      # for all jobs and messages under this user
       @jobs = Job.all.where(user_id: current_user)
-      @messages = Message.all
-      @added = @jobs.where(status:"saved").length
-      @applied = @jobs.where(status:"submitted application").length
-      @offer = @jobs.where(status:"Offer").length
+      messages = Message.all.where(user_id: current_user)
+      @messages = messages.reverse
+
+      # for the 4 different statuses
+      @added = @jobs.where(status:"Started").length
+      @applied = @jobs.where(status:"Submitted").length
+      @offer = @jobs.where(status:"Offer Received").length
       @rejected = @jobs.where(status:"Rejected").length
 
+      # count number of jobs this user has created today
       count = 0
       @jobs.each do |job|
         if job.created_at.to_date == Time.now.to_date
@@ -17,13 +22,9 @@ before_action :authenticate_user!, :except => [ :home ]
       end
       @count = count
 
+      # getting all deadlines/interviews of this user
       @deadline = @jobs.sort_by{|job| job.deadline}
-
-      if @jobs.length == 0
-        # @deadline = 1
-      end
       # @upcoming = @jobs.sort_by{|job| job.interview}
-      @recent = @jobs.sort_by{|job| job.updated_at}
     end
 
     def index
@@ -43,9 +44,10 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def create
       @job = Job.new(job_params)
-      @message = Message.new(description:"Created a new job #{@job.title}", job: @job)
       @job.user = current_user
       @job.save
+
+      @message = Message.new(description:"Created job: #{@job.title}", job: @job, user: current_user)
       @message.save
       redirect_to root_path
     end
@@ -56,9 +58,10 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def update
       @job = Job.find(params[:id])
-      @message = Message.new(description:"Updated job #{@job.title}", job: @job)
-
       @job.update(job_params)
+
+      @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
+      @message.save
       redirect_to root_path
     end
 
