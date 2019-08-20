@@ -18,7 +18,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @count = count
       @deadline = @jobs.sort_by{|job| job.deadline}
       # @upcoming = @jobs.sort_by{|job| job.interview}
-      @recent = @jobs.sort_by{|job| job.updated_at}.reverse!
+      @recent = @jobs.sort_by{|job| job.updated_at}
 
     end
 
