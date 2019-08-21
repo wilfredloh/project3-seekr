@@ -99,6 +99,12 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def create
       @job = Job.new(job_params)
+      status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
+      status.each_with_index do |stat, index|
+        if @job.status == stat
+          @job.stat_index = index+1
+        end
+      end
       @job.user = current_user
       @job.save
 
@@ -113,6 +119,13 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def update
       @job = Job.find(params[:id])
+
+      status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
+      status.each_with_index do |stat, index|
+        if @job.status == stat
+          @job.stat_index = index+1
+        end
+      end
       @job.update(job_params)
 
       @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
