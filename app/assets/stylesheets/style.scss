@@ -4,9 +4,7 @@
     text-align: center;
     margin: 0 auto;
 }
-#changeView{
-    float: right;
-}
+
 #sortBy, #searchBar{
     margin: 12px;
     padding: 12px;
@@ -38,7 +36,7 @@
  .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: #bee5eb;
 }
-.jobsHeader{
+.filters{
     justify-content: center;
     text-align: center;
 }
@@ -56,4 +54,11 @@
 }
 .signInFooter{
     bottom: 0; left: 0; right: 0;
+}
+
+
+.changeViewIcons a{
+	height: 35px;
+	width: 35px;
+	float: right;
 }
