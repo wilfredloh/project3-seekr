@@ -1,60 +1,57 @@
 <% if user_signed_in? %>
 
 <h1 id="dashboard">Hello! This is your dashboard</h1>
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 
-		<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
+		<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 			  <div class="card-body">
 				<p class="card-text"><%= @count %> jobs applied today</p>
 			  </div>
-			</div>
+		</div>
 
-		<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
-			  <div class="card-header">Statistic</div>
+		<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
+			  <div class="card-header text-center">Recent Activity</div>
 			  <div class="card-body">
-				<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+					<ul>
+					<% @messages.each do |message| %>
+					<a href= <%=job_path(message.job_id)%>>
+						<li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+					<% end %>
+					</ul>
 			  </div>
-			</div>
-
+		</div>
 	</div>
 
-	<div class="col-sm-4">
+	<div class="col-sm-6 p-0">
 
-		<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
-			  <div class="card-header"><%= link_to 'Status', jobs_path %></div>
+		<div class="card border-dark mb-3 mx-auto" >
+			  <div class="card-header text-center"><%= link_to 'Status', jobs_path %></div>
 			  <div class="card-body">
-				<ul>
-						<li><%=@added%> Added</li>
-						<li><%=@applied%> Applied</li>
-						<li><%=@offer%> Offers</li>
-						<li><%=@rejected%> Rejected</li>
-					</ul>
+
+						<p class="dash-list"><%=@added%> Added</p>
+						<p class="dash-list"><%=@applied%> Applied</p>
+						<p class="dash-list"><%=@offer%> Offers</p>
+						<p class="dash-list"><%=@rejected%> Rejected</p>
+
 					<div class="col text-center">
 						<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Go to Jobs</button>'.html_safe, jobs_path %>
 					</div>
 			  </div>
 			</div>
-
-			<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
-			  <div class="card-header">Application Deadline</div>
-			  <div class="card-body">
-				   <ul>
-						<% @deadline.each do |job| %>
-			 <a href=<%= job_path(job)%>>
-							<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
-			 </a>
-						<% end %>
-					</ul>
-			  </div>
-			</div>
+				<div class="card text-white bg-dark mb-3 mx-auto">
+				  <div class="card-header text-center">Statistic</div>
+					  <div class="card-body text-center">
+						<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+					  </div>
+				</div>
 
 	</div>
 
-	<div class="col-sm-4">
-		<div class="card text-white bg-dark mb-3" style="max-width: 20rem;" id="dash-list">
-			  <div class="card-header">Upcoming Interviews</div>
+	<div class="col-sm-3">
+		<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+			  <div class="card-header text-center">Upcoming Interviews</div>
 			  <div class="card-body">
 				  <ul>
 						<% @deadline.each do |job| %>
@@ -66,22 +63,46 @@
 			  </div>
 			</div>
 
-			<div class="card border-dark mb-3" style="max-width: 20rem;" id="dash-list">
-			  <div class="card-header">Recent Activity</div>
-			  <div class="card-body">
-					<ul>
-					<% @messages.each do |message| %>
-					<a href= <%=job_path(message.job_id)%>>
-						<li><%=message.job.title%>-<%=message.job.comp_name%> <br><%=message.description%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
-					<% end %>
-					</ul>
-			  </div>
+						<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+						  <div class="card-header text-center">Application Deadline</div>
+							  <div class="card-body">
+								   <ul>
+										<% @deadline.each do |job| %>
+										 <a href=<%= job_path(job)%>>
+											<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
+										 </a>
+										<% end %>
+									</ul>
+							  </div>
 			</div>
+
+
+	</div>
   </div>
 </div>
-</div>
+
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
 <%= link_to 'log in', new_user_session_url %>
+<footer class= "page-footer font-small bg-dark pt-4">
+	                  <div class="container-fluid">
+	                    <div class="row footer-row">
+	                        <h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+	                    </div>
+
+	                    <div class="row footer-text footer-row">
+	                        <p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
+	                    </div>
+
+	                    <div class="row footer-row">
+	                        <%= image_tag("badge-iphone.png", size: "200x60", alt: "Edit Entry") %>
+	                        <%= image_tag("badge-android.png", size: "200x60", alt: "Edit Entry") %>
+	                    </div>
+
+	                    <div class="row footer-row">
+	                        <div class="footer-copyright text-center py-3">© 2019 Copyright</div>
+	                    </div>
+	                  </div>
+	    </footer>
 <% end %>
