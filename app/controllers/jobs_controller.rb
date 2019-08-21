@@ -44,9 +44,26 @@ before_action :authenticate_user!, :except => [ :home ]
     def index
       @jobs = Job.all.where(user_id: current_user)
       @sorted
-      if params[:sortby] == "status-asc"
+      if params[:sortby] == "comp-asc"
+        @sorted = @jobs.sort_by{|job| job.comp_name}
+      elsif params[:sortby] == "comp-des"
+        sorted = @jobs.sort_by{|job| job.comp_name}
+        @sorted = sorted.reverse
+      elsif params[:sortby] == "title-asc"
+        @sorted = @jobs.sort_by{|job| job.title}
+      elsif params[:sortby] == "title-des"
+        sorted = @jobs.sort_by{|job| job.title}
+        @sorted = sorted.reverse
+      elsif params[:sortby] == "salary-asc"
+        @sorted = @jobs.sort_by{|job| job.salary}
+      elsif params[:sortby] == "salary-des"
+        sorted = @jobs.sort_by{|job| job.salary}
+        @sorted = sorted.reverse
+      elsif params[:sortby] == "status-asc"
         sorted = @jobs.sort_by{|job| job.status}
         @sorted = sorted
+      elsif params[:sortby] == "status-des"
+        @sorted = @jobs.sort_by{|job| job.status}
       elsif params[:sortby] == "deadline-asc"
         # sorted = @jobs.sort_by{|job| job.deadline}
       #   @sorted = sorted.reverse
