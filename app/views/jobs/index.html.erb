@@ -1,38 +1,41 @@
 <% if user_signed_in? %>
-  <div id="sortBy" class="form-group">
-    <div class="sortBySelect" style="width:200px">
-	    <%= form_tag(jobs_path, method: "get") do %>
-		    <%= select_tag(:sortby, options_for_select(
-		    ["Sort by",
-		    ['Company Name (A to Z)','comp-asc'],
-		    ['Company Name (Z to A)','comp-des'],
-		    ['Title Name (A to Z)','title-asc'],
-		    ['Title Name (Z to A)','title-des'],
-		    ['Salary (Low to High)','salary-asc'],
-		    ['Salary (High to Low)','salary-des'],
-		    ['Status (Start to End)','status-asc'],
-		    ['Status (End to Start)','status-des'],
-		    ['Deadline (Most recent to Least recent)','deadline-asc'],
-		    ['Deadline (Least recent to Most recent)','deadline-des'],
-		    ['Interview (Most recent to Least recent)','interview-asc'],
-		    ['Interview (Least recent to Most recent)','interview-des']
-		    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
-			<%end%>
-		</div>
 
-		  <div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
-		  <label class="btn btn-secondary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
-		  </label>
-		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option3" autocomplete="off"> Grid
-		  </label>
-		</div>
-
-  </div>
+	<div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
+	  <label class="btn btn-secondary active">
+	    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
+	  </label>
+	  <label class="btn btn-secondary">
+	    <input type="radio" name="options" id="option3" autocomplete="off"> Grid
+	  </label>
+	</div>
+	<div class="row">
+	  <div id="sortBy" class="form-group">
+	  	<div class="sortBySelect" style="width:200px;">
+		    <%= form_tag(jobs_path, method: "get") do %>
+			    <%= select_tag(:sortby, options_for_select(
+			    ["Sort by",
+			    ['Company Name (A to Z)','comp-asc'],
+			    ['Company Name (Z to A)','comp-des'],
+			    ['Title Name (A to Z)','title-asc'],
+			    ['Title Name (Z to A)','title-des'],
+			    ['Salary Name (Low to High)','salary-asc'],
+			    ['Salary Name (High to Low)','salary-des'],
+			    ['Status (A to Z)','status-asc'],
+			    ['Status (Z to A)','status-des'],
+			    ['Deadline (Most recent to Least recent)','deadline-asc'],
+			    ['Deadline (Least recent to Most recent)','deadline-des'],
+			    ['Interview (Most recent to Least recent)','interview-asc'],
+			    ['Interview (Least recent to Most recent)','interview-des']
+			    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
+				<%end%>
+			</div>
+	  </div>
+	  	<div class="column" id="searchBar">
+				<input class="form-control homepage-searchbar" style="width:550px;" id="myInput" type="text" placeholder="Search for application by company name, title, location, salary, status"/>
+			</div>
+	</div>
 
 <div class= "row jobsHeader">
-	<input class="form-control homepage-searchbar" id="myInput" type="text" placeholder="Search for application by company name, title, location, salary, status"/>
 		<h1 class="text-center">All Applications</h1>
 				<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
 </div>
@@ -80,6 +83,7 @@
 			  </tbody>
 			</table>
 	</div>
+
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
