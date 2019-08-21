@@ -7,29 +7,44 @@ before_action :authenticate_user!, :except => [ :home ]
       messages = Message.all.where(user_id: current_user)
       @messages = messages.reverse
 
-      # for the 4 different statuses
-      @added = @jobs.where(status:"Started").length
-      @applied = @jobs.where(status:"Submitted").length
-      @offer = @jobs.where(status:"Offer Received").length
-      @rejected = @jobs.where(status:"Rejected").length
+      # for the 6 different statuses
+      @created = @jobs.length
+      applied = @jobs.where(status:"Submitted")
+      @applied = applied.length
 
-      # count number of jobs this user has created today
+      progress = 0
       count = 0
       @jobs.each do |job|
+        if job.status.include?("1st") || job.status.include?("2nd")
+          progress += 1
+        end
         if job.created_at.to_date == Time.now.to_date
           count += 1
         end
       end
-      @count = count
+      @progress = progress
+      @result = @jobs.where(status:"Awaiting Result").length
+      @offer = @jobs.where(status:"Offer Received").length
+      @rejected = @jobs.where(status:"Rejected").length
+
+      # count number of jobs this user has created today
+      atoday = 0
+      applied.each do |job|
+        if job.created_at.to_date == Date.today
+          atoday += 1
+        end
+      end
+      @atoday = atoday
+      @ctoday = count
 
       # getting all deadlines/interviews of this user
       deadline = []
       interview = []
       @jobs.each do |job|
-        if job.deadline != nil #&& job.deadline >= today
+        if job.deadline >= Date.today
           deadline.push(job)
         end
-        if job.interview != nil #&& job.deadline >= today
+        if job.interview >= Date.today
           interview.push(job)
         end
       end
@@ -60,20 +75,20 @@ before_action :authenticate_user!, :except => [ :home ]
         sorted = @jobs.sort_by{|job| job.salary}
         @sorted = sorted.reverse
       elsif params[:sortby] == "status-asc"
-        sorted = @jobs.sort_by{|job| job.status}
-        @sorted = sorted
+        @sorted = @jobs.sort_by{|job| job.stat_index}
       elsif params[:sortby] == "status-des"
-        @sorted = @jobs.sort_by{|job| job.status}
+        sorted = @jobs.sort_by{|job| job.stat_index}
+        @sorted = sorted.reverse
       elsif params[:sortby] == "deadline-asc"
         @sorted = @jobs.sort_by{|job| job.deadline}
       elsif params[:sortby] == "deadline-des"
         sorted = @jobs.sort_by{|job| job.deadline}
         @sorted = sorted.reverse
-      # elsif params[:sortby] == "interview-asc"
-        # @sorted = @jobs.sort_by{|job| job.interview}
-      # elsif params[:sortby] == "interview-des"
-        # sorted = @jobs.sort_by{|job| job.interview}
-        # @sorted = sorted.reverse
+      elsif params[:sortby] == "interview-asc"
+        @sorted = @jobs.sort_by{|job| job.interview}
+      elsif params[:sortby] == "interview-des"
+        sorted = @jobs.sort_by{|job| job.interview}
+        @sorted = sorted.reverse
       else
         @sorted = @jobs.sort_by{|job| job.id}
       end
@@ -99,6 +114,12 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def create
       @job = Job.new(job_params)
+      status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
+      status.each_with_index do |stat, index|
+        if @job.status == stat
+          @job.stat_index = index+1
+        end
+      end
       @job.user = current_user
       @job.save
 
@@ -111,8 +132,16 @@ before_action :authenticate_user!, :except => [ :home ]
       @job = Job.find(params[:id])
     end
 
+
     def update
       @job = Job.find(params[:id])
+
+      status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
+      status.each_with_index do |stat, index|
+        if @job.status == stat
+          @job.stat_index = index+1
+        end
+      end
       @job.update(job_params)
 
       @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
@@ -129,6 +158,6 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind)
     end
 end

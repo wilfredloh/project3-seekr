@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root 'jobs#home'
 
   get '/jobs/status' => 'jobs#status', as: 'status_job'
-    resources :jobs
+  resources :jobs
 
 end

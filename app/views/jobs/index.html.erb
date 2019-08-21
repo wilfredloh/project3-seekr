@@ -1,45 +1,42 @@
 <% if user_signed_in? %>
-  <div id="sortBy" class="form-group">
-    <select class="custom-select" style="width:200px;">
-      <option selected="">Sort by</option>
-      <option value="1">Status</option>
-      <option value="2">Deadline</option>
-    </select>
 
-    <%= form_tag(jobs_path, method: "get") do %>
-	    <%= select_tag(:sortby, options_for_select(
-	    ["Sort by",
-	    ['Company Name (A to Z)','comp-asc'],
-	    ['Company Name (Z to A)','comp-des'],
-	    ['Title Name (A to Z)','title-asc'],
-	    ['Title Name (Z to A)','title-des'],
-	    ['Salary Name (Low to High)','salary-asc'],
-	    ['Salary Name (High to Low)','salary-des'],
-	    ['Status (A to Z)','status-asc'],
-	    ['Status (Z to A)','status-des'],
-	    ['Deadline (Most recent to Least recent)','deadline-asc'],
-	    ['Deadline (Least recent to Most recent)','deadline-des'],
-	    ['Interview (Most recent to Least recent)','interview-asc'],
-	    ['Interview (Least recent to Most recent)','interview-des']
-	    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
-		<%end%>
+	<div class="container-fluid">
+		<div class="row">
+			<h1 class="text-center mx-auto">Applications</h1>
+				<div class="changeViewIcons mr-5">
+						<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 176h80V96H96v80zm120 240h80v-80h-80v80zm-120 0h80v-80H96v80zm0-120h80v-80H96v80zm120 0h80v-80h-80v80zM336 96v80h80V96h-80zm-120 80h80V96h-80v80zm120 120h80v-80h-80v80zm0 120h80v-80h-80v80z"/></svg>'.html_safe, status_job_path %>
+						<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 348h320v36H96zM96 128h320v36H96zM96 200.7h320v35.6H96zM96 275.8h320v35.6H96z"/></svg>'.html_safe, jobs_path %>
+				</div>
 
-		  <div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
-		  <label class="btn btn-secondary active">
-		    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
-		  </label>
-		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option3" autocomplete="off"> Grid
-		  </label>
+<div class= "row filters">
+		<div class="row">
+	  	<div class="column" id="searchBar">
+				<input class="form-control homepage-searchbar" style="width:540px;" id="myInput" type="text" placeholder="Search for application by company name, title, location, salary, status"/>
+			</div>
+	</div>
+
+		<div id="sortBy" class="form-group">
+		  	<div class="sortBySelect" style="width:200px;">
+			    <%= form_tag(jobs_path, method: "get") do %>
+				    <%= select_tag(:sortby, options_for_select(
+				    ["Sort by",
+				    ['Company Name (A to Z)','comp-asc'],
+				    ['Company Name (Z to A)','comp-des'],
+				    ['Title Name (A to Z)','title-asc'],
+				    ['Title Name (Z to A)','title-des'],
+				    ['Salary Name (Low to High)','salary-asc'],
+				    ['Salary Name (High to Low)','salary-des'],
+				    ['Status (A to Z)','status-asc'],
+				    ['Status (Z to A)','status-des'],
+				    ['Deadline (Most recent to Least recent)','deadline-asc'],
+				    ['Deadline (Least recent to Most recent)','deadline-des'],
+				    ['Interview (Most recent to Least recent)','interview-asc'],
+				    ['Interview (Least recent to Most recent)','interview-des']
+				    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
+					<%end%>
+				</div>
 		</div>
-
-  </div>
-
-<div class= "row jobsHeader">
-	<input class="form-control homepage-searchbar" id="myInput" type="text" placeholder="Search for application by company name, title, location, salary, status"/>
-		<h1 class="text-center">All Applications</h1>
-				<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
-</div>
+		<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton">Add New</button>'.html_safe, new_job_path %>
 
 	<div id="jobsTable">
 			<table class="table table-striped">
@@ -47,12 +44,12 @@
 			    <tr class="table table-info">
 			      <th scope="col">Company</th>
 			      <th scope="col">Title</th>
-			      <th scope="col">Location</th>
-			      <th scope="col">Salary</th>
-			      <th scope="col">Url</th>
+			      <th scope="col">Status</th>
 			      <th scope="col">Deadline</th>
 			      <th scope="col">Interview</th>
-			      <th scope="col">Status</th>
+			      <th scope="col">Salary</th>
+			      <th scope="col">Location</th>
+			      <th scope="col">Url</th>
 			    </tr>
 			  </thead>
 			  <tbody id ="myTable">
@@ -60,25 +57,32 @@
 			    	<% @sorted.each do |job| %>
 			      <td><%= job.comp_name %></td>
 			      <td><%= job.title %></td>
-			      <td><%= job.location %></td>
-			      <td><%= job.salary %></td>
-			      <td><%=link_to "site", "http://#{job.url}" %></td>
-			      <% if job.deadline != nil %>
+			      <td><%= job.status %></td>
+
+			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
+				    <% elsif job.deadline >= "2019-01-01".to_date%>
+				    	<td style="color:#bdbdbd"><%= job.deadline.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <% if job.interview != nil %>
+			      <% if job.interview >= Date.today %>
 				      <td><%= job.interview.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <td><%= job.status %></td>
+			      <td><%= job.salary %></td>
+			      <td><%= job.location %></td>
+			      <td><%=link_to "Go to Site", "http://#{job.url}" %></td>
+
+
 			    </tr>
 			     <% end %>
 			  </tbody>
 			</table>
 	</div>
+</div>
+
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
