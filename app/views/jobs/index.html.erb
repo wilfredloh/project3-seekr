@@ -60,6 +60,8 @@
 
 			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
+				    <% elsif job.deadline >= "2019-01-01".to_date%>
+				    	<td style="color:#bdbdbd"><%= job.deadline.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>

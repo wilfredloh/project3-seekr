@@ -7,20 +7,35 @@ before_action :authenticate_user!, :except => [ :home ]
       messages = Message.all.where(user_id: current_user)
       @messages = messages.reverse
 
-      # for the 4 different statuses
-      @added = @jobs.where(status:"Started").length
-      @applied = @jobs.where(status:"Submitted").length
-      @offer = @jobs.where(status:"Offer Received").length
-      @rejected = @jobs.where(status:"Rejected").length
+      # for the 6 different statuses
+      @created = @jobs.length
+      applied = @jobs.where(status:"Submitted")
+      @applied = applied.length
 
-      # count number of jobs this user has created today
+      progress = 0
       count = 0
       @jobs.each do |job|
+        if job.status.include?("1st") || job.status.include?("2nd")
+          progress += 1
+        end
         if job.created_at.to_date == Time.now.to_date
           count += 1
         end
       end
-      @count = count
+      @progress = progress
+      @result = @jobs.where(status:"Awaiting Result").length
+      @offer = @jobs.where(status:"Offer Received").length
+      @rejected = @jobs.where(status:"Rejected").length
+
+      # count number of jobs this user has created today
+      atoday = 0
+      applied.each do |job|
+        if job.created_at.to_date == Date.today
+          atoday += 1
+        end
+      end
+      @atoday = atoday
+      @ctoday = count
 
       # getting all deadlines/interviews of this user
       deadline = []

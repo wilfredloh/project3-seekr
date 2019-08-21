@@ -7,10 +7,20 @@
 
 		<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 			  <div class="card-body">
-			  <% if @count == 1 %>
-					<p class="card-text"><%= @count %> job applied today</p>
+			  <% if @atoday == 1 %>
+					<p class="card-text"><%= @atoday %> job applied today</p>
 			  <% else %>
-					<p class="card-text"><%= @count %> jobs applied today</p>
+					<p class="card-text"><%= @atoday %> jobs applied today</p>
+				<% end %>
+			  </div>
+		</div>
+
+		<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+			  <div class="card-body">
+			  <% if @ctoday == 1 %>
+					<p class="card-text"><%= @ctoday %> job created today</p>
+			  <% else %>
+					<p class="card-text"><%= @ctoday %> jobs created today</p>
 				<% end %>
 			  </div>
 		</div>
@@ -40,8 +50,10 @@
 			  <div class="card-header text-center"><%= link_to 'Status', jobs_path %></div>
 			  <div class="card-body">
 
-						<p class="dash-list"><%=@added%> Started</p>
+						<p class="dash-list"><%=@created%> Created</p>
 						<p class="dash-list"><%=@applied%> Submitted</p>
+						<p class="dash-list"><%=@progress%> Prep Interview</p>
+						<p class="dash-list"><%=@result%> Awaiting Result</p>
 						<p class="dash-list"><%=@offer%> Offers</p>
 						<p class="dash-list"><%=@rejected%> Rejected</p>
 
