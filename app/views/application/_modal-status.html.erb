@@ -10,6 +10,7 @@
         <h5 class = "font-italic"><%= job.title.capitalize %></h5>
       </div>
 
+      <%= form_with scope: :job, model: job, local: true do |form| %>
       <div class="modal-body row justify-content-center">
        	<div class = "job-info">
        		<p class = "p-2 m-0 font-weight-bold">GENERAL INFO</p>
@@ -17,24 +18,23 @@
 					  <tbody>
 					    <tr>
 					      <td>Company</td>
-					      <td><%= job.comp_name.capitalize %></td>
-
+					      <td><%= form.text_field :comp_name, style: 'text-transform: capitalize;'%></td>
 					    </tr>
 					    <tr>
 					      <td>Title</td>
-					      <td><%= job.title.capitalize %></td>
+					      <td><%= form.text_field :title, style: 'text-transform: capitalize;'%></td>
 					    </tr>
 					    <tr>
 					      <td>Location</td>
-					      <td><%= job.location.capitalize %></td>
+					      <td><%= form.text_field :location, style: 'text-transform: capitalize;'%></td>
 					    </tr>
 					    <tr>
 					      <td>Salary</td>
-					      <td><%= job.salary %></td>
+					      <td><%= form.text_field :salary%></td>
 					    </tr>
 					    <tr>
 					      <td>URL</td>
-					      <td><%= job.url %></td>
+					      <td><%= form.text_field :url%></td>
 					    </tr>
 					  </tbody>
 					</table>
@@ -46,7 +46,7 @@
 					  <tbody>
 					    <tr>
 					      <td>Application Deadline</td>
-					      <td><%= job.deadline %></td>
+					      <td><%= form.date_field :deadline%></td>
 					    </tr>
 					  </tbody>
 					</table>
@@ -56,9 +56,10 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <a href = <%= edit_job_path (job.id)%>>
-        	<button type="button" class="btn btn-primary"> Edit Details</button>
-        </a>
+        	<button type="submit" class="btn btn-primary">Save</button>
+				<%= link_to 'Destroy', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
