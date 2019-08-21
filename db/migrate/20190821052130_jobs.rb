@@ -11,6 +11,8 @@ class Jobs < ActiveRecord::Migration[6.0]
       t.string :status
       t.string :ind
       t.integer :user_id
+      t.date :interview
+      t.text :notes
       end
     end
 end
