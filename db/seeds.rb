@@ -25,7 +25,6 @@ job6 = Job.create(:comp_name => 'fitness first', :title => 'instructor', :locati
 job7 = Job.create(:comp_name => 'ninja van', :title => 'junior dev', :location => '333 ninja rd', :salary => '3,000-3,500', :url => 'www.indeed.com', :deadline => "2019-10-01", :status => 'Submitted', :ind => 'tech', :user_id => '1')
 
 
-
 # Contacts.create(name: 'Eric', phone: '12345678', company: 'Google', email: 'eric@google.com', position: 'Recruiter')
 # Contacts.create(name: 'Susan', phone: '98765432', company: 'Facebook', email: 'susan@facebook.com', position: 'HR')
 # Contacts.create(name: 'John', phone: '88888888', company: 'Apple', email: 'john@apple.com', position: 'Recruiter')
