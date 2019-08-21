@@ -10,8 +10,8 @@
 		    ['Title Name (Z to A)','title-des'],
 		    ['Salary (Low to High)','salary-asc'],
 		    ['Salary (High to Low)','salary-des'],
-		    ['Status (A to Z)','status-asc'],
-		    ['Status (Z to A)','status-des'],
+		    ['Status (Start to End)','status-asc'],
+		    ['Status (End to Start)','status-des'],
 		    ['Deadline (Most recent to Least recent)','deadline-asc'],
 		    ['Deadline (Least recent to Most recent)','deadline-des'],
 		    ['Interview (Most recent to Least recent)','interview-asc'],
@@ -43,12 +43,12 @@
 			    <tr class="table table-info">
 			      <th scope="col">Company</th>
 			      <th scope="col">Title</th>
-			      <th scope="col">Location</th>
-			      <th scope="col">Salary</th>
-			      <th scope="col">Url</th>
+			      <th scope="col">Status</th>
 			      <th scope="col">Deadline</th>
 			      <th scope="col">Interview</th>
-			      <th scope="col">Status</th>
+			      <th scope="col">Salary</th>
+			      <th scope="col">Location</th>
+			      <th scope="col">Url</th>
 			    </tr>
 			  </thead>
 			  <tbody id ="myTable">
@@ -56,20 +56,23 @@
 			    	<% @sorted.each do |job| %>
 			      <td><%= job.comp_name %></td>
 			      <td><%= job.title %></td>
-			      <td><%= job.location %></td>
-			      <td><%= job.salary %></td>
-			      <td><%=link_to "site", "http://#{job.url}" %></td>
-			      <% if job.deadline != nil %>
+			      <td><%= job.status %></td>
+
+			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <% if job.interview != nil %>
+			      <% if job.interview >= Date.today %>
 				      <td><%= job.interview.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <td><%= job.status %></td>
+			      <td><%= job.salary %></td>
+			      <td><%= job.location %></td>
+			      <td><%=link_to "Go to Site", "http://#{job.url}" %></td>
+
+
 			    </tr>
 			     <% end %>
 			  </tbody>

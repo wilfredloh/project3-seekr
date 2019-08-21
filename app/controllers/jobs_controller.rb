@@ -26,10 +26,10 @@ before_action :authenticate_user!, :except => [ :home ]
       deadline = []
       interview = []
       @jobs.each do |job|
-        if job.deadline != nil #&& job.deadline >= today
+        if job.deadline >= Date.today
           deadline.push(job)
         end
-        if job.interview != nil #&& job.deadline >= today
+        if job.interview >= Date.today
           interview.push(job)
         end
       end
@@ -60,20 +60,20 @@ before_action :authenticate_user!, :except => [ :home ]
         sorted = @jobs.sort_by{|job| job.salary}
         @sorted = sorted.reverse
       elsif params[:sortby] == "status-asc"
-        sorted = @jobs.sort_by{|job| job.status}
-        @sorted = sorted
+        @sorted = @jobs.sort_by{|job| job.stat_index}
       elsif params[:sortby] == "status-des"
-        @sorted = @jobs.sort_by{|job| job.status}
+        sorted = @jobs.sort_by{|job| job.stat_index}
+        @sorted = sorted.reverse
       elsif params[:sortby] == "deadline-asc"
         @sorted = @jobs.sort_by{|job| job.deadline}
       elsif params[:sortby] == "deadline-des"
         sorted = @jobs.sort_by{|job| job.deadline}
         @sorted = sorted.reverse
-      # elsif params[:sortby] == "interview-asc"
-        # @sorted = @jobs.sort_by{|job| job.interview}
-      # elsif params[:sortby] == "interview-des"
-        # sorted = @jobs.sort_by{|job| job.interview}
-        # @sorted = sorted.reverse
+      elsif params[:sortby] == "interview-asc"
+        @sorted = @jobs.sort_by{|job| job.interview}
+      elsif params[:sortby] == "interview-des"
+        sorted = @jobs.sort_by{|job| job.interview}
+        @sorted = sorted.reverse
       else
         @sorted = @jobs.sort_by{|job| job.id}
       end
@@ -117,6 +117,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @job = Job.find(params[:id])
     end
 
+
     def update
       @job = Job.find(params[:id])
 
@@ -142,6 +143,6 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind)
     end
 end
