@@ -57,7 +57,7 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <a href = <%= edit_job_path (job.id)%>>
         	<button type="submit" class="btn btn-primary">Save</button>
-				<%= link_to 'Destroy', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+				<%= link_to 'Delete', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       </div>
       <% end %>
     </div>
