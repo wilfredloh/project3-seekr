@@ -38,6 +38,9 @@
 		</div>
 		<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton">Add New</button>'.html_safe, new_job_path %>
 
+
+
+
 	<div id="jobsTable">
 			<table class="table table-striped">
 			  <thead>
@@ -53,11 +56,16 @@
 			    </tr>
 			  </thead>
 			  <tbody id ="myTable">
-			    <tr>
-			    	<% @sorted.each do |job| %>
-			      <td><%= job.comp_name %></td>
-			      <td><%= job.title %></td>
-			      <td><%= job.status %></td>
+
+			  	<% @sorted.each do |job| %>
+			  		<% modal_id = "modal-id-#{job.id}" %>
+
+			    <tr data-job="<%= job.id%>">
+
+
+			      <td><%= job.comp_name.titleize %></td>
+			      <td><%= job.title.titleize %></td>
+			      <td><%= job.status.titleize %></td>
 
 			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
@@ -72,17 +80,20 @@
 				    	<td>-</td>
 				    <% end %>
 			      <td><%= job.salary %></td>
-			      <td><%= job.location %></td>
+			      <td><%= job.location.titleize %></td>
+
 			      <td><%=link_to "Go to Site", "http://#{job.url}" %></td>
-
-
 			    </tr>
+
 			     <% end %>
 			  </tbody>
 			</table>
 	</div>
 </div>
-
+<% @sorted.each do |job| %>
+	<% modal_id = "modal-id-#{job.id}" %>
+	<%= render "modal-status", job: job, modal_id: modal_id%>
+<% end%>
 
 <% else%>
 <h1>UR NOT LOGGED IN</h1>
