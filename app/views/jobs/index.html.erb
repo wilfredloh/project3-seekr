@@ -17,38 +17,41 @@
 
   </div>
 
+<div class= "row jobsHeader">
+	<h1 class="text-center">All Applications</h1>
+			<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
+</div>
 
-<h1 class="text-center">All Applications</h1>
-<div id="jobsTable">
-		<table class="table table-info">
-		  <thead>
-		    <tr>
-		      <th scope="col">Company</th>
-		      <th scope="col">Title</th>
-		      <th scope="col">Location</th>
-		      <th scope="col">Salary</th>
-		      <th scope="col">Url</th>
-		      <th scope="col">Deadline</th>
-		      <th scope="col">Status</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr class="table-light" >
-		    	<% @jobs.each do |job| %>
-		      <td><%= job.comp_name %></td>
-		      <td><%= job.title %></td>
-		      <td><%= job.location %></td>
-		      <td><%= job.salary %></td>
-		      <td><%= job.url %></td>
-		      <td><%= job.deadline %></td>
-		      <td><%= job.status %></td>
-		      <td><%= link_to 'Show', job_path(job) %></td>
-		      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-		    </tr>
-		     <% end %>
-		  </tbody>
-		</table>
-		<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
+	<div id="jobsTable">
+			<table class="table table-striped">
+			  <thead>
+			    <tr class="table table-info">
+			      <th scope="col">Company</th>
+			      <th scope="col">Title</th>
+			      <th scope="col">Location</th>
+			      <th scope="col">Salary</th>
+			      <th scope="col">Url</th>
+			      <th scope="col">Deadline</th>
+			      <th scope="col">Status</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+
+			    	<% @jobs.each do |job| %>
+			      <td><%= job.comp_name %></td>
+			      <td><%= job.title %></td>
+			      <td><%= job.location %></td>
+			      <td><%= job.salary %></td>
+			      <td><%=link_to "site", "http://#{job.url}" %></td>
+			      <td><%= job.deadline %></td>
+			      <td><%= job.status %></td>
+			      <td><%= link_to 'Show', job_path(job) %></td>
+			      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			    </tr>
+			     <% end %>
+			  </tbody>
+			</table>
 	</div>
 
 <% else%>

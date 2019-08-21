@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 2019_08_20_084352) do
     t.index ["job_id"], name: "index_messages_on_job_id"
   end
 
+  create_table "templates", force: :cascade do |t|
+    t.string "column1"
+    t.text "column2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

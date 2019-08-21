@@ -28,7 +28,7 @@
 
 #dash-list {
  overflow-y: scroll;
- height: 22rem;
+ height: 17rem;
 }
 
 .content{
@@ -44,3 +44,26 @@
  	color: black;
  	cursor: pointer;
  }
+
+ .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: #bee5eb;
+}
+
+.jobsHeader{
+	justify-content: center;
+	text-align: center;
+}
+
+#dash-recent{
+	 overflow-y: scroll;
+ height: 28rem;
+}
+
+.dash-list{
+	margin:0 1% 1% 0;
+	float:left;
+	clear:none;
+	width:48%;
+	height:20px;
+	text-align: center;
+}
