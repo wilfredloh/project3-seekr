@@ -158,7 +158,12 @@ before_action :authenticate_user!, :except => [ :home ]
     def destroy
       @job = Job.find(params[:id])
       @job.destroy
-      redirect_to status_job_path
+      openFromURL = request.referrer
+        if openFromURL.include?('status')
+        redirect_to status_job_path
+      else
+        redirect_to jobs_path
+      end
     end
 
 private
