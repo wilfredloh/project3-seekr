@@ -36,8 +36,9 @@
   </div>
 
 <div class= "row jobsHeader">
-	<h1 class="text-center">All Applications</h1>
-			<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
+	<input class="form-control homepage-searchbar" id="myInput" type="text" placeholder="Search for application by company name, title, location, salary, status"/>
+		<h1 class="text-center">All Applications</h1>
+				<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
 </div>
 
 	<div id="jobsTable">
@@ -54,7 +55,7 @@
 			      <th scope="col">Status</th>
 			    </tr>
 			  </thead>
-			  <tbody>
+			  <tbody id ="myTable">
 			    <tr>
 			    	<% @sorted.each do |job| %>
 			      <td><%= job.comp_name %></td>
