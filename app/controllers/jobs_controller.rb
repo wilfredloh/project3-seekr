@@ -152,7 +152,7 @@ before_action :authenticate_user!, :except => [ :home ]
     def destroy
       @job = Job.find(params[:id])
       @job.destroy
-      redirect_to @job
+      redirect_to status_job_path
     end
 
 private
