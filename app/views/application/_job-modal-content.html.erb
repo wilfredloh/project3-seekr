@@ -1,0 +1,17 @@
+<div class = "description text-center mt-3 mb-2">
+	<p class = "font-weight-bold mb-0">
+		<%= job.comp_name.capitalize %>
+	</p>
+	<p>
+		<%= job.title.capitalize %>
+	</p>
+	<small>
+		== <%= job.status.capitalize %> ==
+	</small>
+</div>
+
+<div class="card-footer pr-2 text-right">
+	<small>
+		Added on <%= job. created_at.to_date %>
+	</small>
+</div>

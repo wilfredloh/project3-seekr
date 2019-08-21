@@ -30,6 +30,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @job_saved = Job.where(status: "saved")
       @job_applied = Job.where(status: "submitted application")
       @job_interview = Job.where("status like ?", "%interview%")
+      @job_accepted = Job.where(status: "Accepted")
     end
 
     def new
