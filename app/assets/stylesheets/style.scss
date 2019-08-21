@@ -1,69 +1,59 @@
 #jobsTable{
-	width: 950px;
-	height: 900px;
-	justify-content: center;
-	text-align: center;
-	margin: 0 auto;
+    width: 950px;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
 }
-
 #changeView{
-	float: right;
+    float: right;
 }
-
-#sortBy{
-	margin: 12px;
-	padding: 12px;
+#sortBy, #searchBar{
+    margin: 12px;
+    padding: 12px;
 }
-
 .footer-row{
-	justify-content: center;
-	text-align: center;
-	color: white;
+    justify-content: center;
+    text-align: center;
+    color: white;
 }
-
 #dashboard{
-	justify-content: center;
-	text-align: center;
+    justify-content: center;
+    text-align: center;
 }
-
 #dash-list {
  overflow-y: scroll;
  height: 17rem;
 }
-
-.content{
-	min-height: 80vh;
+.content, html, body{
+    min-height: 90vh;
 }
-
 .job-list {
- 	overflow-y: scroll;
+    overflow-y: scroll;
   height: 22rem;
  }
-
 .card-link {
- 	color: black;
- 	cursor: pointer;
+    color: black;
+    cursor: pointer;
  }
-
  .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
   background-color: #bee5eb;
 }
-
 .jobsHeader{
-	justify-content: center;
-	text-align: center;
+    justify-content: center;
+    text-align: center;
 }
-
 #dash-recent{
-	 overflow-y: scroll;
- height: 28rem;
+    overflow-y: scroll;
+    height: 28rem;
 }
-
 .dash-list{
-	margin:0 1% 1% 0;
-	float:left;
-	clear:none;
-	width:48%;
-	height:20px;
-	text-align: center;
+    margin:0 1% 1% 0;
+    float:left;
+    clear:none;
+    width:48%;
+    height:20px;
+    text-align: center;
+}
+.signInFooter{
+    bottom: 0; left: 0; right: 0;
 }
