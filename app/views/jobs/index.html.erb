@@ -18,7 +18,9 @@
 	    ['Status (A to Z)','status-asc'],
 	    ['Status (Z to A)','status-des'],
 	    ['Deadline (Most recent to Least recent)','deadline-asc'],
-	    ['Deadline (des)','deadline-des']
+	    ['Deadline (Least recent to Most recent)','deadline-des'],
+	    ['Interview (Most recent to Least recent)','interview-asc'],
+	    ['Interview (Least recent to Most recent)','interview-des']
 	    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
 		<%end%>
 
@@ -48,22 +50,29 @@
 			      <th scope="col">Salary</th>
 			      <th scope="col">Url</th>
 			      <th scope="col">Deadline</th>
+			      <th scope="col">Interview</th>
 			      <th scope="col">Status</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
-
 			    	<% @sorted.each do |job| %>
 			      <td><%= job.comp_name %></td>
 			      <td><%= job.title %></td>
 			      <td><%= job.location %></td>
 			      <td><%= job.salary %></td>
 			      <td><%=link_to "site", "http://#{job.url}" %></td>
-			      <td><%= job.deadline %></td>
+			      <% if job.deadline != nil %>
+				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
+				    <% else %>
+				    	<td>-</td>
+				    <% end %>
+			      <% if job.interview != nil %>
+				      <td><%= job.interview.strftime("%d %b %Y") %></td>
+				    <% else %>
+				    	<td>-</td>
+				    <% end %>
 			      <td><%= job.status %></td>
-			      <td><%= link_to 'Show', job_path(job) %></td>
-			      <td><%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 			    </tr>
 			     <% end %>
 			  </tbody>

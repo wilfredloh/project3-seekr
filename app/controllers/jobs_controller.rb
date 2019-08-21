@@ -65,15 +65,18 @@ before_action :authenticate_user!, :except => [ :home ]
       elsif params[:sortby] == "status-des"
         @sorted = @jobs.sort_by{|job| job.status}
       elsif params[:sortby] == "deadline-asc"
-        # sorted = @jobs.sort_by{|job| job.deadline}
-      #   @sorted = sorted.reverse
+        @sorted = @jobs.sort_by{|job| job.deadline}
       elsif params[:sortby] == "deadline-des"
-        # @sorted = @jobs.sort_by{|job| job.deadline}
+        sorted = @jobs.sort_by{|job| job.deadline}
+        @sorted = sorted.reverse
+      # elsif params[:sortby] == "interview-asc"
+        # @sorted = @jobs.sort_by{|job| job.interview}
+      # elsif params[:sortby] == "interview-des"
+        # sorted = @jobs.sort_by{|job| job.interview}
+        # @sorted = sorted.reverse
       else
         @sorted = @jobs.sort_by{|job| job.id}
       end
-      # @interview = @jobs.sort_by{|job| job.interview}
-      # @deadline = @jobs.sort_by{|job| job.deadline}
     end
 
 

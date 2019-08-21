@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_154238) do
+ActiveRecord::Schema.define(version: 2019_08_21_043715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_154238) do
     t.string "ind"
     t.integer "user_id"
     t.date "interview"
+    t.string "note"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -38,13 +39,6 @@ ActiveRecord::Schema.define(version: 2019_08_20_154238) do
     t.bigint "user_id"
     t.index ["job_id"], name: "index_messages_on_job_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string "column1"
-    t.text "column2"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
