@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_053826) do
+ActiveRecord::Schema.define(version: 2019_08_21_064528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,14 +21,15 @@ ActiveRecord::Schema.define(version: 2019_08_21_053826) do
     t.string "location"
     t.string "salary"
     t.string "url"
-    t.date "deadline"
+    t.date "deadline", default: "2010-01-01"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
     t.string "ind"
     t.integer "user_id"
-    t.date "interview"
+    t.date "interview", default: "2010-01-01"
     t.text "notes"
+    t.integer "stat_index", default: 1
   end
 
   create_table "messages", force: :cascade do |t|

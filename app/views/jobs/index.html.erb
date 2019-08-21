@@ -1,4 +1,5 @@
 <% if user_signed_in? %>
+
 	<div class="btn-group btn-group-toggle" id="changeView" data-toggle="buttons">
 	  <label class="btn btn-secondary active">
 	    <input type="radio" name="options" id="option1" autocomplete="off" checked> Default
@@ -34,7 +35,6 @@
 			</div>
 	</div>
 
-
 <div class= "row jobsHeader">
 		<h1 class="text-center">All Applications</h1>
 				<%= link_to '<button type="button" class="btn btn-outline-secondary">Add New</button>'.html_safe, new_job_path %>
@@ -46,12 +46,12 @@
 			    <tr class="table table-info">
 			      <th scope="col">Company</th>
 			      <th scope="col">Title</th>
-			      <th scope="col">Location</th>
-			      <th scope="col">Salary</th>
-			      <th scope="col">Url</th>
+			      <th scope="col">Status</th>
 			      <th scope="col">Deadline</th>
 			      <th scope="col">Interview</th>
-			      <th scope="col">Status</th>
+			      <th scope="col">Salary</th>
+			      <th scope="col">Location</th>
+			      <th scope="col">Url</th>
 			    </tr>
 			  </thead>
 			  <tbody id ="myTable">
@@ -59,20 +59,25 @@
 			    	<% @sorted.each do |job| %>
 			      <td><%= job.comp_name %></td>
 			      <td><%= job.title %></td>
-			      <td><%= job.location %></td>
-			      <td><%= job.salary %></td>
-			      <td><%=link_to "site", "http://#{job.url}" %></td>
-			      <% if job.deadline != nil %>
+			      <td><%= job.status %></td>
+
+			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
+				    <% elsif job.deadline >= "2019-01-01".to_date%>
+				    	<td style="color:#bdbdbd"><%= job.deadline.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <% if job.interview != nil %>
+			      <% if job.interview >= Date.today %>
 				      <td><%= job.interview.strftime("%d %b %Y") %></td>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <td><%= job.status %></td>
+			      <td><%= job.salary %></td>
+			      <td><%= job.location %></td>
+			      <td><%=link_to "Go to Site", "http://#{job.url}" %></td>
+
+
 			    </tr>
 			     <% end %>
 			  </tbody>
