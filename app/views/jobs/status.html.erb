@@ -4,18 +4,16 @@
 
 <div class = "row justify-content-center m-3">
 
-	<% if @job_saved.length == 0 %>
+	<% if @job_started.length == 0 %>
 		<div></div>
 		<%else%>
 		<div class = "col">
 			<div class = "status-header text-center my-4">
-				<h4> Saved </h4>
-				<small> <%= @job_saved.length %> JOBS </small>
+				<h4> Started </h4>
+				<small> <%= @job_started.length %> JOBS </small>
 			</div>
-			<% @job_saved.each do |job| %>
+			<% @job_started.each do |job| %>
 				<% modal_id = "modal-id-#{job.id}" %>
-				<% col_header = "Saved" %>
-				<%= render "modal-status", job: job, modal_id: modal_id%>
 					<div class = "card regular mb-3">
 						<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
 							<%= render "job-modal-content", job: job%>
@@ -26,15 +24,15 @@
 		</div>
 	<%end%>
 
-	<% if @job_applied.length == 0 %>
+	<% if @job_submitted.length == 0 %>
 		<div></div>
 		<%else%>
 			<div class = "col">
 				<div class = "status-header text-center my-4">
-					<h4> Applied </h4>
-					<small> <%= @job_applied.length %> JOBS </small>
+					<h4> Submitted </h4>
+					<small> <%= @job_submitted.length %> JOBS </small>
 				</div>
-				<% @job_applied.each do |job| %>
+				<% @job_submitted.each do |job| %>
 				<% modal_id = "modal-id-#{job.id}" %>
 					<div class = "card regular mb-3">
 						<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
@@ -56,6 +54,72 @@
 				</div>
 				<div class = "job-list">
 					<% @job_interview.each do |job| %>
+						<% modal_id = "modal-id-#{job.id}" %>
+							<div class = "card regular mb-3">
+								<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+								<%= render "job-modal-content", job: job%>
+							</a>
+						</div>
+				<%= render "modal-status", job: job, modal_id: modal_id%>
+				<%end%>
+			</div>
+		</div>
+	<%end%>
+
+	<% if @job_awaiting.length == 0 %>
+		<div></div>
+		<%else%>
+			<div class = "col">
+				<div class = "status-header text-center my-4">
+					<h4> Awaiting Results </h4>
+					<small> <%= @job_awaiting.length %> JOBS </small>
+				</div>
+				<div class = "job-list">
+					<% @job_awaiting.each do |job| %>
+						<% modal_id = "modal-id-#{job.id}" %>
+							<div class = "card regular mb-3">
+								<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+								<%= render "job-modal-content", job: job%>
+							</a>
+						</div>
+				<%= render "modal-status", job: job, modal_id: modal_id%>
+				<%end%>
+			</div>
+		</div>
+	<%end%>
+
+	<% if @job_offered.length == 0 %>
+		<div></div>
+		<%else%>
+			<div class = "col">
+				<div class = "status-header text-center my-4">
+					<h4> Offered </h4>
+					<small> <%= @job_offered.length %> JOBS </small>
+				</div>
+				<div class = "job-list">
+					<% @job_offered.each do |job| %>
+						<% modal_id = "modal-id-#{job.id}" %>
+							<div class = "card regular mb-3">
+								<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+								<%= render "job-modal-content", job: job%>
+							</a>
+						</div>
+				<%= render "modal-status", job: job, modal_id: modal_id%>
+				<%end%>
+			</div>
+		</div>
+	<%end%>
+
+	<% if @job_rejected.length == 0 %>
+		<div></div>
+		<%else%>
+			<div class = "col">
+				<div class = "status-header text-center my-4">
+					<h4> Rejected </h4>
+					<small> <%= @job_rejected.length %> JOBS </small>
+				</div>
+				<div class = "job-list">
+					<% @job_rejected.each do |job| %>
 						<% modal_id = "modal-id-#{job.id}" %>
 							<div class = "card regular mb-3">
 								<a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">

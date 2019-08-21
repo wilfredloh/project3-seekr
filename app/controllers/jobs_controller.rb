@@ -80,15 +80,13 @@ before_action :authenticate_user!, :except => [ :home ]
     end
 
 
-
-
-
-
     def status
-      @job_saved = Job.where(status: "saved")
-      @job_applied = Job.where(status: "submitted application")
-      @job_interview = Job.where("status like ?", "%interview%")
-      @job_accepted = Job.where(status: "Accepted")
+      @job_started = Job.where(status: "Started")
+      @job_submitted = Job.where(status: "Submitted")
+      @job_interview = Job.where("status like ?", "%Interview%")
+      @job_awaiting = Job.where("status like ?", "%Awaiting%")
+      @job_offered = Job.where("status like ?", "%Offer%")
+      @job_rejected = Job.where(status: "Rejected")
     end
 
     def show
