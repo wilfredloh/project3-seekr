@@ -40,40 +40,53 @@
 					</div>
 			  </div>
 			</div>
+
 				<div class="card text-white bg-dark mb-3 mx-auto">
 				  <div class="card-header text-center">Statistic</div>
 					  <div class="card-body text-center">
 						<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
 					  </div>
 				</div>
-
 	</div>
 
 	<div class="col-sm-3">
 		<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 			  <div class="card-header text-center">Upcoming Interviews</div>
 			  <div class="card-body">
-				  <ul>
-						<% @deadline.each do |job| %>
-						<a href=<%= job_path(job)%>>
-							<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
-						</a>
-						<% end %>
-					</ul>
+			  	<ul>
+	          <% if @interview.length == 0 %>
+              <p> No upcoming interviews! </p>
+	          <% else %>
+	            <% @interview.each do |job| %>
+	            	<% if job.interview != nil %>
+			            <a href=<%= job_path(job)%>>
+		                <li><%=job.interview.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%></li>
+			            </a>
+			           <% end %>
+	            <% end %>
+	          <% end %>
+          </ul>
 			  </div>
 			</div>
 
-						<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
-						  <div class="card-header text-center">Application Deadline</div>
-							  <div class="card-body">
-								   <ul>
-										<% @deadline.each do |job| %>
-										 <a href=<%= job_path(job)%>>
-											<li><%=job.comp_name%>  <%=job.title%>  <%=job.deadline.strftime("%d %b, %y")%></li>
-										 </a>
-										<% end %>
-									</ul>
-							  </div>
+						<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+						  <div class="card-header">Application Deadline</div>
+						  <div class="card-body">
+						  	<ul>
+				          <% if @deadline.length == 0 %>
+			              <p> No upcoming interviews! </p>
+				          <% else %>
+				            <% @deadline.each do |job| %>
+				            	<% if job.deadline != nil %>
+						            <a href=<%= job_path(job)%>>
+					                <li><%=job.deadline.strftime("%d %b, %y")%> at <%=job.comp_name%> - <%=job.title%></li>
+						            </a>
+						           <% end %>
+				            <% end %>
+				          <% end %>
+			          </ul>
+						  </div>
+						</div>
 			</div>
 
 

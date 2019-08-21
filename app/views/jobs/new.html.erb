@@ -14,7 +14,7 @@
   </p>
   <p>
     <%= form.label :salary %><br>
-    <%=form.select :salary, raw("<option>1,000-1,500</option><option>1,500-2,000</option><option>2,000-2,500</option><option>2,500-3,000</option><option>3,000-3,500</option><option>3,500-4,500</option><option>4,500-5,000</option>") %>
+    <%=form.select :salary, raw("<option>$0 - 1,999</option><option>$2,000 - 2,999</option><option>$3,000 - 3,999</option><option>$4,000 - 4,999</option><option>$5,000 - 5,999</option><option>$6,000 ++</option>") %>
   </p>
   <p>
     <%= form.label :'job listing url'%><br>
@@ -24,10 +24,16 @@
     <%= form.label :deadline %><br>
     <%= form.date_field :deadline %>
   </p>
+
+  <p>
+    <%= form.label :interview %><br>
+    <%= form.date_field :interview %>
+  </p>
+
   <p>
    <%= form.label :status %><br>
-   <%=form.select :status, raw('<option>Saved</option><option>Preparing application</option><option>Submitted application</option><option>Preparing for interview</option><option>First interview</option><option>Second Interview</option><option>Third Interview</option><option>Forth Interview</option>
-       <option>Offer received</option><option>Accepted</option><option>Rejected</option>') %>
+   <%=form.select :status, raw('<option>Started</option><option>Submitted</option><option>1st Interview</option><option>2nd Interview</option><option>Awaiting Results</option>
+       <option>Offer Received</option><option>Rejected</option>') %>
  </p>
   <p>
     <%= form.label :industry %><br>
