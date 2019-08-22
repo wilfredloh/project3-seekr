@@ -21,6 +21,7 @@ window.onload = () => {
     $("#modal-id-"+jobID).modal('show');
   })
 
+//To add modal universally
   $("#addButton").on("click", function(e){
     $("#add-new-modal").modal('show');
   })
