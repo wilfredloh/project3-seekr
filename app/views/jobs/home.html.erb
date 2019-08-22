@@ -46,8 +46,10 @@
 						<% else %>
 						<% @messages.each do |message| %>
 							<% if message.job.present? %>
-								<a href= <%=job_path(message.job_id)%>>
-									<p class="recentAct"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] <p><hr></a>
+								<% modal_id = "modal-id-#{message.job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+									<p class="recentAct"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
+									<%= render "modal-status", job: message.job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
@@ -119,9 +121,12 @@
 							<% else %>
 							<% @interview.each do |job| %>
 							<% if job.interview != nil %>
-							<a href=<%= job_path(job)%>>
-								<p><%=job.interview.strftime("%d %b")%> : <%=job.title%> at <%=job.comp_name%>  </p><hr>
+
+								<% modal_id = "modal-id-#{job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+								<p><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
 							</a>
+							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
@@ -137,9 +142,12 @@
 							<% else %>
 							<% @deadline.each do |job| %>
 							<% if job.deadline != nil %>
-							<a href=<%= job_path(job)%>>
-								<p><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></p><hr>
+
+								<% modal_id = "modal-id-#{job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+								<p><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
 							</a>
+							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
