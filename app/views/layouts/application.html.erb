@@ -23,8 +23,12 @@
 				<li class="nav-item active">
 					<a class="nav-link" href='<%=root_path%>'>Home <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href='<%=jobs_path%>'>Applications</a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Jobs</a>
+					<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+						<a class="dropdown-item" href=<%= jobs_path%>>List View</a>
+						<a class="dropdown-item" href=<%= status_job_path%>>Grid View</a>
+					</div>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Uploads</a>
