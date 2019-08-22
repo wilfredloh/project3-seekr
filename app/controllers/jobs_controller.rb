@@ -169,6 +169,6 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind, :notes)
     end
 end
