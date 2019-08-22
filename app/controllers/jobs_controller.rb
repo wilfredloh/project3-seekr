@@ -194,21 +194,27 @@ before_action :authenticate_user!, :except => [ :home ]
       @message.save
 
         openFromURL = request.referrer
+
         if openFromURL.include?('status')
-        redirect_to status_job_path
-      else
-        redirect_to jobs_path
+          redirect_to status_job_path
+        elsif (URI(openFromURL).path  == "/jobs")
+          redirect_to jobs_path
+        else
+          redirect_to root_path
       end
     end
 
     def destroy
       @job = Job.find(params[:id])
       @job.destroy
+
       openFromURL = request.referrer
-        if openFromURL.include?('status')
-        redirect_to status_job_path
-      else
-        redirect_to jobs_path
+      if openFromURL.include?('status')
+          redirect_to status_job_path
+        elsif (URI(openFromURL).path  == "/jobs")
+          redirect_to jobs_path
+        else
+          redirect_to root_path
       end
     end
 

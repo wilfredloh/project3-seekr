@@ -50,11 +50,15 @@
 							      <td>Application Deadline</td>
 							      <td><%= form.date_field :deadline%></td>
 							    </tr>
+							    <tr>
+							      <td>Coming Interview Date</td>
+							      <td><%= form.date_field :interview%></td>
+							    </tr>
 							  </tbody>
 							</table>
 						</div>
 						<div class = "jobs-notes">
-		      		<p class = "p-2 m-0 font-weight-bold">Notes</p>
+		      		<p class = "m-0 font-weight-bold">Notes</p>
 						    <%= form.text_area :notes, class: 'form-control', rows: "5", placeholder: "Feel free to add notes here"%>
 						</div>
 					</div>
