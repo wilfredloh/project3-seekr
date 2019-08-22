@@ -1,15 +1,14 @@
 <% if user_signed_in? %>
-<div class="container-fluid">
-    <div class="addnew">
+<div class="container">
+    <div class="row">
         <h1 class = "text-center mx-auto">Applications</h1>
-        <div class=" mr-5">
-                <%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton">Add New</button>'.html_safe, new_job_path %>
-        </div>
     </div>
+    <div class="row justify-content-end">
         <div class="changeViewIcons mr-5">
                 <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 176h80V96H96v80zm120 240h80v-80h-80v80zm-120 0h80v-80H96v80zm0-120h80v-80H96v80zm120 0h80v-80h-80v80zM336 96v80h80V96h-80zm-120 80h80V96h-80v80zm120 120h80v-80h-80v80zm0 120h80v-80h-80v80z"/></svg>'.html_safe, status_job_path %>
                 <%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 348h320v36H96zM96 128h320v36H96zM96 200.7h320v35.6H96zM96 275.8h320v35.6H96z"/></svg>'.html_safe, jobs_path %>
         </div>
+    </div>
         <div class = "row justify-content-center m-3">
     <% if @job_started.length == 0 %>
         <div></div>
@@ -143,3 +142,7 @@
 <h1>UR NOT LOGGED IN</h1>
 <%= link_to 'log in', new_user_session_url %>
 <% end %>
+
+	<div class="add-job-btn">
+		<button type="button" class="btn btn-outline-secondary" id="addButton">+</button>
+	</div>
