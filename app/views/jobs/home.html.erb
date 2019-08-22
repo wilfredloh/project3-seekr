@@ -1,42 +1,28 @@
 <% if user_signed_in? %>
-	<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton1">Add New</button>'.html_safe, new_job_path %>
-
-
-<div class="addnew">
-	<h1 class = "text-center mx-auto" id="dashboard">Dashboard</h1>
-</div>
-
-<div id="dashboard" class="row">
-	<div class="col-sm-3" >
-
-		<% if Time.now < "12:00:00".to_time %>
-			<p>Good morning!</p>
-		<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
-			<p>Good afternoon!</p>
-		<% else %>
-			<p>Good evening!</p>
-		<% end %>
-
-	</div>
-	<div class="col-sm-6">
-	</div>
-
-	<div class="col-sm-3">
-		<p><%= Date.today.strftime("%d %B")%></p>
-		<p><%= Date.today.strftime("%Y")%></p>
-	</div>
-
-</div>
+<br>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3">
+			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+				<div class="card-body">
+					<em class="greetings">
+						<% if Time.now < "12:00:00".to_time %>
+						<p class="card-text text-center">Good morning!</p>
+						<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
+						<p class="card-text text-center">Good afternoon!</p>
+						<% else %>
+							<p class="card-text text-center">Good evening!</p>
+						<% end %>
+					</em>
+				</div>
+			</div>
 
 			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @atoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
 					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
 					<% end %>
 				</div>
 			</div>
@@ -44,17 +30,17 @@
 			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @ctoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
 					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
 					<% end %>
 				</div>
 			</div>
 
 			<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
 				<div class="card-header text-center">Recent Activity</div>
-				<div class="card-body">
-					<ul>
+				<div class="card-body text-center">
+
 						<% if @messages.length == 0 %>
 						<p> No messages! </p>
 						<% else %>
@@ -62,12 +48,12 @@
 							<% if message.job.present? %>
 								<% modal_id = "modal-id-#{message.job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-									<li><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </li></a>
+									<p class="recentAct"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
 									<%= render "modal-status", job: message.job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
-						</ul>
+
 					</div>
 				</div>
 			</div>
@@ -75,7 +61,7 @@
 			<div class="col-sm-6 p-0">
 
 				<div class="card border-dark mb-3" >
-					<div class="card-header text-center"><%= link_to 'Status', jobs_path %></div>
+					<div class="card-header text-center">Job Overview</div>
 					<div class="card-body">
 						<div id="status">
 							<div class="row">
@@ -94,59 +80,78 @@
 
 						</div>
 					</div>
-							<div class="col text-center" id="addButtDash">
-			<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Go to Jobs</button>'.html_safe, jobs_path %>
-		</div>
 				</div>
-
-				<div class="card text-white bg-dark mb-3 mx-auto">
-					<div class="card-header text-center">Statistic</div>
-					<div class="card-body text-center">
-						<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+				<div class="row">
+					<div class="col-6">
+						<div class="card text-white bg-dark mb-3 mx-auto">
+							<div class="card-header text-center">View Jobs</div>
+							<div class="card-body text-center">
+								<div class="col text-center" id="addButtDash">
+									<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">List View</button>'.html_safe, jobs_path %>
+									<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Grid View</button>'.html_safe, status_job_path %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="card text-white bg-dark mb-3 mx-auto">
+							<div class="card-header text-center">Statistic</div>
+							<div class="card-body text-center">
+								<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-sm-3">
+				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+					<div class="card-body">
+						<p class="card-text text-center"><span class="dateToday"><%= Date.today.strftime("%d")%></span> <%= Date.today.strftime("%B")%></p>
+						<p class="card-text text-center"><%= Date.today.strftime("%Y")%></p>
+					</div>
+				</div>
+
 				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Upcoming Interviews</div>
-					<div class="card-body">
-						<ul>
+					<div class="card-body text-center">
+
 							<% if @interview.length == 0 %>
 							<p> No upcoming interviews! </p>
 							<% else %>
 							<% @interview.each do |job| %>
 							<% if job.interview != nil %>
+
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<li><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </li>
+								<p><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
-						</ul>
 					</div>
 				</div>
 
 				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Application Deadline</div>
-					<div class="card-body">
-						<ul>
+					<div class="card-body text-center ">
+
 							<% if @deadline.length == 0 %>
 							<p> No upcoming deadlines! </p>
 							<% else %>
 							<% @deadline.each do |job| %>
 							<% if job.deadline != nil %>
+
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></li>
+								<p><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
-						</ul>
+
 					</div>
 				</div>
 			</div>
