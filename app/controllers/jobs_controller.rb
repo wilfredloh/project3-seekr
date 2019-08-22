@@ -146,18 +146,29 @@ before_action :authenticate_user!, :except => [ :home ]
 
       @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
       @message.save
-      redirect_to root_path
+
+        openFromURL = request.referrer
+        if openFromURL.include?('status')
+        redirect_to status_job_path
+      else
+        redirect_to jobs_path
+      end
     end
 
     def destroy
       @job = Job.find(params[:id])
       @job.destroy
-      redirect_to status_job_path
+      openFromURL = request.referrer
+        if openFromURL.include?('status')
+        redirect_to status_job_path
+      else
+        redirect_to jobs_path
+      end
     end
 
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind, :notes)
     end
 end
