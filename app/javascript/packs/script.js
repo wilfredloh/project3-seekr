@@ -18,7 +18,4 @@ window.onload = () => {
     var a = String(abc).replace(/\u200B/g,'');
     document.body.innerHTML = a;
 
-
-
-
 };
