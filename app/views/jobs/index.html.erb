@@ -66,19 +66,27 @@
 			      <td><%= job.comp_name.titleize %></td>
 			      <td><%= job.title.titleize %></td>
 			      <td><%= job.status.titleize %></td>
-​
-			      <% if job.deadline >= Date.today %>
-				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
-				    <% elsif job.deadline >= "2019-01-01".to_date%>
-				    	<td style="color:#bdbdbd"><%= job.deadline.strftime("%d %b %Y") %></td>
+				    <% if job.deadline.present?  %>
+				      <% if job.deadline >= Date.today %>
+					      <td><%= job.deadline.strftime("%d %b %Y") %></td>
+				      <% else%>
+					    	<td style="color:#bdbdbd"><%= job.deadline.strftime("%d %b %Y") %></td>
+					    <% end %>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
-			      <% if job.interview >= Date.today %>
-				      <td><%= job.interview.strftime("%d %b %Y") %></td>
+
+			      <% if job.interview.present?  %>
+				      <% if job.interview >= Date.today %>
+					      <td><%= job.interview.strftime("%d %b %Y") %></td>
+				      <% else%>
+					    	<td style="color:#bdbdbd"><%= job.interview.strftime("%d %b %Y") %></td>
+					    <% end %>
 				    <% else %>
 				    	<td>-</td>
 				    <% end %>
+
+
 			      <td><%= job.salary %></td>
 			      <td><%= job.location.titleize %></td>
 ​

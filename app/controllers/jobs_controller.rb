@@ -42,11 +42,15 @@ before_action :authenticate_user!, :except => [ :home ]
       deadline = []
       interview = []
       @jobs.each do |job|
-        if job.deadline >= Date.today
-          deadline.push(job)
+        if job.deadline.present?
+          if job.deadline >= Date.today
+            deadline.push(job)
+          end
         end
-        if job.interview >= Date.today
-          interview.push(job)
+        if job.interview.present?
+          if job.interview >= Date.today
+            interview.push(job)
+          end
         end
       end
       @deadline = deadline
@@ -81,15 +85,55 @@ before_action :authenticate_user!, :except => [ :home ]
         sorted = @jobs.sort_by{|job| job.stat_index}
         @sorted = sorted.reverse
       elsif params[:sortby] == "deadline-asc"
-        @sorted = @jobs.sort_by{|job| job.deadline}
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.deadline == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.deadline}
+        @sorted = sorted_date + no_date
       elsif params[:sortby] == "deadline-des"
-        sorted = @jobs.sort_by{|job| job.deadline}
-        @sorted = sorted.reverse
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.deadline == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.deadline}
+        reverse = sorted_date.reverse
+        @sorted = reverse + no_date
       elsif params[:sortby] == "interview-asc"
-        @sorted = @jobs.sort_by{|job| job.interview}
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.interview == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.interview}
+        @sorted = sorted_date + no_date
       elsif params[:sortby] == "interview-des"
-        sorted = @jobs.sort_by{|job| job.interview}
-        @sorted = sorted.reverse
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.interview == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.interview}
+        reverse = sorted_date.reverse
+        @sorted = reverse + no_date
       else
         @sorted = @jobs.sort_by{|job| job.id}
       end

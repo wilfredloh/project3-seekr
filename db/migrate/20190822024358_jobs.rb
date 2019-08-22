@@ -6,12 +6,12 @@ class Jobs < ActiveRecord::Migration[6.0]
       t.string :location
       t.string :salary
       t.string :url
-      t.date :deadline, default: "2010-01-01".to_date
+      t.date :deadline
       t.timestamps
       t.string :status
       t.string :ind
       t.integer :user_id
-      t.date :interview, default: "2010-01-01".to_date
+      t.date :interview
       t.text :notes
       t.integer :stat_index, default: 1
       end
