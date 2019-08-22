@@ -21,4 +21,8 @@ window.onload = () => {
     $("#modal-id-"+jobID).modal('show');
   })
 
+  $("#addButton").on("click", function(e){
+    $("#newww").modal('show');
+  })
+
 };

@@ -1,0 +1,84 @@
+<div class="modal fade bd-example-modal-lg" id= newww tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <button type="button" class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-header flex-column p-4">
+        <h3 class="modal-title ">Add New Application</h3>
+      </div>
+      <%= form_with scope: :job, url: jobs_path, local: true do |form| %>
+	 			<div class="modal-body row justify-content-center">
+	      	<div class = "job-info">
+	        	<p class = "p-2 m-0 font-weight-bold">GENERAL INFO</p>
+            <table class="table table-borderless border-right">
+              <tbody>
+                <tr>
+                  <td>Company</td>
+                  <td><%= form.text_field :comp_name, style: 'text-transform: capitalize;'%></td>
+                </tr>
+                <tr>
+                  <td>Industry</td>
+                  <td><%= form.text_field :ind, style: 'text-transform: capitalize;'%></td>
+                </tr>
+                <tr>
+                  <td>Title</td>
+                  <td><%= form.text_field :title, style: 'text-transform: capitalize;'%></td>
+                </tr>
+                <tr>
+                  <td>Status</td>
+                  <td><%=form.select :status, raw('
+                    <option>Started</option>
+                    <option>Submitted</option>
+                    <option>1st Interview</option>
+                    <option>2nd Interview</option>
+                    <option>Awaiting Results</option>
+                    <option>Offer Received</option>
+                    <option>Rejected</option>') %></td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td><%= form.text_field :location, style: 'text-transform: capitalize;'%></td>
+                </tr>
+                <tr>
+                  <td>Salary</td>
+                  <td><%=form.select :salary, raw("<option>$0 - 1,999</option><option>$2,000 - 2,999</option><option>$3,000 - 3,999</option><option>$4,000 - 4,999</option><option>$5,000 - 5,999</option><option>$6,000 ++</option>") %></td>
+                </tr>
+                <tr>
+                  <td>Job Listing URL</td>
+                  <td><%= form.text_field :url%></td>
+                </tr>
+              </tbody>
+            </table>
+        	</div>
+	        <div class = "job-right-col">
+	          <div class = "col">
+	            <div class = "jobs-dates">
+	              <p class = "p-2 m-0 font-weight-bold">Key Dates</p>
+	              <table class="table table-borderless">
+	                <tbody>
+	                  <tr>
+	                    <td>Application Deadline</td>
+	                    <td><%= form.date_field :deadline%></td>
+	                  </tr>
+	                  <tr>
+	                    <td>Coming Interview Date</td>
+	                    <td><%= form.date_field :interview%></td>
+	                  </tr>
+	                </tbody>
+	              </table>
+	          	</div>
+			        <div class = "jobs-notes">
+			    			<p class = "m-0 font-weight-bold">Notes</p>
+			          <%= form.text_area :notes, class: 'form-control', rows: "5", placeholder: "Feel free to add notes here"%>
+			        </div>
+	          </div>
+	        </div>
+      	</div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Add</button>
+      	</div>
+			<% end %>
+		</div>
+	</div>
+</div>

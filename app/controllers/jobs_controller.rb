@@ -154,10 +154,6 @@ before_action :authenticate_user!, :except => [ :home ]
       @job = Job.find(params[:id])
     end
 
-    def new
-      @job = Job.new
-    end
-
     def create
       @job = Job.new(job_params)
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
