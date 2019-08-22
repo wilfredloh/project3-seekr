@@ -7,7 +7,8 @@ before_action :authenticate_user!, :except => [ :home ]
       messages = Message.all.where(user_id: current_user)
       @messages = messages.reverse
 
-      # for the 6 different statuses
+      # for the 6 different statuses:
+      # @created @applied @progress @result @offer @rejected
       @created = @jobs.length
       applied = @jobs.where(status:"Submitted")
       @applied = applied.length
@@ -27,7 +28,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @offer = @jobs.where(status:"Offer Received").length
       @rejected = @jobs.where(status:"Rejected").length
 
-      # count number of jobs this user has created today
+      # count number of jobs this user has created/applied today
       atoday = 0
       applied.each do |job|
         if job.created_at.to_date == Date.today
@@ -37,15 +38,19 @@ before_action :authenticate_user!, :except => [ :home ]
       @atoday = atoday
       @ctoday = count
 
-      # getting all deadlines/interviews of this user
+      # getting all dates for deadlines/interviews of this user
       deadline = []
       interview = []
       @jobs.each do |job|
-        if job.deadline >= Date.today
-          deadline.push(job)
+        if job.deadline.present?
+          if job.deadline >= Date.today
+            deadline.push(job)
+          end
         end
-        if job.interview >= Date.today
-          interview.push(job)
+        if job.interview.present?
+          if job.interview >= Date.today
+            interview.push(job)
+          end
         end
       end
       @deadline = deadline
@@ -80,15 +85,55 @@ before_action :authenticate_user!, :except => [ :home ]
         sorted = @jobs.sort_by{|job| job.stat_index}
         @sorted = sorted.reverse
       elsif params[:sortby] == "deadline-asc"
-        @sorted = @jobs.sort_by{|job| job.deadline}
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.deadline == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.deadline}
+        @sorted = sorted_date + no_date
       elsif params[:sortby] == "deadline-des"
-        sorted = @jobs.sort_by{|job| job.deadline}
-        @sorted = sorted.reverse
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.deadline == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.deadline}
+        reverse = sorted_date.reverse
+        @sorted = reverse + no_date
       elsif params[:sortby] == "interview-asc"
-        @sorted = @jobs.sort_by{|job| job.interview}
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.interview == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.interview}
+        @sorted = sorted_date + no_date
       elsif params[:sortby] == "interview-des"
-        sorted = @jobs.sort_by{|job| job.interview}
-        @sorted = sorted.reverse
+        no_date = []
+        have_date = []
+        @jobs.each do |job|
+          if job.interview == nil
+            no_date.push(job)
+          else
+            have_date.push(job)
+          end
+        end
+        sorted_date = have_date.sort_by{|job| job.interview}
+        reverse = sorted_date.reverse
+        @sorted = reverse + no_date
       else
         @sorted = @jobs.sort_by{|job| job.id}
       end
@@ -96,12 +141,13 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
     def status
-      @job_started = Job.where(status: "Started")
-      @job_submitted = Job.where(status: "Submitted")
-      @job_interview = Job.where("status like ?", "%Interview%")
-      @job_awaiting = Job.where("status like ?", "%Awaiting%")
-      @job_offered = Job.where("status like ?", "%Offer%")
-      @job_rejected = Job.where(status: "Rejected")
+      @jobs = Job.all.where(user_id: current_user)
+      @job_started = @jobs.where(status: "Started")
+      @job_submitted = @jobs.where(status: "Submitted")
+      @job_interview = @jobs.where("status like ?", "%Interview%")
+      @job_awaiting = @jobs.where("status like ?", "%Awaiting%")
+      @job_offered = @jobs.where("status like ?", "%Offer%")
+      @job_rejected = @jobs.where(status: "Rejected")
     end
 
     def show
@@ -123,7 +169,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @job.user = current_user
       @job.save
 
-      @message = Message.new(description:"Created job: #{@job.title}", job: @job, user: current_user)
+      @message = Message.new(description:"Created:", job: @job, user: current_user)
       @message.save
       redirect_to root_path
     end
@@ -144,7 +190,7 @@ before_action :authenticate_user!, :except => [ :home ]
       end
       @job.update(job_params)
 
-      @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
+      @message = Message.new(description:"Updated:", job: @job, user: current_user)
       @message.save
 
         openFromURL = request.referrer

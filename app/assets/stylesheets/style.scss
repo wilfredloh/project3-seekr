@@ -1,8 +1,5 @@
 #jobsTable{
     width: 950px;
-    justify-content: center;
-    text-align: center;
-    margin: 0 auto;
 }
 
 #sortBy, #searchBar{
@@ -50,15 +47,45 @@
     clear:none;
     width:48%;
     height:20px;
-    text-align: center;
 }
 .signInFooter{
     bottom: 0; left: 0; right: 0;
 }
 
-
+.addnew{
+	display: flex;
+}
 .changeViewIcons a{
 	height: 35px;
 	width: 35px;
 	float: right;
+}
+
+#status{
+	position: static;
+	justify-content: center;
+}
+
+#numbs-dash{
+	font-size: 24px;
+}
+
+#addButtDash{
+	padding: 10px 5px;
+}
+
+.pointer-cursor{
+	cursor: pointer;
+}
+
+#addButton1{
+	float: right;
+}
+
+#dashboard{
+	width: 13vw;
+}
+
+.status-col{
+	max-width: 22rem !important;
 }
