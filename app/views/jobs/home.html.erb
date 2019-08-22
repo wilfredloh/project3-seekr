@@ -6,37 +6,25 @@
 	<h1 class = "text-center mx-auto" id="dashboard">Dashboard</h1>
 </div>
 
-<div id="dashboard" class="row">
-	<div class="col-sm-3" >
-
-		<% if Time.now < "12:00:00".to_time %>
-			<p>Good morning!</p>
-		<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
-			<p>Good afternoon!</p>
-		<% else %>
-			<p>Good evening!</p>
-		<% end %>
-
-	</div>
-	<div class="col-sm-6">
-	</div>
-
-	<div class="col-sm-3">
-		<p><%= Date.today.strftime("%d %B")%></p>
-		<p><%= Date.today.strftime("%Y")%></p>
-	</div>
-
-</div>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3">
+			<em class="greetings">
+				<% if Time.now < "12:00:00".to_time %>
+				<p class="card-text text-center">Good morning!</p>
+				<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
+				<p class="card-text text-center">Good afternoon!</p>
+				<% else %>
+					<p class="card-text text-center">Good evening!</p>
+				<% end %>
+			</em>
 
 			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @atoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
 					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
 					<% end %>
 				</div>
 			</div>
@@ -44,9 +32,9 @@
 			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @ctoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
 					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
 					<% end %>
 				</div>
 			</div>
@@ -106,6 +94,13 @@
 			</div>
 
 			<div class="col-sm-3">
+				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+					<div class="card-body">
+						<p class="card-text text-center"><span class="dateToday"><%= Date.today.strftime("%d")%></span> <%= Date.today.strftime("%B")%></p>
+						<p class="card-text text-center"><%= Date.today.strftime("%Y")%></p>
+					</div>
+				</div>
+
 				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Upcoming Interviews</div>
 					<div class="card-body">

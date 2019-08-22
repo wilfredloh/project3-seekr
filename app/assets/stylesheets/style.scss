@@ -39,14 +39,14 @@
 }
 #dash-recent{
     overflow-y: scroll;
-    height: 28rem;
+    height: 22rem;
 }
 .dash-list{
     margin:0 1% 1% 0;
     float:left;
     clear:none;
     width:48%;
-    height:20px;
+    height:18px;
 }
 .signInFooter{
     bottom: 0; left: 0; right: 0;
@@ -88,4 +88,12 @@
 
 .status-col{
 	max-width: 22rem !important;
+}
+
+.dateToday{
+	font-size: 24px;
+}
+
+.greetings{
+	font-size: 24px;
 }
