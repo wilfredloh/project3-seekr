@@ -1,6 +1,22 @@
 <% if user_signed_in? %>
 
-<h1 id="dashboard">Hello! This is your dashboard</h1>
+<div id="dashboard" class="row">
+	<div class="col-sm-3" >
+		<% if Time.now < "12:00:00".to_time %>
+			<p>Good morning!</p>
+		<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
+			<p>Good afternoon!</p>
+		<% else %>
+			<p>Good evening!</p>
+		<% end %>
+	</div>
+	<div class="col-sm-6">
+	</div>
+	<div class="col-sm-3">
+		<p><%= Date.today.strftime("%d %B")%></p>
+		<p><%= Date.today.strftime("%Y")%></p>
+	</div>
+</div>
 <div class="container-fluid">
   <div class="row">
 	<div class="col-sm-3">
@@ -35,7 +51,7 @@
 						<% @messages.each do |message| %>
 							<% if message.job.present? %>
 								<a href= <%=job_path(message.job_id)%>>
-									<li><%=message.description%> at <%=message.job.comp_name%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+									<li><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </li></a>
 							<% end %>
 						<% end %>
 					<% end %>
