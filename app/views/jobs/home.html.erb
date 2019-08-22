@@ -1,132 +1,118 @@
 <% if user_signed_in? %>
 <div class="addnew">
-	<h1 class = "text-center mx-auto" id="dashboard">Dashboard</h1>
-	<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton1">Add New</button>'.html_safe, new_job_path %>
+    <h1 class = "text-center mx-auto" id="dashboard">Dashboard</h1>
+    <%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton1">Add New</button>'.html_safe, new_job_path %>
 </div>
-
-
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3">
-
-			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
-				<div class="card-body">
-					<% if @atoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
-					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
-					<% end %>
-				</div>
-			</div>
-
-			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
-				<div class="card-body">
-					<% if @ctoday == 1 %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
-					<% else %>
-					<p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
-					<% end %>
-				</div>
-			</div>
-
-			<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
-				<div class="card-header text-center">Recent Activity</div>
-				<div class="card-body">
-					<ul>
-						<% if @messages.length == 0 %>
-						<p> No messages! </p>
-						<% else %>
-						<% @messages.each do |message| %>
-						<% if message.job.present? %>
-						<a href= <%=job_path(message.job_id)%>>
-							<li><%=message.description%> at <%=message.job.comp_name%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
-							<% end %>
-							<% end %>
-							<% end %>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 p-0">
-
-				<div class="card border-dark mb-3" >
-					<div class="card-header text-center"><%= link_to 'Status', jobs_path %></div>
-					<div class="card-body">
-						<div id="status">
-							<div class="row">
-								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@created%></span> Created</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
-								</div>
-								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@result%></span> Awaiting Results</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@offer%></span> Offers</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@rejected%></span> Rejected</p>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-							<div class="col text-center" id="addButtDash">
-			<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Go to Jobs</button>'.html_safe, jobs_path %>
-		</div>
-				</div>
-
-				<div class="card text-white bg-dark mb-3 mx-auto">
-					<div class="card-header text-center">Statistic</div>
-					<div class="card-body text-center">
-						<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
-					<div class="card-header text-center">Upcoming Interviews</div>
-					<div class="card-body">
-						<ul>
-							<% if @interview.length == 0 %>
-							<p> No upcoming interviews! </p>
-							<% else %>
-							<% @interview.each do |job| %>
-							<% if job.interview != nil %>
-							<a href=<%= job_path(job)%>>
-								<li><%=job.interview.strftime("%d %b")%> : <%=job.title%> at <%=job.comp_name%>  </li>
-							</a>
-							<% end %>
-							<% end %>
-							<% end %>
-						</ul>
-					</div>
-				</div>
-
-				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
-					<div class="card-header text-center">Application Deadline</div>
-					<div class="card-body">
-						<ul>
-							<% if @deadline.length == 0 %>
-							<p> No upcoming deadlines! </p>
-							<% else %>
-							<% @deadline.each do |job| %>
-							<% if job.deadline != nil %>
-							<a href=<%= job_path(job)%>>
-								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></li>
-							</a>
-							<% end %>
-							<% end %>
-							<% end %>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<% else%>
-	<h1>Please Login</h1>
-	<%= link_to 'log in', new_user_session_url %>
-	<% end %>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+                <div class="card-body">
+                    <% if @atoday == 1 %>
+                    <p class="card-text"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
+                    <% else %>
+                    <p class="card-text"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
+                    <% end %>
+                </div>
+            </div>
+            <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+                <div class="card-body">
+                    <% if @ctoday == 1 %>
+                    <p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
+                    <% else %>
+                    <p class="card-text"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
+                    <% end %>
+                </div>
+            </div>
+            <div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
+                <div class="card-header text-center">Recent Activity</div>
+                <div class="card-body">
+                    <ul>
+                        <% if @messages.length == 0 %>
+                        <p> No messages! </p>
+                        <% else %>
+                        <% @messages.each do |message| %>
+                        <% if message.job.present? %>
+                        <a href= <%=job_path(message.job_id)%>>
+                            <li><%=message.description%> at <%=message.job.comp_name%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+                            <% end %>
+                            <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 p-0">
+                <div class="card border-dark mb-3" >
+                    <div class="card-header text-center"><%= link_to 'Status', jobs_path %></div>
+                    <div class="card-body">
+                        <div id="status">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="offset-2"><span id="numbs-dash"><%=@created%></span> Created</p>
+                                    <p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
+                                    <p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="offset-2"><span id="numbs-dash"><%=@result%></span> Awaiting Results</p>
+                                    <p class="offset-2"><span id="numbs-dash"><%=@offer%></span> Offers</p>
+                                    <p class="offset-2"><span id="numbs-dash"><%=@rejected%></span> Rejected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <div class="col text-center" id="addButtDash">
+            <%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Go to Jobs</button>'.html_safe, jobs_path %>
+        </div>
+                </div>
+                <div class="card text-white bg-dark mb-3 mx-auto">
+                    <div class="card-header text-center">Statistic</div>
+                    <div class="card-body text-center">
+                        <%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+                    <div class="card-header text-center">Upcoming Interviews</div>
+                    <div class="card-body">
+                        <ul>
+                            <% if @interview.length == 0 %>
+                            <p> No upcoming interviews! </p>
+                            <% else %>
+                            <% @interview.each do |job| %>
+                            <% if job.interview != nil %>
+                            <a href=<%= job_path(job)%>>
+                                <li><%=job.interview.strftime("%d %b")%> : <%=job.title%> at <%=job.comp_name%>  </li>
+                            </a>
+                            <% end %>
+                            <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+                    <div class="card-header text-center">Application Deadline</div>
+                    <div class="card-body">
+                        <ul>
+                            <% if @deadline.length == 0 %>
+                            <p> No upcoming deadlines! </p>
+                            <% else %>
+                            <% @deadline.each do |job| %>
+                            <% if job.deadline != nil %>
+                            <a href=<%= job_path(job)%>>
+                                <li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></li>
+                            </a>
+                            <% end %>
+                            <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% else%>
+    <h1>Please Login</h1>
+    <%= link_to 'log in', new_user_session_url %>
+    <% end %>
