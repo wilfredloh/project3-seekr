@@ -7,4 +7,10 @@ window.onload = () => {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+
+
+  $("#jobsTable #myTable tr").on("click", function(e){
+    let jobID = this.dataset.job;
+    $("#modal-id-"+jobID).modal('show');
+  })
 };
