@@ -6,7 +6,7 @@
 			<div class="card mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<em class="greetings">
-						<% if Time.now < "12:00:00".to_time %>
+						<% if Time.now < "12:00:00".to_time && Time.now >= "6:00:00".to_time %>
 						<p class="card-text text-center">Good morning</p>
 						<% elsif Time.now >= "12:00:00".to_time && Time.now < "17:00:00".to_time %>
 						<p class="card-text text-center">Good afternoon</p>

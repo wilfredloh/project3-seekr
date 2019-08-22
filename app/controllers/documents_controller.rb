@@ -39,7 +39,7 @@ class DocumentsController < ApplicationController
       @document.file = cloudinary_file['public_id']
       @document.url = cloudinary_file['url']
     end
-    @document.update(document_params)
+    @document.update(document_params_edit)
     redirect_to documents_path
   end
 
@@ -50,5 +50,8 @@ class DocumentsController < ApplicationController
 
     def document_params
       params.require(:document).permit(:title, :doc_type, :file)
+    end
+    def document_params_edit
+      params.require(:document).permit(:title, :doc_type)
     end
 end
