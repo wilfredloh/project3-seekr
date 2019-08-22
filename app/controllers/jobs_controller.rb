@@ -125,7 +125,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @job.user = current_user
       @job.save
 
-      @message = Message.new(description:"Created job: #{@job.title}", job: @job, user: current_user)
+      @message = Message.new(description:"Created:", job: @job, user: current_user)
       @message.save
       redirect_to root_path
     end
@@ -146,7 +146,7 @@ before_action :authenticate_user!, :except => [ :home ]
       end
       @job.update(job_params)
 
-      @message = Message.new(description:"Updated job: #{@job.title}", job: @job, user: current_user)
+      @message = Message.new(description:"Updated:", job: @job, user: current_user)
       @message.save
 
         openFromURL = request.referrer

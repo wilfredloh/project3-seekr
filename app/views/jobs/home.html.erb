@@ -1,7 +1,31 @@
 <% if user_signed_in? %>
+	<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton1">Add New</button>'.html_safe, new_job_path %>
+
+
 <div class="addnew">
 	<h1 class = "text-center mx-auto" id="dashboard">Dashboard</h1>
-	<%= link_to '<button type="button" class="btn btn-outline-secondary" id="addButton1">Add New</button>'.html_safe, new_job_path %>
+</div>
+
+<div id="dashboard" class="row">
+	<div class="col-sm-3" >
+
+		<% if Time.now < "12:00:00".to_time %>
+			<p>Good morning!</p>
+		<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
+			<p>Good afternoon!</p>
+		<% else %>
+			<p>Good evening!</p>
+		<% end %>
+
+	</div>
+	<div class="col-sm-6">
+	</div>
+
+	<div class="col-sm-3">
+		<p><%= Date.today.strftime("%d %B")%></p>
+		<p><%= Date.today.strftime("%Y")%></p>
+	</div>
+
 </div>
 
 
@@ -37,9 +61,9 @@
 						<p> No messages! </p>
 						<% else %>
 						<% @messages.each do |message| %>
-						<% if message.job.present? %>
-						<a href= <%=job_path(message.job_id)%>>
-							<li><%=message.description%> at <%=message.job.comp_name%> [ <%=message.updated_at.strftime("%d %b, %I:%M %p") %> ] </li></a>
+							<% if message.job.present? %>
+								<a href= <%=job_path(message.job_id)%>>
+									<li><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </li></a>
 							<% end %>
 							<% end %>
 							<% end %>
