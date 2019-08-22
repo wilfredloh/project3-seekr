@@ -13,7 +13,7 @@
 <body>
 	<% if user_signed_in? %>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href= <%=root_path%>>Seekr</a>
+		<a class="navbar-brand" href='<%=root_path%>'>Seekr</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -21,13 +21,13 @@
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href= <%=root_path%>>Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href='<%=root_path%>'>Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href= <%=jobs_path%>>Applications</a>
+					<a class="nav-link" href='<%=jobs_path%>'>Applications</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false"href=<%=jobs_path%>>Uploads</a>
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Uploads</a>
 					<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
 						<a class="dropdown-item" href="#">Resume/CV</a>
 						<a class="dropdown-item" href="#">Contacts</a>
@@ -50,14 +50,14 @@
 	</div>
 	​
 	<% if user_signed_in? %>
-	<footer class= "font-small bg-dark pt-4 signInFooter">
+	<footer class= "col-12 font-small bg-dark pt-4 signInFooter">
 		<div class="row footer-row">
 			<div class="footer-copyright text-center py-3">Seekr © 2019 Copyright</div>
 		</div>
 	</footer>
 	​
 	<%else%>
-	<footer class= "page-footer font-small bg-dark pt-4">
+	<footer class= "col-12 page-footer font-small bg-dark pt-4">
 		<div class="container-fluid">
 			<div class="row footer-row">
 				<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
