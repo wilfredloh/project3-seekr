@@ -22,7 +22,7 @@ window.onload = () => {
   })
 
   $("#addButton").on("click", function(e){
-    $("#newww").modal('show');
+    $("#add-new-modal").modal('show');
   })
 
 };
