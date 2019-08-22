@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
 <br>
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
 		<div class="col-sm-3">
-			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<em class="greetings">
 						<% if Time.now < "12:00:00".to_time %>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 
-			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @atoday == 1 %>
 					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 
-			<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card mb-3 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @ctoday == 1 %>
 					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
@@ -37,9 +37,9 @@
 				</div>
 			</div>
 
-			<div class="card border-dark mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
+			<div class="card mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
 				<div class="card-header text-center">Recent Activity</div>
-				<div class="card-body text-center">
+				<div class="card-body">
 
 						<% if @messages.length == 0 %>
 						<p> No messages! </p>
@@ -48,7 +48,7 @@
 							<% if message.job.present? %>
 								<% modal_id = "modal-id-#{message.job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-									<p class="recentAct"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
+									<p class="recentAct offset-1"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
 									<%= render "modal-status", job: message.job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
@@ -83,7 +83,7 @@
 				</div>
 				<div class="row">
 					<div class="col-6">
-						<div class="card text-white bg-dark mb-3 mx-auto">
+						<div class="card mb-3 mx-auto">
 							<div class="card-header text-center">View Jobs</div>
 							<div class="card-body text-center">
 								<div class="col text-center" id="addButtDash">
@@ -94,10 +94,10 @@
 						</div>
 					</div>
 					<div class="col-6">
-						<div class="card text-white bg-dark mb-3 mx-auto">
+						<div class="card mb-3 mx-auto">
 							<div class="card-header text-center">Statistic</div>
 							<div class="card-body text-center">
-								<%= image_tag("graph.png", size: "300x200", alt: "Graph") %>
+								<%= image_tag("graph.png", size: "300x200", alt: "Graph", :class => "img-fluid") %>
 							</div>
 						</div>
 					</div>
@@ -105,16 +105,16 @@
 			</div>
 
 			<div class="col-sm-3">
-				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;">
+				<div class="card mb-3 mx-auto" style="max-width: 18rem;">
 					<div class="card-body">
 						<p class="card-text text-center"><span class="dateToday"><%= Date.today.strftime("%d")%></span> <%= Date.today.strftime("%B")%></p>
 						<p class="card-text text-center"><%= Date.today.strftime("%Y")%></p>
 					</div>
 				</div>
 
-				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+				<div class="card mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Upcoming Interviews</div>
-					<div class="card-body text-center">
+					<div class="card-body">
 
 							<% if @interview.length == 0 %>
 							<p> No upcoming interviews! </p>
@@ -124,7 +124,7 @@
 
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
+								<p class="offset-1"><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
@@ -133,9 +133,9 @@
 					</div>
 				</div>
 
-				<div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+				<div class="card mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Application Deadline</div>
-					<div class="card-body text-center ">
+					<div class="card-body">
 
 							<% if @deadline.length == 0 %>
 							<p> No upcoming deadlines! </p>
@@ -145,7 +145,7 @@
 
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
+								<p class="offset-1"><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
@@ -163,3 +163,7 @@
 	<h1>Please Login</h1>
 	<%= link_to 'log in', new_user_session_url %>
 	<% end %>
+
+	<div class="add-job-btn">
+			<%= link_to '<button type="button" class="btn btn-outline-secondary">+</button>'.html_safe, new_job_path %>
+	</div>
