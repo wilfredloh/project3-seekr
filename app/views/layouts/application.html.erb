@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Seekr</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+	<title>Seekr</title>
+	<%= csrf_meta_tags %>
+	<%= csp_meta_tag %>
+	​
+	<%= stylesheet_link_tag 'application', media: 'all' %>
+	<%= javascript_pack_tag 'application' %>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 ​
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_pack_tag 'application' %>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-​
-  <body>
-     <% if user_signed_in? %>
-	  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			  <a class="navbar-brand" href= <%=root_path%>>Seekr</a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-			    <span class="navbar-toggler-icon"></span>
-			  </button>
-​
-			  <div class="collapse navbar-collapse" id="navbarColor02">
-			    <ul class="navbar-nav mr-auto">
-			      <li class="nav-item active">
-			        <a class="nav-link" href= <%=root_path%>>Home <span class="sr-only">(current)</span></a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href= <%=jobs_path%>>Applications</a>
-			      </li>
-
-			    	<li class="nav-item dropdown">
-					    <a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false"href=<%=jobs_path%>>Uploads</a>
-					    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
-					      <a class="dropdown-item" href="#">Resume/CV</a>
-					      <a class="dropdown-item" href="#">Contacts</a>
-					  </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">SUMMARY</a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">FAQ</a>
-			      </li>
-			    </ul>
-			    <%= link_to 'Logout', destroy_user_session_url, method: :delete %>
-			  </div>
-			</nav>
-		<%end%>
-​
-		<div class="content">
-    	<%= yield %>
-    </div>
-​
-    <% if user_signed_in? %>
-    	<footer class= "font-small bg-dark pt-4 signInFooter">
-				 <div class="row footer-row">
-						<div class="footer-copyright text-center py-3">Seekr © 2019 Copyright</div>
-				 </div>
-			</footer>
-​
-			<%else%>
-            <footer class= "page-footer font-small bg-dark pt-4">
-              <div class="container-fluid">
-                <div class="row footer-row">
-                    <h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
-                </div>
-​
-                <div class="row footer-text footer-row">
-                    <p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
-                </div>
-​
-                <div class="row footer-row">
-                    <%= image_tag("badge-iphone.png", size: "200x60", alt: "Edit Entry") %>
-                    <%= image_tag("badge-android.png", size: "200x60", alt: "Edit Entry") %>
-                </div>
-​
-                <div class="row footer-row">
-                    <div class="footer-copyright text-center py-3">© 2019 Copyright</div>
-                </div>
-              </div>
-            </footer>
-       <%end%>
-	    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+<body>
+	<% if user_signed_in? %>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href= <%=root_path%>>Seekr</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		​
+		<div class="collapse navbar-collapse" id="navbarColor02">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href= <%=root_path%>>Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href= <%=jobs_path%>>Applications</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false"href=<%=jobs_path%>>Uploads</a>
+					<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+						<a class="dropdown-item" href="#">Resume/CV</a>
+						<a class="dropdown-item" href="#">Contacts</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">SUMMARY</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">FAQ</a>
+				</li>
+			</ul>
+			<%= link_to 'Logout', destroy_user_session_url, method: :delete %>
+		</div>
+	</nav>
+	<%end%>
+	​
+	<div class="content">
+		<%= yield %>
+	</div>
+	​
+	<% if user_signed_in? %>
+	<footer class= "font-small bg-dark pt-4 signInFooter">
+		<div class="row footer-row">
+			<div class="footer-copyright text-center py-3">Seekr © 2019 Copyright</div>
+		</div>
+	</footer>
+	​
+	<%else%>
+	<footer class= "page-footer font-small bg-dark pt-4">
+		<div class="container-fluid">
+			<div class="row footer-row">
+				<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+			</div>
+			​
+			<div class="row footer-text footer-row">
+				<p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
+			</div>
+			​
+			<div class="row footer-row">
+				<%= image_tag("badge-iphone.png", size: "200x60", alt: "Edit Entry") %>
+				<%= image_tag("badge-android.png", size: "200x60", alt: "Edit Entry") %>
+			</div>
+			​
+			<div class="row footer-row">
+				<div class="footer-copyright text-center py-3">© 2019 Copyright</div>
+			</div>
+		</div>
+	</footer>
+	<%end%>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>
