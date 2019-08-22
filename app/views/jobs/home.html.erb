@@ -60,8 +60,10 @@
 						<% else %>
 						<% @messages.each do |message| %>
 							<% if message.job.present? %>
-								<a href= <%=job_path(message.job_id)%>>
+								<% modal_id = "modal-id-#{message.job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
 									<li><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </li></a>
+									<%= render "modal-status", job: message.job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
@@ -115,9 +117,11 @@
 							<% else %>
 							<% @interview.each do |job| %>
 							<% if job.interview != nil %>
-							<a href=<%= job_path(job)%>>
-								<li><%=job.interview.strftime("%d %b")%> : <%=job.title%> at <%=job.comp_name%>  </li>
+								<% modal_id = "modal-id-#{job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+								<li><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </li>
 							</a>
+							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
@@ -134,9 +138,11 @@
 							<% else %>
 							<% @deadline.each do |job| %>
 							<% if job.deadline != nil %>
-							<a href=<%= job_path(job)%>>
-								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name%></li>
+								<% modal_id = "modal-id-#{job.id}" %>
+								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+								<li><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></li>
 							</a>
+							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
 							<% end %>
 							<% end %>
