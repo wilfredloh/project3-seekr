@@ -47,7 +47,8 @@
 	<div class=" justify-content-center text-center mx-auto my-0" id="jobsTable">
 			<table class="table table-striped">
 			  <thead>
-			    <tr class="table table-info">
+			    <!-- <tr class="table table-info"> -->
+			    <tr class="table">
 			      <th scope="col">Company</th>
 			      <th scope="col">Title</th>
 			      <th scope="col">Status</th>
@@ -63,7 +64,7 @@
 			  	<% @sorted.each do |job| %>
 			  		<% modal_id = "modal-id-#{job.id}" %>
 ​
-			    <tr class = "pointer-cursor" data-job="<%= job.id%>">
+			    <tr class = "pointer-cursor recentAct-3" data-job="<%= job.id%>">
 ​
 			      <td><%= job.comp_name.titleize %></td>
 			      <td><%= job.title.titleize %></td>

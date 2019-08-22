@@ -22,7 +22,7 @@
                 <% @job_started.each do |job| %>
                     <% modal_id = "modal-id-#{job.id}" %>
                         <div class = "card regular mb-3">
-                            <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                            <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>
@@ -43,7 +43,7 @@
                     <% @job_submitted.each do |job| %>
                     <% modal_id = "modal-id-#{job.id}" %>
                         <div class = "card regular mb-3">
-                            <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                            <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>
@@ -64,7 +64,7 @@
                     <% @job_interview.each do |job| %>
                         <% modal_id = "modal-id-#{job.id}" %>
                             <div class = "card regular mb-3">
-                                <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                                <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>
@@ -85,7 +85,7 @@
                     <% @job_awaiting.each do |job| %>
                         <% modal_id = "modal-id-#{job.id}" %>
                             <div class = "card regular mb-3">
-                                <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                                <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>
@@ -106,7 +106,7 @@
                     <% @job_offered.each do |job| %>
                         <% modal_id = "modal-id-#{job.id}" %>
                             <div class = "card regular mb-3">
-                                <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                                <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>
@@ -127,7 +127,7 @@
                     <% @job_rejected.each do |job| %>
                         <% modal_id = "modal-id-#{job.id}" %>
                             <div class = "card regular mb-3">
-                                <a class = "card-link" data-toggle="modal" data-target="#<%=modal_id%>">
+                                <a class = "card-link recentAct-4" data-toggle="modal" data-target="#<%=modal_id%>">
                                 <%= render "job-card-content", job: job%>
                             </a>
                         </div>

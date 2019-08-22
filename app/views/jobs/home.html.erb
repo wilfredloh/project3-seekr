@@ -7,11 +7,11 @@
 				<div class="card-body">
 					<em class="greetings">
 						<% if Time.now < "12:00:00".to_time %>
-						<p class="card-text text-center">Good morning!</p>
-						<% elsif Time.now >= "12:00:00".to_time && Time.now < "16:00:00".to_time %>
-						<p class="card-text text-center">Good afternoon!</p>
+						<p class="card-text text-center">Good morning</p>
+						<% elsif Time.now >= "12:00:00".to_time && Time.now < "17:00:00".to_time %>
+						<p class="card-text text-center">Good afternoon</p>
 						<% else %>
-							<p class="card-text text-center">Good evening!</p>
+							<p class="card-text text-center">Good evening</p>
 						<% end %>
 					</em>
 				</div>
@@ -42,7 +42,7 @@
 				<div class="card-body">
 
 						<% if @messages.length == 0 %>
-						<p> No messages! </p>
+						<p> No messages </p>
 						<% else %>
 						<% @messages.each do |message| %>
 							<% if message.job.present? %>
@@ -117,14 +117,14 @@
 					<div class="card-body">
 
 							<% if @interview.length == 0 %>
-							<p> No upcoming interviews! </p>
+							<p> No upcoming interviews </p>
 							<% else %>
 							<% @interview.each do |job| %>
 							<% if job.interview != nil %>
 
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p class="offset-1"><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
+								<p class="recentAct-2 offset-1"><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
@@ -138,14 +138,15 @@
 					<div class="card-body">
 
 							<% if @deadline.length == 0 %>
-							<p> No upcoming deadlines! </p>
+							<p> No upcoming deadlines </p>
 							<% else %>
 							<% @deadline.each do |job| %>
 							<% if job.deadline != nil %>
 
 								<% modal_id = "modal-id-#{job.id}" %>
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p class="offset-1"><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
+								<p class="recentAct-2 offset-1"><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
+
 							</a>
 							<%= render "modal-status", job: job, modal_id: modal_id%>
 							<% end %>
