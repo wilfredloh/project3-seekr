@@ -25,22 +25,23 @@
 			    <%= form_tag(jobs_path, method: "get") do %>
 				    <%= select_tag(:sortby, options_for_select(
 				    ["Sort by",
-				    ['Company Name (A to Z)','comp-asc'],
-				    ['Company Name (Z to A)','comp-des'],
-				    ['Title Name (A to Z)','title-asc'],
-				    ['Title Name (Z to A)','title-des'],
-				    ['Salary Name (Low to High)','salary-asc'],
-				    ['Salary Name (High to Low)','salary-des'],
-				    ['Status (A to Z)','status-asc'],
-				    ['Status (Z to A)','status-des'],
-				    ['Deadline (Most recent to Least recent)','deadline-asc'],
-				    ['Deadline (Least recent to Most recent)','deadline-des'],
-				    ['Interview (Most recent to Least recent)','interview-asc'],
-				    ['Interview (Least recent to Most recent)','interview-des']
+				    ['Company Name (A --> Z)','comp-asc'],
+				    ['Company Name (Z --> A)','comp-des'],
+				    ['Title Name (A --> Z)','title-asc'],
+				    ['Title Name (Z --> A)','title-des'],
+				    ['Status (First --> Last)','status-asc'],
+				    ['Status (Last --> First)','status-des'],
+				    ['Deadline (Nearest --> Furthest)','deadline-asc'],
+				    ['Deadline (Furthest --> Nearest)','deadline-des'],
+				    ['Interview (Nearest --> Furthest)','interview-asc'],
+				    ['Interview (Furthest --> Nearest)','interview-des'],
+				    ['Salary (Low --> High)','salary-asc'],
+				    ['Salary (High --> Low)','salary-des']
 				    ]), :onchange=>'this.form.submit();',class:"form-control" ) %>
 					<%end%>
 				</div>
 		</div>
+
 	<div id="jobsTable">
 			<table class="table table-striped">
 			  <thead>
@@ -56,11 +57,15 @@
 			    </tr>
 			  </thead>
 			  <tbody id ="myTable">
-			    <tr>
-			    	<% @sorted.each do |job| %>
-			      <td><%= job.comp_name %></td>
-			      <td><%= job.title %></td>
-			      <td><%= job.status %></td>
+
+			  	<% @sorted.each do |job| %>
+			  		<% modal_id = "modal-id-#{job.id}" %>
+
+			    <tr data-job="<%= job.id%>">
+
+			      <td><%= job.comp_name.titleize %></td>
+			      <td><%= job.title.titleize %></td>
+			      <td><%= job.status.titleize %></td>
 
 			      <% if job.deadline >= Date.today %>
 				      <td><%= job.deadline.strftime("%d %b %Y") %></td>
@@ -75,17 +80,24 @@
 				    	<td>-</td>
 				    <% end %>
 			      <td><%= job.salary %></td>
-			      <td><%= job.location %></td>
+			      <td><%= job.location.titleize %></td>
+
 			      <td><%=link_to "Go to Site", "http://#{job.url}" %></td>
-
-
 			    </tr>
+
 			     <% end %>
 			  </tbody>
 			</table>
 	</div>
 </div>
-</div>
+
+
+
+
+<% @sorted.each do |job| %>
+	<% modal_id = "modal-id-#{job.id}" %>
+	<%= render "modal-status", job: job, modal_id: modal_id%>
+<% end%>
 
 
 <% else%>
