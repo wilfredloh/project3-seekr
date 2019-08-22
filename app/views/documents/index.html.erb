@@ -1,0 +1,14 @@
+<h1>All Documents</h1>
+
+<%= link_to 'New Document', new_document_path %>
+
+<% @documents.each do |doc| %>
+	<p>
+		<a href = <%= document_path(doc) %>>
+			<%= cl_image_tag("#{doc.file}.png", :width => 200, :height => 250, :crop => :fill) %>
+		</a>
+		Title: <%= doc.title %>
+		Type: <%= doc.doc_type %>
+
+	</p>
+<% end %>

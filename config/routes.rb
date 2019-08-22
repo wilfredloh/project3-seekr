@@ -6,5 +6,8 @@ Rails.application.routes.draw do
 
   get '/jobs/status' => 'jobs#status', as: 'status_job'
   resources :jobs
+  resources :contacts
+  resources :documents
+
 
 end

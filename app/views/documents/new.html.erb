@@ -1,0 +1,29 @@
+<h1>New Document</h1>
+
+<%= form_with scope: :document, url: documents_path, local: true do |f| %>
+
+	<p>
+		<%= f.label :'title' %><br>
+	  <%= f.text_field :title %>
+	</p>
+
+	<div class="field">
+    <%= f.radio_button :doc_type, 'resume' %>
+    <%= f.label :doc_type, "Resume", :value => "resume"  %>
+    <%= f.radio_button :doc_type, 'cv' %>
+    <%= f.label :doc_type, "CV", :value => "cv" %>
+    <%= f.radio_button :doc_type, 'other' %>
+    <%= f.label :doc_type, "Other", :value => "other" %>
+  </div>
+
+	<p>
+	  <%= f.file_field :file %>
+	</p>
+
+	<p>
+	  <%= f.submit %>
+	</p>
+
+<% end %>
+
+<%= link_to 'All Documents', documents_path %>

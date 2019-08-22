@@ -53,8 +53,8 @@ before_action :authenticate_user!, :except => [ :home ]
           end
         end
       end
-      @deadline = deadline
-      @interview = interview
+      @deadline = deadline.sort_by{|job| job.deadline}
+      @interview = interview.sort_by{|job| job.interview}
     end
 
 
@@ -135,19 +135,19 @@ before_action :authenticate_user!, :except => [ :home ]
         reverse = sorted_date.reverse
         @sorted = reverse + no_date
       else
-        @sorted = @jobs.sort_by{|job| job.id}
+        @sorted = @jobs.sort_by{|job| job.status}
       end
     end
 
 
     def status
       @jobs = Job.all.where(user_id: current_user)
-      @job_started = @jobs.where(status: "Started")
-      @job_submitted = @jobs.where(status: "Submitted")
-      @job_interview = @jobs.where("status like ?", "%Interview%")
-      @job_awaiting = @jobs.where("status like ?", "%Awaiting%")
-      @job_offered = @jobs.where("status like ?", "%Offer%")
-      @job_rejected = @jobs.where(status: "Rejected")
+      @job_started = @jobs.where(status: "Started").sort_by{|job| job.updated_at}
+      @job_submitted = @jobs.where(status: "Submitted").sort_by{|job| job.updated_at}
+      @job_interview = @jobs.where("status like ?", "%Interview%").sort_by{|job| job.interview}
+      @job_awaiting = @jobs.where("status like ?", "%Awaiting%").sort_by{|job| job.updated_at}
+      @job_offered = @jobs.where("status like ?", "%Offer%").sort_by{|job| job.updated_at}
+      @job_rejected = @jobs.where(status: "Rejected").sort_by{|job| job.updated_at}
     end
 
     def show
@@ -180,7 +180,7 @@ before_action :authenticate_user!, :except => [ :home ]
 
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
       status.each_with_index do |stat, index|
-        if @job.status == stat
+        if job_params[:status] == stat
           @job.stat_index = index+1
         end
       end

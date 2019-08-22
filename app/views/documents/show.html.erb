@@ -1,0 +1,18 @@
+<h1>A Document</h1>
+
+<p>Title: <%= @document.title %><p>
+
+<a href = <%= @document.url %>>
+	<%= cl_image_tag("#{@document.file}.png", :width => 200, :height => 250, :crop => :fill) %>
+</a>
+
+<p>File type: <%= @document.doc_type %></p>
+
+<%= link_to 'Download', @document.url, download: '' %>
+
+
+
+
+
+<%= link_to 'All Documents', documents_path %>
+<%= link_to 'New Document', new_document_path %>
