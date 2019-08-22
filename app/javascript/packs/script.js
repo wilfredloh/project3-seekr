@@ -23,7 +23,7 @@ window.onload = () => {
 
 //To add modal universally
   $("#addButton").on("click", function(e){
-    $("#modal-add-new").modal('show');
+    $("#add-new-modal").modal('show');
   })
 
 };

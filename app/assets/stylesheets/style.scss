@@ -30,9 +30,10 @@
     color: black;
     cursor: pointer;
  }
- .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-  background-color: #bee5eb;
-}
+// .table-striped > tbody > tr:nth-child(2n+2) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+// background-color: #bee5eb;
+// }
+
 .filters{
     justify-content: center;
     text-align: center;
@@ -51,7 +52,6 @@
 .signInFooter{
     bottom: 0; left: 0; right: 0;
 }
-
 .addnew{
 	display: flex;
 }
@@ -78,6 +78,32 @@
 	cursor: pointer;
 }
 
+.recentAct{
+	color: black;
+}
+
+.recentAct:hover{
+	background-color: lightgrey;
+	border-radius: 5px;
+	transform: scale(1.05);
+}
+
+.recentAct-2:hover{
+	background-color: #494f55;
+	border-radius: 5px;
+	transform: scale(1.05);
+}
+
+.recentAct, .recentAct-2, .recentAct-3, .recentAct-4{
+	transition: all .2s ease-in-out;
+}
+.recentAct-3:hover {
+	transform: scale(1.025);
+}
+.recentAct-4:hover {
+	transform: scale(1.05);
+}
+
 #addButton1{
 	float: right;
 }
@@ -98,6 +124,9 @@
 	font-size: 24px;
 }
 
-.recentAct{
-	color: black;
+.add-job-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 5rem;
+    font-size: 15px;
 }
