@@ -26,18 +26,11 @@
 					    </tr>
 					    <tr>
                <td>Status</td>
-               <td><%=form.select :status, raw("
-                 <option>Started</option>
-                 <option>Submitted</option>
-                 <option>1st Interview</option>
-                 <option>2nd Interview</option>
-                 <option>Awaiting Results</option>
-                 <option>Offer Received</option>
-                 <option>Rejected</option>") %></td>
+               <td><%=form.select :status, options_for_select(['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected'], job.status)%></td>
              </tr>
              <tr>
                <td>Salary</td>
-               <td><%=form.select :salary, raw("<option>$0 - 1,999</option><option>$2,000 - 2,999</option><option>$3,000 - 3,999</option><option>$4,000 - 4,999</option><option>$5,000 - 5,999</option><option>$6,000 ++</option>") %></td>
+               <td><%=form.select :salary, options_for_select(['$0 - 1,999', '$2,000 - 2,999', '$3,000 - 3,999', '$4,000 - 4,999', '$5,000 - 5,999','$6,000 ++'], job.salary) %></td>
              </tr>
 					    <tr>
 					      <td>Location</td>
