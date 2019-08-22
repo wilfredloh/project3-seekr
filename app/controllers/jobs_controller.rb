@@ -7,7 +7,8 @@ before_action :authenticate_user!, :except => [ :home ]
       messages = Message.all.where(user_id: current_user)
       @messages = messages.reverse
 
-      # for the 6 different statuses
+      # for the 6 different statuses:
+      # @created @applied @progress @result @offer @rejected
       @created = @jobs.length
       applied = @jobs.where(status:"Submitted")
       @applied = applied.length
@@ -27,7 +28,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @offer = @jobs.where(status:"Offer Received").length
       @rejected = @jobs.where(status:"Rejected").length
 
-      # count number of jobs this user has created today
+      # count number of jobs this user has created/applied today
       atoday = 0
       applied.each do |job|
         if job.created_at.to_date == Date.today
@@ -37,7 +38,7 @@ before_action :authenticate_user!, :except => [ :home ]
       @atoday = atoday
       @ctoday = count
 
-      # getting all deadlines/interviews of this user
+      # getting all dates for deadlines/interviews of this user
       deadline = []
       interview = []
       @jobs.each do |job|
@@ -96,12 +97,13 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
     def status
-      @job_started = Job.where(status: "Started")
-      @job_submitted = Job.where(status: "Submitted")
-      @job_interview = Job.where("status like ?", "%Interview%")
-      @job_awaiting = Job.where("status like ?", "%Awaiting%")
-      @job_offered = Job.where("status like ?", "%Offer%")
-      @job_rejected = Job.where(status: "Rejected")
+      @jobs = Job.all.where(user_id: current_user)
+      @job_started = @jobs.where(status: "Started")
+      @job_submitted = @jobs.where(status: "Submitted")
+      @job_interview = @jobs.where("status like ?", "%Interview%")
+      @job_awaiting = @jobs.where("status like ?", "%Awaiting%")
+      @job_offered = @jobs.where("status like ?", "%Offer%")
+      @job_rejected = @jobs.where(status: "Rejected")
     end
 
     def show
