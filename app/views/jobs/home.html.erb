@@ -130,9 +130,12 @@
 
 			<div class="col-sm-3">
 				<div class="card mb-2 mx-auto" style="max-width: 18rem;">
-					<div class="card-body">
-						<p class="card-text text-center"><span class="dateToday"><%= Date.today.strftime("%d")%></span> <%= Date.today.strftime("%B")%></p>
-						<p class="card-text text-center"><%= Date.today.strftime("%Y")%></p>
+					<div class="card-body row justify-content-center align-items-center">
+						<span class="display-4"><%= Date.today.strftime("%d")%></span>
+						<div class = "p-1">
+							<p class="card-text m-0 font-italic"><%= Date.today.strftime("%B")%></p>
+							<small class="card-text"><%= Date.today.strftime("%Y")%></small>
+						</div>
 					</div>
 				</div>
 
