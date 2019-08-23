@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :jobs
   resources :contacts
   resources :documents
+  get '/stats' => 'stats#index'
 
 
 end
