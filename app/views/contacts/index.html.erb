@@ -1,0 +1,19 @@
+<h1>All Contacts</h1>
+
+<%= link_to 'New Contact', new_contact_path %>
+
+
+<% @contacts.each_with_index do |c, i| %>
+	<p>
+	<%=i+1%>.
+
+	Name: <%= c.name %>
+	Phone: <%= c.phone %>
+	Email: <%= c.email %>
+	<a href = <%= contact_path(c) %>>
+		Show
+	</a>
+
+
+	</p>
+<% end %>

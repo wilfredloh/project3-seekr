@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :job
   has_many :message
+  has_many :contact
+  has_many :document
 end

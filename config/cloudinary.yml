@@ -1,0 +1,25 @@
+---
+development:
+  cloud_name: 'pikamon'
+  api_key: '251889124532776'
+  api_secret: 'HgkWkmcJjiIXsLVTg0CnD9_628E'
+  secure: true
+  cdn_subdomain: true
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: 'pikamon'
+  api_key: '251889124532776'
+  api_secret: 'HgkWkmcJjiIXsLVTg0CnD9_628E'
+  secure: true
+  cdn_subdomain: true
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: 'pikamon'
+  api_key: '251889124532776'
+  api_secret: 'HgkWkmcJjiIXsLVTg0CnD9_628E'
+  secure: true
+  cdn_subdomain: true
+  enhance_image_tag: true
+  static_file_support: false
