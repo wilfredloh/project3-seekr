@@ -3,6 +3,10 @@ class ContactsController < ApplicationController
     @contacts = Contact.all
   end
 
+  def grid
+    @contacts = Contact.all
+  end
+
   def show
     @contact = Contact.find(params[:id])
   end
@@ -21,6 +25,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
+    @contact = Contact.find(params[:id])
   end
 
 
@@ -29,6 +34,9 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    @contact = Contact.find(params[:id])
+    @contact.destroy
+    redirect_to root_path
   end
 
   private

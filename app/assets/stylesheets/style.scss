@@ -67,10 +67,6 @@
 	font-size: 24px;
 }
 
-#addButtDash{
-	padding: 10px 5px;
-}
-
 .pointer-cursor{
 	cursor: pointer;
 }
@@ -111,10 +107,6 @@
 
 .status-col{
 	max-width: 22rem !important;
-}
-
-.dateToday{
-	font-size: 24px;
 }
 
 .greetings{
@@ -176,18 +168,31 @@
     height: 30%
   }
 
-  .cardpic:hover  {
+  #addButtDash{
+	padding: 10px 5px;
+	position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+}
+
+ .cardpic:hover  {
   opacity: 0.3;
   overflow: hidden;
   background-image: none;
 }
 
-.wordings:hover{
-	display: none;
-	opacity: 0;
-  overflow: hidden;
-	background-image: none;
-}
+// .wordings:hover{
+// 	opacity: 0;
+//   overflow: hidden;
+// 	background-image: none;
+// }
 
 
 // .card:hover .middle {
@@ -210,7 +215,6 @@
 //   font-size: 16px;
 //   padding: 16px 32px;
 // }
-
 
 .job-list {
  overflow-y: scroll;
@@ -253,4 +257,29 @@
 .status-col{
     max-width: 22rem !important;
     min-width: 22rem !important;
+}
+
+.icons {
+	height: 30px;
+	width: 35px;
+}
+.add-contact-btn{
+	position: fixed;
+	bottom: 7rem;
+	right: 9em;
+	font-size: 15px;
+	border: 2px solid black;
+  border-radius: 15px;
+  height: 30px;
+  width: 32px;
+}
+
+#contactCard{
+	display: inline-block;
+}
+
+.contactsGrid{
+ overflow-y: scroll;
+ margin-bottom: 2rem;
+ height: 30rem;
 }

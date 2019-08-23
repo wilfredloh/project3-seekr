@@ -21,9 +21,13 @@ window.onload = () => {
     $("#modal-id-"+jobID).modal('show');
   })
 
-//To add modal universally
+//To add job through  modal universally
   $("#addButton").on("click", function(e){
     $("#add-new-modal").modal('show');
   })
 
+//To add contact through modal universally
+  $("#addContacts").on("click", function(e){
+    $("#add-new-contacts-modal").modal('show');
+  })
 };
