@@ -66,6 +66,10 @@
 	                    <td>Coming Interview Date</td>
 	                    <td><%= form.date_field :interview%></td>
 	                  </tr>
+		                <tr>
+			               <td>Document</td>
+			               <td><%=form.select :doc, options_for_select(@documents) %></td>
+			             </tr>
 	                </tbody>
 	              </table>
 	          	</div>

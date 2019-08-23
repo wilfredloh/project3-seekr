@@ -11,6 +11,11 @@
         	<p class="modal-title ">Status: <%= job.status.capitalize %></p>
         	<%=link_to "Link to job listing", "http://#{job.url}" %>
         </div>
+
+         <% if job.documents.length > 0 %>
+	        <a href = <%= document_path(job.documents[0].id) %>> Link to Document </a>
+        <% end %>
+
       </div>
 
       <%= form_with scope: :job, model: job, local: true do |form| %>
@@ -47,6 +52,9 @@
 					      <td>URL</td>
 					      <td><%= form.text_field :url%></td>
 					    </tr>
+
+
+
 					  </tbody>
 					</table>
       	</div>
@@ -58,13 +66,27 @@
 		       		<table class="table table-borderless">
 							  <tbody>
 							    <tr>
-							      <td>Application Deadline</td>
+							      <td>Submit Application By</td>
 							      <td><%= form.date_field :deadline%></td>
 							    </tr>
 							    <tr>
-							      <td>Coming Interview Date</td>
+							      <td>Upcoming Interview</td>
 							      <td><%= form.date_field :interview%></td>
 							    </tr>
+
+
+				     <% if job.documents.length > 0 %>
+	             <tr>
+	               <td>Document</td>
+	               <td><%=form.select :doc, options_for_select(@documents, job.documents[0].title) %></td>
+	             </tr>
+	           <% else %>
+		           <tr>
+	               <td>Document</td>
+	               <td><%=form.select :doc, options_for_select(@documents) %></td>
+	             </tr>
+	           <% end %>
+
 							  </tbody>
 							</table>
 						</div>
@@ -72,6 +94,13 @@
 		      		<p class = "m-0 font-weight-bold">Notes</p>
 						    <%= form.text_area :notes, class: 'form-control', rows: "5", placeholder: "Feel free to add notes here"%>
 						</div>
+
+
+
+
+
+
+
 					</div>
       	</div>
       </div>
