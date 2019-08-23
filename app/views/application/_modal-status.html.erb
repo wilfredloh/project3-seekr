@@ -5,9 +5,12 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div class="modal-header flex-column p-4">
-        <p class="modal-title ">Status: <%= job.status.capitalize %></p>
         <h3><%= job.comp_name.capitalize %></h3>
         <h5 class = "font-italic"><%= job.title.capitalize %></h5>
+        <div class = "col text-right">
+        	<p class="modal-title ">Status: <%= job.status.capitalize %></p>
+        	<%=link_to "Link to job listing", "http://#{job.url}" %>
+        </div>
       </div>
 
       <%= form_with scope: :job, model: job, local: true do |form| %>
@@ -78,7 +81,7 @@
         <a href = <%= edit_job_path (job.id)%>>
         	<button type="submit" class="btn btn-primary">Save</button>
 				<%= link_to 'Delete', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-      </div>
+      </div>statu
       <% end %>
     </div>
   </div>
