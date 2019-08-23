@@ -9,7 +9,7 @@
 	</div>
 
 	<div class="text-center mx-auto contactsGrid">
-		<table class="table table-stripedr">
+		<table class="table table-striped">
 	  <thead>
 	    <tr>
 	    	<th scope="col">No.</th>
@@ -19,8 +19,8 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr class="table-active">
-	    <% @contacts.each_with_index do |c, i| %>
+	  	<% @contacts.each_with_index do |c, i| %>
+	    <tr class="table recentAct-3">
 	    	<td><%=i+1%>.</td>
 	      <td><%= c.name %></td>
 	      <td><%= c.phone %></td>

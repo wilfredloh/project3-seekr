@@ -1,0 +1,59 @@
+
+<a href class = "btn btn-default btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#elegantModalForm">Sign Up</a>
+
+<!-- Modal -->
+<div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+	    <div class="modal-content form-elegant">
+	      <!--Header-->
+	      <div class="modal-header text-center">
+	        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+	        	<strong>Sign Up</strong>
+	        </h3>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <!--Body-->
+	      <div class="modal-body mx-4">
+	        <!--Body-->
+	      	<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+	      		<%= render "devise/shared/error_messages", resource: resource %>
+	        <div class="md-form mb-3">
+	           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control validate'%>
+	          <label>Your email</label>
+	        </div>
+
+	        <div class="md-form pb-3">
+
+	          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control validate' %>
+	          <label>Your password <% if @minimum_password_length %>
+					    <em>(<%= @minimum_password_length %> characters minimum)</em>
+					    <% end %></label>
+	        </div>
+	        <div class="md-form pb-3">
+	          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control validate' %>
+	          <label>Confirm password</label>
+	        </div>
+
+
+
+	        <div class="text-center mb-3">
+	          <button type="submit" class="btn  btn-block z-depth-1a">Sign Up</button>
+	        </div>
+	      </div>
+	      <!--Footer-->
+	      <div class="modal-footer mx-5 pt-3 mb-1">
+	      	<p class="font-small grey-text d-flex justify-content-end">Already a member? &nbsp; <%- if controller_name != 'sessions' %>
+					  <%= link_to "Login", new_session_path(resource_name) %><br />
+					<% end %>
+	      </div>
+	    </div>
+	    <!--/.Content-->
+	  </div>
+	<% end %>
+</div>
+
+<!-- Modal -->

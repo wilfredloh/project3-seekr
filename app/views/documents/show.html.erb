@@ -17,3 +17,5 @@
 <%= link_to 'All Documents', documents_path %>
 <%= link_to 'New Document', new_document_path %>
 <%= link_to 'Edit Document', edit_document_path %>
+
+<%= link_to 'Delete', document_path(@document), method: :delete, data: { confirm: 'Are you sure?' } %>
