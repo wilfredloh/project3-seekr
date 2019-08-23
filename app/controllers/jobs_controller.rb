@@ -177,7 +177,6 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def update
       @job = Job.find(params[:id])
-
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
       status.each_with_index do |stat, index|
         if job_params[:status] == stat

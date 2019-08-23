@@ -90,7 +90,7 @@
 							<% end %>
 							<td><%= job.salary %></td>
 							<td><%= job.location.titleize %></td>							​
-							<td><%=link_to "Go to Site", "http://#{job.url}" %></td>
+							<td><%=link_to "Link", "http://#{job.url}", class: " text-info"%></td>
 						</tr>							​
 						<% end %>
 					</tbody>
