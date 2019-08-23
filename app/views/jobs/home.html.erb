@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3">
-			<div class="card mx-auto" style="max-width: 18rem;">
+			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<em class="greetings">
 						<% if Time.now < "12:00:00".to_time %>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 
-			<div class="card mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @atoday == 1 %>
 					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
@@ -27,20 +27,19 @@
 				</div>
 			</div>
 
-			<div class="card mb-3 mx-auto" style="max-width: 18rem;">
+			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
 					<% if @ctoday == 1 %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> job created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> active applicants</p>
 					<% else %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> jobs created today</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> active applicants</p>
 					<% end %>
 				</div>
 			</div>
 
 			<div class="card mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
-				<div class="card-header text-center">Recent Activity</div>
+				<div class="card-header text-center">Recent Activities</div>
 				<div class="card-body">
-
 						<% if @messages.length == 0 %>
 						<p> No messages </p>
 						<% else %>
@@ -59,14 +58,13 @@
 			</div>
 
 			<div class="col-sm-6 p-0">
-
 				<div class="card border-dark mb-3" >
-					<div class="card-header text-center">Job Overview</div>
+					<div class="card-header text-center">Application Summary</div>
 					<div class="card-body">
 						<div id="status">
 							<div class="row">
 								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@created%></span> Created</p>
+									<p class="offset-2"><span id="numbs-dash"><%=@created%></span> Active</p>
 									<p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
 									<p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
 								</div>
@@ -84,35 +82,61 @@
 				<div class="row">
 					<div class="col-6">
 						<div class="card mb-3 mx-auto">
-							<div class="card-header text-center">View Jobs</div>
-							<div class="card-body text-center">
-								<div class="col text-center" id="addButtDash">
-									<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">List View</button>'.html_safe, jobs_path %>
-									<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Grid View</button>'.html_safe, status_job_path %>
-								</div>
-							</div>
+						  <div class="card-body jobsPic cardpic">
+						  	<p class="text-light text-center wordings">Jobs</p>
+									<div class="col text-center" id="addButtDash">
+										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">List View</button>'.html_safe, jobs_path %>
+										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Grid View</button>'.html_safe, status_job_path %>
+									</div>
+						  </div>
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="card mb-3 mx-auto">
-							<div class="card-header text-center">Statistic</div>
-							<div class="card-body text-center">
-								<%= image_tag("graph.png", size: "300x200", alt: "Graph", :class => "img-fluid") %>
-							</div>
+						  <div class="card-body statsPic cardpic">
+						  		<p class="text-light text-center wordings">Statistics</p>
+						  		<div class="middle">
+						  			<p class="text">test</p>
+						  		</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-6">
+						<div class="card mb-3 mx-auto">
+						  <div class="card-body docPics cardpic">
+						  	<p class="text-light text-center wordings">Documents</p>
+						  		<div class="middle">
+						  			<p class="text">test</p>
+						  		</div>
+						  </div>
+						</div>
+					</div>
+
+					<div class="col-6">
+						<div class="card mb-3 mx-auto">
+						  <div class="card-body contactPics cardpic">
+						  	<p class="text-light text-center wordings">Contacts</p>
+						  		<div class="middle">
+						  			<p class="text">test</p>
+						  		</div>
+						  </div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-sm-3">
-				<div class="card mb-3 mx-auto" style="max-width: 18rem;">
+				<div class="card mb-2 mx-auto" style="max-width: 18rem;">
 					<div class="card-body">
 						<p class="card-text text-center"><span class="dateToday"><%= Date.today.strftime("%d")%></span> <%= Date.today.strftime("%B")%></p>
 						<p class="card-text text-center"><%= Date.today.strftime("%Y")%></p>
 					</div>
 				</div>
 
-				<div class="card mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
+				<div class="card mb-2 mx-auto" style="max-width: 18rem;" id="dash-list">
 					<div class="card-header text-center">Upcoming Interviews</div>
 					<div class="card-body">
 
@@ -133,8 +157,8 @@
 					</div>
 				</div>
 
-				<div class="card mb-3 mx-auto" style="max-width: 18rem;" id="dash-list">
-					<div class="card-header text-center">Application Deadline</div>
+				<div class="card mb-2 mx-auto" style="max-width: 18rem;" id="dash-list">
+					<div class="card-header text-center">Application Deadlines</div>
 					<div class="card-body">
 
 							<% if @deadline.length == 0 %>
