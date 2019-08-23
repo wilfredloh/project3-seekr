@@ -5,6 +5,10 @@ class ContactsController < ApplicationController
 
   end
 
+  def grid
+    @contacts = Contact.all
+  end
+
   def show
     @contact = Contact.find(params[:id])
     @documents = Document.all.where(user_id: current_user)
@@ -28,7 +32,7 @@ class ContactsController < ApplicationController
 
   def edit
     @documents = Document.all.where(user_id: current_user)
-
+    @contact = Contact.find(params[:id])
   end
 
 
@@ -39,6 +43,9 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    @contact = Contact.find(params[:id])
+    @contact.destroy
+    redirect_to root_path
   end
 
   private

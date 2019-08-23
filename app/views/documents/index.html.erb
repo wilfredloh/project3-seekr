@@ -1,16 +1,18 @@
-<h1>All Documents</h1>
-
 <%= link_to 'New Document', new_document_path %>
 
-<% @documents.each do |doc| %>
-	<p>
-		<a href = <%= document_path(doc) %>>
-			<%= cl_image_tag("#{doc.file}.png", :width => 200, :height => 250, :crop => :fill) %>
-		</a>
-		Update: <%= link_to 'Edit', edit_document_path(doc) %>
-		Delete: <%= link_to 'Delete', document_path(doc), method: :delete, data: { confirm: 'Are you sure?' } %>
-		Title: <%= doc.title %>
-		Type: <%= doc.doc_type %>
-
-	</p>
-<% end %>
+<div class = "container">
+	<h1 class = "text-center mx-auto mb-4">All Documents</h1>
+	<input class="form-control homepage-searchbar mx-auto" style="width:540px;" id="myDocu" type="text" placeholder="Search by document title and type "/>
+	<div class = "row justify-content-center my-3" id = "docu-cards">
+		<% @documents.each do |doc| %>
+			<div class="text-center m-3 pt-2 border add-box-shadow recentAct-3">
+				<a href = <%= document_path(doc) %>>
+					<%= cl_image_tag("#{doc.file}.png", :width => 180, :height => 200, :crop => :fill) %>
+				</a>
+				<p class = "font-weight-bold mt-2 mb-0">Title: <%= doc.title %></p>
+				<p class = "m-0">Type: <%= doc.doc_type %></p>
+				</p>
+			</div>
+		<% end %>
+	</div>
+</div>
