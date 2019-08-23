@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :contacts
   resources :documents
   get '/stats' => 'stats#index'
+  post '/special' => 'jobs#activate_serious_mode', as: 'create_special'
+  post '/special/update' => 'jobs#deactivate_serious_mode', as: 'update_special'
 
 
 end

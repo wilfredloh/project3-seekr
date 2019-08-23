@@ -43,6 +43,19 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav">
+
+				<% if @special_value == 'on' %>
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong2">
+					  SERIOUS MODE
+					</button>
+				<% else %>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalLong">
+					  SERIOUS MODE
+					</button>
+				<% end %>
+
+
+
 				<li class="nav-item">
 					<%= link_to 'Logout', destroy_user_session_url, method: :delete, class: 'nav-link' %>
 				</li>
@@ -50,7 +63,58 @@
 		</div>
 	</nav>
 	<%end%>
-	​
+
+						<!-- MODAL FOR ACTIVATING SERIOUS MODE HERE -->
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">ACTIVATING SERIOUS MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        When activated, you will have 1 hour to apply for 20 jobs. If you fail, you will be punished!
+
+        Are you sure you want to proceed?
+      </div>
+      <div class="modal-footer">
+    		<%= form_with scope: :special, url: create_special_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">LET'S GO</button>
+				<% end %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+						<!-- MODAL AFTER SERIOUS MODE ACTIVATED -->
+	<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle2">IN SERIOUS MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to exit SERIOUS MODE?
+      </div>
+      <div class="modal-footer">
+
+      	<%= form_with scope: :special, url: update_special_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">YES</button>
+				<% end %>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+						<!-- 								END 								 -->
+
 	<div class="content">
 		<%= yield %>
 	</div>

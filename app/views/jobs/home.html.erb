@@ -49,15 +49,22 @@
 								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
 									<p class="recentAct offset-1"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
 									<%= render "modal-status", job: message.job, modal_id: modal_id%>
+								<% end %>
 							<% end %>
-							<% end %>
-							<% end %>
-
+						<% end %>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-sm-6 p-0">
+
+				<% if @special_value == 'on' %>
+				<div>
+					<h1>YOU HAVE <%= Time.now.strftime("%I:%M %p") %> LEFT </h1>
+				</div>
+				<% end %>
+
+
 				<div class="card border-dark mb-3" >
 					<div class="card-header text-center">Application Summary</div>
 					<div class="card-body">

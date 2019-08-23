@@ -2,6 +2,18 @@ class JobsController < ApplicationController
 before_action :authenticate_user!, :except => [ :home ]
 
     def home
+
+      @specials = Special.all.where(user_id: current_user)
+      @special_value = 'no'
+      if @specials.length > 0
+        @special_value = 'yes'
+        @specials.each do |s|
+          if s.ongoing == 'y'
+            @special_value = 'on'
+          end
+        end
+      end
+
       # for all jobs and messages under this user
       @jobs = Job.all.where(user_id: current_user)
 
@@ -226,8 +238,6 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
 
-
-
     def update
       @job = Job.find(params[:id])
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
@@ -285,6 +295,31 @@ before_action :authenticate_user!, :except => [ :home ]
         else
           redirect_to root_path
       end
+    end
+
+    def activate_serious_mode
+      #modes ( 1 = focus, 2 = hard)
+      @session = Special.new(ongoing:"y", mode:1, user: current_user)
+      @session.save
+      redirect_to root_path
+    end
+
+    def deactivate_serious_mode
+      #modes ( 1 = focus, 2 = hard)
+      # @session = Session.find(params[:id])
+      # @session.ongoing = 'n'
+      @specials = Special.all.where(user_id: current_user)
+
+      @specials.each do |s|
+        if s.ongoing = 'y'
+          s.ongoing = 'n'
+          s.result = 'failed'
+          s.save
+        end
+      end
+
+      redirect_to root_path
+
     end
 
 private
