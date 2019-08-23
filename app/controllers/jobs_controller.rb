@@ -4,8 +4,20 @@ before_action :authenticate_user!, :except => [ :home ]
     def home
       # for all jobs and messages under this user
       @jobs = Job.all.where(user_id: current_user)
+
       messages = Message.all.where(user_id: current_user)
       @messages = messages.reverse
+
+      documents_user = Document.all.where(user_id: current_user)
+      documents = []
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      # p @documents
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      documents_user.each do |doc|
+        documents.push(doc.title)
+      end
+      @documents = ['-'] + documents
+      # @resumes = resume_name #.sort_by{|doc| doc.resume}
 
       # for the 6 different statuses:
       # @created @applied @progress @result @offer @rejected
@@ -62,6 +74,18 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
     def index
+
+      documents_user = Document.all.where(user_id: current_user)
+      documents = []
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      # p @documents
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      documents_user.each do |doc|
+        documents.push(doc.title)
+      end
+      @documents = ['-'] + documents
+
+
       @jobs = Job.all.where(user_id: current_user)
       @sorted
       if params[:sortby] == "comp-asc"
@@ -141,6 +165,18 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
     def status
+
+      documents_user = Document.all.where(user_id: current_user)
+      documents = []
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      # p @documents
+      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
+      documents_user.each do |doc|
+        documents.push(doc.title)
+      end
+      @documents = ['-'] + documents
+
+
       @jobs = Job.all.where(user_id: current_user)
       @job_started = @jobs.where(status: "Started").sort_by{|job| job.updated_at}
       @job_submitted = @jobs.where(status: "Submitted").sort_by{|job| job.updated_at}
@@ -162,6 +198,16 @@ before_action :authenticate_user!, :except => [ :home ]
           @job.stat_index = index+1
         end
       end
+
+      @documents = Document.all.where(user_id: current_user)
+
+      if params[:job][:doc] == '-'
+
+      else
+        new_doc = Document.find_by(:title => params[:job][:doc])
+        @job.documents << new_doc
+      end
+
       @job.user = current_user
       @job.save
 
@@ -175,6 +221,13 @@ before_action :authenticate_user!, :except => [ :home ]
     end
 
 
+
+
+
+
+
+
+
     def update
       @job = Job.find(params[:id])
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
@@ -183,19 +236,40 @@ before_action :authenticate_user!, :except => [ :home ]
           @job.stat_index = index+1
         end
       end
+
+      @documents = Document.all.where(user_id: current_user)
+
+      if @job.documents.length > 0
+        if params[:job][:doc] == '-'
+          old_doc = @job.documents[0]
+          @job.documents.delete(old_doc)
+        elsif params[:job][:doc] != @job.documents[0].title
+          old_doc = @job.documents[0]
+          @job.documents.delete(old_doc)
+          new_doc = Document.find_by(:title => params[:job][:doc])
+          @job.documents << new_doc
+        end
+      else
+        if params[:job][:doc] == '-'
+
+        else
+          new_doc = Document.find_by(:title => params[:job][:doc])
+          @job.documents << new_doc
+        end
+      end
       @job.update(job_params)
 
       @message = Message.new(description:"Updated:", job: @job, user: current_user)
       @message.save
 
-        openFromURL = request.referrer
+      openFromURL = request.referrer
 
-        if openFromURL.include?('status')
-          redirect_to status_job_path
-        elsif (URI(openFromURL).path  == "/jobs")
-          redirect_to jobs_path
-        else
-          redirect_to root_path
+      if openFromURL.include?('status')
+        redirect_to status_job_path
+      elsif (URI(openFromURL).path  == "/jobs")
+        redirect_to jobs_path
+      else
+        redirect_to root_path
       end
     end
 
@@ -216,6 +290,10 @@ before_action :authenticate_user!, :except => [ :home ]
 private
 
     def job_params
-      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind, :notes)
+      params.require(:job).permit(:comp_name, :title, :location, :salary, :url, :deadline, :interview, :status, :ind, :notes, :document_ids => [])
+    end
+
+    def doc_params
+      params.require(:document).permit(:title, :job_ids => [])
     end
 end

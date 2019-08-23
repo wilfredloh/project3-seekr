@@ -4,10 +4,14 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    @documents = Document.all.where(user_id: current_user)
+
     @document = Document.find(params[:id])
   end
 
   def new
+    @documents = Document.all.where(user_id: current_user)
+
   end
 
   def create
@@ -26,6 +30,7 @@ class DocumentsController < ApplicationController
   end
 
   def edit
+    @documents = Document.all.where(user_id: current_user)
     @document = Document.find(params[:id])
   end
 

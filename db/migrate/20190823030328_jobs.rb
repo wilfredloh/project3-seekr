@@ -9,9 +9,6 @@ class Jobs < ActiveRecord::Migration[6.0]
       t.string :status
       t.string :ind
 
-      t.string :resume
-      t.string :cv
-
       t.date :deadline
       t.date :interview
       t.text :notes
