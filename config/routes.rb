@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'jobs#home'
 
   get '/jobs/status' => 'jobs#status', as: 'status_job'
+  get '/contacts/grid' => 'contacts#grid', as: 'grid_contact'
   resources :jobs
   resources :contacts
   resources :documents
