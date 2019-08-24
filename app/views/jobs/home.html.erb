@@ -29,10 +29,10 @@
 
 			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
 				<div class="card-body">
-					<% if @ctoday == 1 %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> active applicants</p>
+					<% if @to_submit == 1 %>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> job pending submission</p>
 					<% else %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @ctoday %></span> active applicants</p>
+					<p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> jobs pending submission</p>
 					<% end %>
 				</div>
 			</div>
@@ -72,12 +72,10 @@
 				</div>
 				<% end %>
 
-				<% if @special.present?%>
-					<% if @special.result == 'pass' %>
-						<img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
-					<% elsif @special.result == 'fail' %>
-						<img src="https://media1.tenor.com/images/ea0e0839061638a8e6f90fa1bca9c3d2/tenor.gif?itemid=9306552">
-					<% end %>
+				<% if @current_user.mode == 'pass' %>
+					<img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
+				<% elsif @current_user.mode == 'fail' %>
+					<img src="https://media1.tenor.com/images/ea0e0839061638a8e6f90fa1bca9c3d2/tenor.gif?itemid=9306552">
 				<% end %>
 
 				<div class="card border-dark mb-3" >
@@ -86,9 +84,9 @@
 						<div id="status">
 							<div class="row">
 								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@created%></span> Active</p>
+									<p class="offset-2"><span id="numbs-dash"><%=@active%></span> Active Applications</p>
 									<p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
+									<p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Interview Stage</p>
 								</div>
 								<div class="col-6">
 									<p class="offset-2"><span id="numbs-dash"><%=@result%></span> Awaiting Results</p>

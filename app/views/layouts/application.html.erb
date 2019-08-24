@@ -56,6 +56,15 @@
 					</button>
 				<% end %>
 
+
+	      <%if current_user.mode == 'test' # add more 'or' conditions if got more than one mode here%>
+					<% if Time.now > current_user.start_special.localtime + 5 %>
+			      <%controller.redirect_to root_path%>
+					<% end %>
+				<% end %>
+
+
+
 				<li class="nav-item">
 					<%= link_to 'Logout', destroy_user_session_url, method: :delete, class: 'nav-link' %>
 				</li>

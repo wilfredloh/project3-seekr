@@ -6,36 +6,23 @@ before_action :authenticate_user! #, :except => [ :home ]
       @jobs = Job.all.where(user_id: current_user)
 
       messages = Message.all.where(user_id: current_user)
-      @messages = messages.reverse
+      messages_16 = messages.last(16)
+      @messages = messages_16.reverse
 
       documents_user = Document.all.where(user_id: current_user)
+      sorted_doc = documents_user.sort_by{|doc| doc.title}
       documents = []
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      # p @documents
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      documents_user.each do |doc|
+      sorted_doc.each do |doc|
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-      # @resumes = resume_name #.sort_by{|doc| doc.resume}
 
       # for the 6 different statuses:
-      # @created @applied @progress @result @offer @rejected
-      @created = @jobs.length
       applied = @jobs.where(status:"Submitted")
       @applied = applied.length
-
-      progress = 0
-      count = 0
-      @jobs.each do |job|
-        if job.status.include?("1st") || job.status.include?("2nd")
-          progress += 1
-        end
-        if job.created_at.to_date == Time.now.to_date
-          count += 1
-        end
-      end
-      @progress = progress
+      @progress = @jobs.where("status like ?", "%Interview").length
+      @active = applied.length + @progress
+      @to_submit = @jobs.where(status:"Started").length
       @result = @jobs.where(status:"Awaiting Result").length
       @offer = @jobs.where(status:"Offer Received").length
       @rejected = @jobs.where(status:"Rejected").length
@@ -48,7 +35,6 @@ before_action :authenticate_user! #, :except => [ :home ]
         end
       end
       @atoday = atoday
-      @ctoday = count
 
       # getting all dates for deadlines/interviews of this user
       deadline = []
@@ -73,6 +59,7 @@ before_action :authenticate_user! #, :except => [ :home ]
       ## GUIDE ##
       # CURRENT USER MODE
       # DEFAULT                                         = 'off'
+      # PRESENTATION                                    = 'test'
       # IF A SPECIAL IS ONGOING, MODES                  = 'easy', 'hard'
       # IF A SPECIAL HAS ENDED BUT USER SUCCEDED        = 'pass'
       # IF A SPECIAL HAS ENDED BUT USER FAILED          = 'fail'
@@ -128,7 +115,6 @@ before_action :authenticate_user! #, :except => [ :home ]
           current_user.mode = 'off'
         end
       end
-
       #################### END SECTION ######################
     end
 
@@ -217,7 +203,7 @@ before_action :authenticate_user! #, :except => [ :home ]
         reverse = sorted_date.reverse
         @sorted = reverse + no_date
       else
-        @sorted = @jobs.sort_by{|job| job.status}
+        @sorted = @jobs.sort_by{|job| job.stat_index}
       end
     end
 
