@@ -300,3 +300,11 @@
 -moz-box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
 box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
 }
+
+.alert-time, .alert-app{
+	display:flex;
+}
+
+.alert-time p, .alert-app p {
+	margin-right: 0.5rem
+}

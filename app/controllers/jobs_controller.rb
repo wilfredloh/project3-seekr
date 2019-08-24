@@ -1,19 +1,7 @@
 class JobsController < ApplicationController
-before_action :authenticate_user!, :except => [ :home ]
+before_action :authenticate_user! #, :except => [ :home ]
 
     def home
-
-      @specials = Special.all.where(user_id: current_user)
-      @special_value = 'no'
-      if @specials.length > 0
-        @special_value = 'yes'
-        @specials.each do |s|
-          if s.ongoing == 'y'
-            @special_value = 'on'
-          end
-        end
-      end
-
       # for all jobs and messages under this user
       @jobs = Job.all.where(user_id: current_user)
 
@@ -79,6 +67,69 @@ before_action :authenticate_user!, :except => [ :home ]
       end
       @deadline = deadline.sort_by{|job| job.deadline}
       @interview = interview.sort_by{|job| job.interview}
+
+
+      #################### SPECIAL SECTION ######################
+      ## GUIDE ##
+      # CURRENT USER MODE
+      # DEFAULT                                         = 'off'
+      # IF A SPECIAL IS ONGOING, MODES                  = 'easy', 'hard'
+      # IF A SPECIAL HAS ENDED BUT USER SUCCEDED        = 'pass'
+      # IF A SPECIAL HAS ENDED BUT USER FAILED          = 'fail'
+      # IF A SPECIAL HAS ENDED AND 2 HOURS HAVE PASSED  = 'off'
+
+      ##### SPECIAL (LATEST)
+      # SPECIAL.MODE                      = 'easy', 'hard'
+      # SPECIAL.RESULT                    = 'pass', 'fail', 'cancel'
+
+      @specials = Special.all.where(user_id: current_user)
+      special = @specials.last
+
+      if current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
+        start_time = special.created_at.localtime
+        current_time = Time.now.localtime
+        seconds_since_start = current_time - start_time
+        remaining_seconds = 3600 - seconds_since_start
+        min = (remaining_seconds / 60).floor
+        sec = remaining_seconds.to_i % 60 # => 0
+        @alert_m = "#{min}"
+        @alert_s = "#{sec}"
+        @alert_app = "#{10 - atoday}"
+        # to check for time taken to complete special
+        r_min = (seconds_since_start / 60).floor
+        r_sec = seconds_since_start.to_i % 60 # => 0
+        status = 'off'
+        if atoday >= 10
+          status = 'reset'
+          special.result = 'pass'
+          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+          special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+          current_user.mode = 'pass'
+
+        elsif remaining_seconds <= 0
+          status = 'reset'
+          special.result = 'fail'
+          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+          special.time_taken = "1 hour"
+          current_user.mode = 'fail'
+
+          if status == 'reset'
+          special.save
+          current_user.save
+            if request.env['PATH_INFO'] != "/"
+              redirect_to root_path
+            end
+          end
+        end
+      end
+      @special = special
+      if special.present?
+        if Time.now > @special.updated_at.localtime + 7200
+          current_user.mode = 'off'
+        end
+      end
+
+      #################### END SECTION ######################
     end
 
 
@@ -86,17 +137,12 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
     def index
-
       documents_user = Document.all.where(user_id: current_user)
       documents = []
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      # p @documents
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
       documents_user.each do |doc|
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-
 
       @jobs = Job.all.where(user_id: current_user)
       @sorted
@@ -299,27 +345,53 @@ before_action :authenticate_user!, :except => [ :home ]
 
     def activate_serious_mode
       #modes ( 1 = focus, 2 = hard)
-      @session = Special.new(ongoing:"y", mode:1, user: current_user)
-      @session.save
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        if job.created_at.to_date == Date.today
+          atoday += 1
+        end
+      end
+
+      @special = Special.new(mode: 'hard', user: current_user, jobs_applied_on_start: atoday)
+      @special.save
+      current_user.mode = 'hard'
+      current_user.start_special = @special.created_at
+      current_user.save
       redirect_to root_path
     end
 
     def deactivate_serious_mode
-      #modes ( 1 = focus, 2 = hard)
-      # @session = Session.find(params[:id])
-      # @session.ongoing = 'n'
-      @specials = Special.all.where(user_id: current_user)
 
-      @specials.each do |s|
-        if s.ongoing = 'y'
-          s.ongoing = 'n'
-          s.result = 'failed'
-          s.save
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        if job.created_at.to_date == Date.today
+          atoday += 1
         end
       end
 
-      redirect_to root_path
+      @specials = Special.all.where(user_id: current_user)
+      special = @specials.last
+      if current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
+        start_time = special.created_at.localtime
+        current_time = Time.now.localtime
+        seconds_since_start = current_time - start_time
+        r_min = (seconds_since_start / 60).floor
+        r_sec = seconds_since_start.to_i % 60 # => 0
 
+        special.result = 'cancel'
+        special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+        special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+        current_user.mode = 'off'
+
+        special.save
+        current_user.save
+      end
+
+      redirect_to root_path
     end
 
 private

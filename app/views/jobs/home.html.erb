@@ -58,12 +58,27 @@
 
 			<div class="col-sm-6 p-0">
 
-				<% if @special_value == 'on' %>
+				<% if current_user.mode == 'hard' %>
 				<div>
-					<h1>YOU HAVE <%= Time.now.strftime("%I:%M %p") %> LEFT </h1>
+					<div class="alert-time">
+						<p>Time remaining:</p>
+						<h1><%= @alert_m%> </h1>m
+						<h1><%= @alert_s%> </h1>s
+					</div>
+					<div class="alert-app">
+						<p>Remaining applications to submit:</p>
+						<h1><%= @alert_app%> </h1>
+					</div>
 				</div>
 				<% end %>
 
+				<% if @special.present?%>
+					<% if @special.result == 'pass' %>
+						<img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
+					<% elsif @special.result == 'fail' %>
+						<img src="https://media1.tenor.com/images/ea0e0839061638a8e6f90fa1bca9c3d2/tenor.gif?itemid=9306552">
+					<% end %>
+				<% end %>
 
 				<div class="card border-dark mb-3" >
 					<div class="card-header text-center">Application Summary</div>

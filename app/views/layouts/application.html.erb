@@ -44,17 +44,17 @@
 			</ul>
 			<ul class="navbar-nav">
 
-				<% if @special_value == 'on' %>
-					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong2">
-					  SERIOUS MODE
+				<% if current_user.mode == 'hard' %>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalLong2">
+					  IN SERIOUS MODE
 					</button>
+				<% elsif current_user.mode == 'fail'  %>
+
 				<% else %>
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalLong">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
 					  SERIOUS MODE
 					</button>
 				<% end %>
-
-
 
 				<li class="nav-item">
 					<%= link_to 'Logout', destroy_user_session_url, method: :delete, class: 'nav-link' %>
@@ -75,7 +75,7 @@
         </button>
       </div>
       <div class="modal-body">
-        When activated, you will have 1 hour to apply for 20 jobs. If you fail, you will be punished!
+        When activated, you will have 1 hour to apply for 20 jobs. There will be consequences if you fail.
 
         Are you sure you want to proceed?
       </div>
