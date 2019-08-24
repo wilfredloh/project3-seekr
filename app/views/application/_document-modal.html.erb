@@ -38,10 +38,22 @@
 			      </table>
 			    </div>
 			    <div class = "col justify-content-center">
-			    	<div class = "text-center">
-			    		<h5>Edit this document</h5>
-			    	</div>
-						<table class="table table-borderless" >
+
+			    		<p class = "m-0 font-weight-bold"><u>Applications using this document</u></p>
+			    		<% if document.jobs.length > 0 %>
+			    		<ul class = "pop-list m-0">
+				    		<% document.jobs.each_with_index do |doc, index| %>
+									<li><% app_name = @jobs.find(document.job_ids[index]).comp_name.titleize%>
+										<%= app_name%>
+									</li>
+								<%end%>
+							</ul>
+							<%else%>
+							<small> No application is using this document yet.</small>
+							<%end%>
+
+			    	<p class = "mt-4 mb-0 text-center font-weight-bold"><u>Edit this document</u><p>
+						<table class="table table-borderless" style = "margin-top: -1rem;" >
 							<tbody>
 								<tr>
 						      <td class = "font-weight-bold">Title: </td>
@@ -77,13 +89,13 @@
 						</table>
 						<div class = "text-center">
 			    		<div class="btn-group" data-toggle="buttons">
-  							<label class="btn btn-secondary">
+  							<label class="btn btn-primary	">
 									<%= f.radio_button :check, true, class: 'change-file' %>
 						  		<%= f.label :check, "Change this file", :value => "yes", class: 'm-0'%>
 						  	</label>
 							</div>
 			    	</div>
-						<div class = "col-3 offset-2 mt-4">
+						<div class = "col-3 offset-2 mt-2">
 						<%= f.file_field :file%>
 						</div>
 				  </div>

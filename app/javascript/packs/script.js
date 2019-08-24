@@ -44,7 +44,18 @@ window.onload = () => {
     $("#add-new-document-modal").modal('show');
   })
 
+  $(function () {
+  $('[data-toggle="popover"]').popover({     html : true,
+    content: function() {
+       return $('#popover-content').html();
+        }})
+})
+
+
+
+
 };
+
 
 // function myFunction() {
 //   var element = document.getElementsByClassName('change-file')
