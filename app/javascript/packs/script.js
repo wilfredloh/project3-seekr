@@ -38,4 +38,15 @@ window.onload = () => {
   $("#addContacts").on("click", function(e){
     $("#add-new-contacts-modal").modal('show');
   })
+
+//To add contact through modal universally
+  $("#addDocu").on("click", function(e){
+    $("#add-new-document-modal").modal('show');
+  })
+
 };
+
+// function myFunction() {
+//   var element = document.getElementsByClassName('change-file')
+//   element.classList.remove("to-hide");
+// }

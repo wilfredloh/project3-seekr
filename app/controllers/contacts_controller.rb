@@ -7,6 +7,7 @@ class ContactsController < ApplicationController
 
   def grid
     @contacts = Contact.all
+    @documents = Document.all.where(user_id: current_user)
   end
 
   def show

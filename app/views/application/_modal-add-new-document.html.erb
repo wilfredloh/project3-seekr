@@ -1,0 +1,47 @@
+<!-- Document Modal -->
+<div class="modal fade bd-example-modal-lg" id= "add-new-document-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+	<div class="modal-content">
+		<div class = "col-12 my-3">
+					<h3 class="modal-title p-0 d-inline offset-3">Upload new document</h3>
+					<button type="button" class="close d-inline text-right" data-dismiss="modal" aria-label="Close">
+				  	<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+
+		<%= form_with scope: :document, url: documents_path, local: true do |f| %>
+		  <div class="modal-body row px-5   ">
+			<div class = "col justify-content-center">
+					<table class="table table-borderless offset-3 col-6" >
+						<tbody>
+							<tr>
+						  <td class = "font-weight-bold">Title: </td>
+							<td ><%= f.text_field :title %></td>
+						  </tr>
+						  <tr>
+						  <td class = "font-weight-bold">Type: </td>
+							<td><%= f.radio_button :doc_type, 'resume' %>
+						    <%= f.label :doc_type, "Resume", :value => "resume"  %>
+						    <%= f.radio_button :doc_type, 'cv' %>
+						    <%= f.label :doc_type, "CV", :value => "cv" %>
+						    <%= f.radio_button :doc_type, 'other' %>
+						    <%= f.label :doc_type, "Other", :value => "other" %>
+								</td>
+						  </tr>
+
+						</tbody>
+					</table>
+					<div class = "col-3 offset-4 my-2">
+					<%= f.file_field :file%>
+					</div>
+			  </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
+			<% end %>
+		</div>
+  </div>
+</div>
