@@ -1,0 +1,51 @@
+<div class="modal fade" id=<%= modal_id %> tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Contact</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= form_with scope: :contact, model: contact, local: true do |form| %>
+      <div class="modal-body row justify-content-center">
+       	<div class = "job-info">
+       		<p class = "p-2 m-0 font-weight-bold">GENERAL INFO</p>
+       		<table class="table table-borderless">
+					  <tbody>
+					    <tr>
+					      <td>Name</td>
+					      <td><%= form.text_field :name, style: 'text-transform: capitalize;'%></td>
+					    </tr>
+					    <tr>
+					      <td>Title</td>
+					      <td><%= form.text_field :title, style: 'text-transform: capitalize;'%></td>
+					    </tr>
+					    <tr>
+               <td>Company</td>
+					      <td><%= form.text_field :company, style: 'text-transform: capitalize;'%></td>
+             </tr>
+             <tr>
+               <td>Phone</td>
+					      <td><%= form.text_field :phone%></td>
+             </tr>
+					    <tr>
+					      <td>Email</td>
+					      <td><%= form.text_field :email, style: 'text-transform: capitalize;'%></td>
+					    </tr>
+					  </tbody>
+					</table>
+      	</div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href = <%= edit_contact_path (contact)%>>
+        	<button type="submit" class="btn btn-primary">Save</button>
+				<%= link_to 'Delete', contact_path(contact), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

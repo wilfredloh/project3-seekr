@@ -35,8 +35,12 @@
 				<li class="nav-item">
 					<a class="nav-link" href=<%= documents_path%>>DOCUMENTS</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href=<%= contacts_path%>>CONTACTS</a>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Contacts</a>
+					<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+						<a class="dropdown-item" href=<%= contacts_path%>>List View</a>
+						<a class="dropdown-item" href=<%= grid_contact_path%>>Grid View</a>
+					</div>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href=<%= stats_path%>>STATS</a>
@@ -49,7 +53,7 @@
 			</ul>
 		</div>
 	</nav>
-	<%end%>
+
 	​
 	<div class="content">
 		<input type="checkbox" id="themeSwitch" name="theme-switch" class="theme-switch__input" />
@@ -62,8 +66,7 @@
 			</div>
 		</main>
 	</div>
-	​
-	<% if user_signed_in? %>
+
 	<footer class= "col-12 font-small bg-dark pt-4 signInFooter">
 		<div class="row footer-row">
 			<div class="footer-copyright text-center py-3">Seekr © 2019 Copyright</div>
@@ -73,27 +76,47 @@
 	</footer>
 	​
 	<%else%>
-	<footer class= "col-12 page-footer font-small bg-dark pt-4">
-		<div class="container-fluid">
-			<div class="row footer-row">
-				<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+
+		<div class="content">
+
+
+			<div class="loginPage">
+				<h1 class="text-center">Job Seekr</h1>
+				<div class="text-center p-5">
+					<a href class = "btn btn-default btn-rounded btn-outline-dark waves-effect waves-light justify-content-center" data-toggle="modal" data-target="#loginForm" id="loginButton">Login</a>
+					<a href class = "btn btn-default btn-rounded waves-effect btn-outline-dark waves-light" data-toggle="modal" data-target="#registrationForm">Sign Up</a>
+				</div>
+</div>
+
+
+		<%= render "devise/sessions/new" %>
+		<%= render "devise/registrations/new" %>
+		<%= yield %>
+	</div>
+
+		<footer class= "col-12 page-footer font-small bg-dark pt-4">
+			<div class="container-fluid">
+				<div class="row footer-row">
+					<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+				</div>
+				​
+				<div class="row footer-text footer-row">
+					<p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
+				</div>
+				​
+				<div class="row footer-row">
+					<%= image_tag("badge-iphone.png", size: "200x60", alt: "Edit Entry") %>
+					<%= image_tag("badge-android.png", size: "200x60", alt: "Edit Entry") %>
+				</div>
+				​
+				<div class="row footer-row">
+					<div class="footer-copyright text-center py-3">© 2019 Copyright</div>
+				</div>
 			</div>
-			​
-			<div class="row footer-text footer-row">
-				<p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
-			</div>
-			​
-			<div class="row footer-row">
-				<%= image_tag("badge-iphone.png", size: "200x60", alt: "Edit Entry") %>
-				<%= image_tag("badge-android.png", size: "200x60", alt: "Edit Entry") %>
-			</div>
-			​
-			<div class="row footer-row">
-				<div class="footer-copyright text-center py-3">© 2019 Copyright</div>
-			</div>
-		</div>
-	</footer>
+		</footer>
+
 	<%end%>
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

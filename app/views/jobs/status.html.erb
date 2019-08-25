@@ -136,10 +136,10 @@
 		</div>
 
 </div>
-<% else%>
-<h1>UR NOT LOGGED IN</h1>
-<%= link_to 'log in', new_user_session_url %>
-<% end %>
+	<% else%>
+		<h1>Please Login</h1>
+		<%= link_to 'log in', new_user_session_url %>
+		<% end %>
 
 	<div class="add-job-btn">
 		<button type="button" class="btn btn-outline-secondary" id="addButton">+</button>

@@ -23,10 +23,24 @@ window.onload = () => {
     });
   });
 
+  //For search bar on document index page
+  $('#contactIndex').on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#contactsTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
 //To show modal on index page
   $("#jobsTable #myTable tr").on("click", function(e){
     let jobID = this.dataset.job;
     $("#modal-id-"+jobID).modal('show');
+  })
+
+//To show modal on contacts index page
+  $("#contactsTable #myContact tr").on("click", function(e){
+    let contactID = this.dataset.contact;
+    $("#modal-id-"+contactID).modal('show');
   })
 
 //To add job through  modal universally

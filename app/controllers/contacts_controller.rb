@@ -13,7 +13,6 @@ class ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
     @documents = Document.all.where(user_id: current_user)
-
   end
 
   def new
@@ -32,26 +31,25 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    @documents = Document.all.where(user_id: current_user)
+    @contacts = Contact.all.where(user_id: current_user)
     @contact = Contact.find(params[:id])
   end
 
-
-
   def update
-    @documents = Document.all.where(user_id: current_user)
-
+    contact = Contact.find(params[:id])
+     @contact = contact.update(contact_params)
+     redirect_to contacts_path
   end
 
   def destroy
     @contact = Contact.find(params[:id])
     @contact.destroy
-    redirect_to root_path
+    redirect_to contacts_path
   end
 
   private
 
     def contact_params
-      params.require(:contact).permit(:name, :phone, :email)
+      params.require(:contact).permit(:name, :phone, :email, :title, :company)
     end
 end
