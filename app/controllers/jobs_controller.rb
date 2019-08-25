@@ -20,7 +20,7 @@ class JobsController < ApplicationController
       applied = @jobs.where(status:"Submitted")
       @applied = applied.length
       @progress = @jobs.where("status like ?", "%Interview").length
-      @active = applied.length + @progress
+      @active = @applied + @progress
       @to_submit = @jobs.where(status:"Started").length
       @result = @jobs.where(status:"Awaiting Result").length
       @offer = @jobs.where(status:"Offer Received").length
@@ -72,6 +72,7 @@ class JobsController < ApplicationController
 
       @specials = Special.all.where(user_id: current_user)
       special = @specials.last
+
 
       if current_user.present?
         if current_user.mode == 'easy' || current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
@@ -145,11 +146,12 @@ class JobsController < ApplicationController
             end
           end
         end
-
+        # if @jobs_left == nil
+        #   @jobs_left = 0
+        # end
       end
 
       ######               END TEST              ############
-
 
       @special = special
       if special.present?
@@ -160,6 +162,23 @@ class JobsController < ApplicationController
         #   current_user.mode = 'off'
         end
         current_user.save
+
+        @jobs_left = 0
+        if special.total_jobs_applied != nil
+          @jobs_left = 10 - special.jobs_applied_on_start - special.total_jobs_applied
+        end
+        finish_time = special.updated_at.localtime
+        current_time = Time.now.localtime
+        seconds_since_end = current_time - finish_time
+        reset_seconds = 7200 - seconds_since_end
+
+        hr_left = (reset_seconds / 3600).floor
+        min_left = (reset_seconds / 60).floor
+        if min_left >= 60
+          min_left = min_left - 60
+        end
+        @reset_h = "#{hr_left}"
+        @reset_m = "#{min_left}"
       end
       #################### END SECTION ######################
     end

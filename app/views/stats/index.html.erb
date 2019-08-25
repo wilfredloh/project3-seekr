@@ -2,6 +2,8 @@
 
 <h3>Insights</h3>
 
+<%if @jobs.present?%>
+
 <ul>
 	<li>Total # of companies applied to: <%=@total_applied%> </li>
 	<li>Total # of interview rounds reached: <%=@total_interview%> </li>
@@ -12,6 +14,11 @@
 	<li>Success rate: <%=@success_rate%> % </li>
 </ul>
 
+<p># of jobs applied this month: <%=@this_month%></p>
+<%else%>
+	<p>Create a job application to start tracking job stats</p>
+<%end%>
+
 <h3>Latest session</h3>
 
 <%if @special.present?%>
@@ -19,11 +26,17 @@
 	<p>Start time: <%=@special.created_at.localtime.strftime("%I:%M %p")%></p>
 	<%if @special.mode == 'hard' %>
 		<p>Mode: Hard</p>
+	<%elsif @special.mode == 'easy' %>
+		<p>Mode: Easy</p>
 	<%end%>
 	<p>Jobs Applied: <%=@special.total_jobs_applied%></p>
 	<p>Time taken: <%=@special.time_taken %></p>
-	<%if @special.result == 'fail' %>
+	<%if @special.result == 'pass' %>
+		<p>Result: Success</p>
+	<%elsif @special.result == 'fail' %>
 		<p>Result: Failed</p>
+	<%elsif @special.result == 'cancel' %>
+		<p>Result: Cancelled</p>
 	<%end%>
 
 	<p># of sessions started today: <%=@specials_today.length%></p>
@@ -33,5 +46,5 @@
 
 
 <%else%>
-	<p>Start a session to start tracking your stats</p>
+	<p>Start a session to start tracking session stats</p>
 <%end%>
