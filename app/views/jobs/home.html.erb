@@ -75,7 +75,7 @@
 				<% if @current_user.mode == 'pass' %>
 					<img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
 				<% elsif @current_user.mode == 'fail' %>
-					<img src="https://media1.tenor.com/images/ea0e0839061638a8e6f90fa1bca9c3d2/tenor.gif?itemid=9306552">
+					<img src="https://media.giphy.com/media/cr9vIO7NsP5cY/giphy.gif">
 				<% end %>
 
 				<div class="card border-dark mb-3" >
@@ -163,7 +163,7 @@
 					<div class="card-body">
 
 							<% if @interview.length == 0 %>
-							<p> No upcoming interviews </p>
+								<p> No upcoming interviews </p>
 							<% else %>
 							<% @interview.each do |job| %>
 							<% if job.interview != nil %>

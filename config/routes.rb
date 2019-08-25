@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post '/special/hard' => 'jobs#activate_hard_mode', as: 'create_hard'
   post '/special/test' => 'jobs#activate_test_mode', as: 'create_test'
   post '/special/update' => 'jobs#deactivate_serious_mode', as: 'update_special'
+  post '/special/reset' => 'jobs#reset_mode', as: 'reset_special'
 
 
 end

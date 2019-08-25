@@ -30,8 +30,10 @@ before_action :authenticate_user! #, :except => [ :home ]
       # count number of jobs this user has created/applied today
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
       @atoday = atoday
@@ -103,9 +105,6 @@ before_action :authenticate_user! #, :except => [ :home ]
           if status == 'reset'
           special.save
           current_user.save
-            if request.env['PATH_INFO'] != "/"
-              redirect_to root_path
-            end
           end
         end
       end
@@ -116,7 +115,7 @@ before_action :authenticate_user! #, :except => [ :home ]
         start_time = special.created_at.localtime
         current_time = Time.now.localtime
         seconds_since_start = current_time - start_time
-        remaining_seconds = 60 - seconds_since_start
+        remaining_seconds = 10 - seconds_since_start
         min = (remaining_seconds / 60).floor
         sec = remaining_seconds.to_i % 60 # => 0
         @alert_m = "#{min}"
@@ -143,9 +142,6 @@ before_action :authenticate_user! #, :except => [ :home ]
           if status == 'reset'
           special.save
           current_user.save
-            if request.env['PATH_INFO'] != "/"
-              redirect_to root_path
-            end
           end
         end
       end
@@ -156,14 +152,14 @@ before_action :authenticate_user! #, :except => [ :home ]
       if special.present?
         if Time.now > @special.updated_at.localtime + 7200
           current_user.mode = 'off'
-        elsif current_user.mode == 'fail'
-          current_user.mode = 'off'
+        ## RESET TEST ##
+        # elsif current_user.mode == 'x'
+        #   current_user.mode = 'off'
         end
         current_user.save
       end
       #################### END SECTION ######################
     end
-
 
 
 
@@ -323,6 +319,10 @@ before_action :authenticate_user! #, :except => [ :home ]
         if job_params[:status] == stat
           @job.stat_index = index+1
         end
+
+        if job_params[:status] == 'Submitted'
+          @job.submit_date = Time.now
+        end
       end
 
       @documents = Document.all.where(user_id: current_user)
@@ -346,6 +346,7 @@ before_action :authenticate_user! #, :except => [ :home ]
         end
       end
       @job.update(job_params)
+      @job.save
 
       @message = Message.new(description:"Updated:", job: @job, user: current_user)
       @message.save
@@ -380,8 +381,13 @@ before_action :authenticate_user! #, :except => [ :home ]
       applied = @jobs.where(status:"Submitted")
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
       @special = Special.new(mode: 'easy', user: current_user, jobs_applied_on_start: atoday)
@@ -397,8 +403,13 @@ before_action :authenticate_user! #, :except => [ :home ]
       applied = @jobs.where(status:"Submitted")
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
       @special = Special.new(mode: 'hard', user: current_user, jobs_applied_on_start: atoday)
@@ -414,8 +425,13 @@ before_action :authenticate_user! #, :except => [ :home ]
       applied = @jobs.where(status:"Submitted")
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
       @special = Special.new(mode: 'test', user: current_user, jobs_applied_on_start: atoday)
@@ -427,16 +443,19 @@ before_action :authenticate_user! #, :except => [ :home ]
     end
 
     def deactivate_serious_mode
-
       @jobs = Job.all.where(user_id: current_user)
       applied = @jobs.where(status:"Submitted")
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
-
       @specials = Special.all.where(user_id: current_user)
       special = @specials.last
       # add more 'or' conditions if got more than one mode here
@@ -455,7 +474,12 @@ before_action :authenticate_user! #, :except => [ :home ]
         special.save
         current_user.save
       end
+      redirect_to root_path
+    end
 
+    def reset_mode
+      current_user.mode = 'off'
+      current_user.save
       redirect_to root_path
     end
 
