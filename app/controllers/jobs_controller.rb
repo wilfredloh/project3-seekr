@@ -73,77 +73,81 @@ class JobsController < ApplicationController
       @specials = Special.all.where(user_id: current_user)
       special = @specials.last
 
-      if current_user.mode == 'easy' || current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
-        start_time = special.created_at.localtime
-        current_time = Time.now.localtime
-        seconds_since_start = current_time - start_time
-        remaining_seconds = 3600 - seconds_since_start
-        min = (remaining_seconds / 60).floor
-        sec = remaining_seconds.to_i % 60 # => 0
-        @alert_m = "#{min}"
-        @alert_s = "#{sec}"
-        @alert_app = "#{10 - atoday}"
-        # to check for time taken to complete special
-        r_min = (seconds_since_start / 60).floor
-        r_sec = seconds_since_start.to_i % 60 # => 0
-        status = 'off'
-        if atoday >= 10
-          status = 'reset'
-          special.result = 'pass'
-          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
-          special.time_taken = "#{r_min} minutes #{r_sec} seconds"
-          current_user.mode = 'pass'
+      if current_user.present?
+        if current_user.mode == 'easy' || current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
+          start_time = special.created_at.localtime
+          current_time = Time.now.localtime
+          seconds_since_start = current_time - start_time
+          remaining_seconds = 3600 - seconds_since_start
+          min = (remaining_seconds / 60).floor
+          sec = remaining_seconds.to_i % 60 # => 0
+          @alert_m = "#{min}"
+          @alert_s = "#{sec}"
+          @alert_app = "#{10 - atoday}"
+          # to check for time taken to complete special
+          r_min = (seconds_since_start / 60).floor
+          r_sec = seconds_since_start.to_i % 60 # => 0
+          status = 'off'
+          if atoday >= 10
+            status = 'reset'
+            special.result = 'pass'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+            current_user.mode = 'pass'
 
-        elsif remaining_seconds <= 0
-          status = 'reset'
-          special.result = 'fail'
-          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
-          special.time_taken = "1 hour"
-          current_user.mode = 'fail'
+          elsif remaining_seconds <= 0
+            status = 'reset'
+            special.result = 'fail'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "1 hour"
+            current_user.mode = 'fail'
 
-          if status == 'reset'
-          special.save
-          current_user.save
+            if status == 'reset'
+            special.save
+            current_user.save
+            end
           end
         end
-      end
 
 
       ######               START TEST              ############
-      if current_user.mode == 'test'
-        start_time = special.created_at.localtime
-        current_time = Time.now.localtime
-        seconds_since_start = current_time - start_time
-        remaining_seconds = 10 - seconds_since_start
-        min = (remaining_seconds / 60).floor
-        sec = remaining_seconds.to_i % 60 # => 0
-        @alert_m = "#{min}"
-        @alert_s = "#{sec}"
-        @alert_app = "#{10 - atoday}"
-        # to check for time taken to complete special
-        r_min = (seconds_since_start / 60).floor
-        r_sec = seconds_since_start.to_i % 60 # => 0
-        status = 'off'
-        if atoday >= 10
-          status = 'reset'
-          special.result = 'pass'
-          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
-          special.time_taken = "#{r_min} minutes #{r_sec} seconds"
-          current_user.mode = 'pass'
+        if current_user.mode == 'test'
+          start_time = special.created_at.localtime
+          current_time = Time.now.localtime
+          seconds_since_start = current_time - start_time
+          remaining_seconds = 10 - seconds_since_start
+          min = (remaining_seconds / 60).floor
+          sec = remaining_seconds.to_i % 60 # => 0
+          @alert_m = "#{min}"
+          @alert_s = "#{sec}"
+          @alert_app = "#{10 - atoday}"
+          # to check for time taken to complete special
+          r_min = (seconds_since_start / 60).floor
+          r_sec = seconds_since_start.to_i % 60 # => 0
+          status = 'off'
+          if atoday >= 10
+            status = 'reset'
+            special.result = 'pass'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+            current_user.mode = 'pass'
 
-        elsif remaining_seconds <= 0
-          status = 'reset'
-          special.result = 'fail'
-          special.total_jobs_applied  = atoday - special.jobs_applied_on_start
-          special.time_taken = "1 hour"
-          current_user.mode = 'fail'
+          elsif remaining_seconds <= 0
+            status = 'reset'
+            special.result = 'fail'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "1 hour"
+            current_user.mode = 'fail'
 
-          if status == 'reset'
-          special.save
-          current_user.save
+            if status == 'reset'
+            special.save
+            current_user.save
+            end
           end
         end
+
       end
+
       ######               END TEST              ############
 
 
