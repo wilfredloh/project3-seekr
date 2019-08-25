@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :message
   has_many :contact
   has_many :document
+  has_many :special
 end

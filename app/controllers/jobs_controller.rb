@@ -5,36 +5,23 @@ class JobsController < ApplicationController
       @jobs = Job.all.where(user_id: current_user)
 
       messages = Message.all.where(user_id: current_user)
-      @messages = messages.reverse
+      messages_16 = messages.last(16)
+      @messages = messages_16.reverse
 
       documents_user = Document.all.where(user_id: current_user)
+      sorted_doc = documents_user.sort_by{|doc| doc.title}
       documents = []
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      # p @documents
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      documents_user.each do |doc|
+      sorted_doc.each do |doc|
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-      # @resumes = resume_name #.sort_by{|doc| doc.resume}
 
       # for the 6 different statuses:
-      # @created @applied @progress @result @offer @rejected
-      @created = @jobs.length
       applied = @jobs.where(status:"Submitted")
       @applied = applied.length
-
-      progress = 0
-      count = 0
-      @jobs.each do |job|
-        if job.status.include?("1st") || job.status.include?("2nd")
-          progress += 1
-        end
-        if job.created_at.to_date == Time.now.to_date
-          count += 1
-        end
-      end
-      @progress = progress
+      @progress = @jobs.where("status like ?", "%Interview").length
+      @active = applied.length + @progress
+      @to_submit = @jobs.where(status:"Started").length
       @result = @jobs.where(status:"Awaiting Result").length
       @offer = @jobs.where(status:"Offer Received").length
       @rejected = @jobs.where(status:"Rejected").length
@@ -42,12 +29,13 @@ class JobsController < ApplicationController
       # count number of jobs this user has created/applied today
       atoday = 0
       applied.each do |job|
-        if job.created_at.to_date == Date.today
-          atoday += 1
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
         end
       end
       @atoday = atoday
-      @ctoday = count
 
       # getting all dates for deadlines/interviews of this user
       deadline = []
@@ -66,22 +54,123 @@ class JobsController < ApplicationController
       end
       @deadline = deadline.sort_by{|job| job.deadline}
       @interview = interview.sort_by{|job| job.interview}
+
+
+      #################### SPECIAL SECTION ######################
+      ## GUIDE ##
+      # CURRENT USER MODE
+      # DEFAULT                                         = 'off'
+      # PRESENTATION                                    = 'test'
+      # IF A SPECIAL IS ONGOING, MODES                  = 'easy', 'hard'
+      # IF A SPECIAL HAS ENDED BUT USER SUCCEDED        = 'pass'
+      # IF A SPECIAL HAS ENDED BUT USER FAILED          = 'fail'
+      # IF A SPECIAL HAS ENDED AND 2 HOURS HAVE PASSED  = 'off'
+
+      ##### SPECIAL (LATEST)
+      # SPECIAL.MODE                      = 'easy', 'hard'
+      # SPECIAL.RESULT                    = 'pass', 'fail', 'cancel'
+
+      @specials = Special.all.where(user_id: current_user)
+      special = @specials.last
+
+      if current_user.present?
+        if current_user.mode == 'easy' || current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here
+          start_time = special.created_at.localtime
+          current_time = Time.now.localtime
+          seconds_since_start = current_time - start_time
+          remaining_seconds = 3600 - seconds_since_start
+          min = (remaining_seconds / 60).floor
+          sec = remaining_seconds.to_i % 60 # => 0
+          @alert_m = "#{min}"
+          @alert_s = "#{sec}"
+          @alert_app = "#{10 - atoday}"
+          # to check for time taken to complete special
+          r_min = (seconds_since_start / 60).floor
+          r_sec = seconds_since_start.to_i % 60 # => 0
+          status = 'off'
+          if atoday >= 10
+            status = 'reset'
+            special.result = 'pass'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+            current_user.mode = 'pass'
+
+          elsif remaining_seconds <= 0
+            status = 'reset'
+            special.result = 'fail'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "1 hour"
+            current_user.mode = 'fail'
+
+            if status == 'reset'
+            special.save
+            current_user.save
+            end
+          end
+        end
+
+
+      ######               START TEST              ############
+        if current_user.mode == 'test'
+          start_time = special.created_at.localtime
+          current_time = Time.now.localtime
+          seconds_since_start = current_time - start_time
+          remaining_seconds = 10 - seconds_since_start
+          min = (remaining_seconds / 60).floor
+          sec = remaining_seconds.to_i % 60 # => 0
+          @alert_m = "#{min}"
+          @alert_s = "#{sec}"
+          @alert_app = "#{10 - atoday}"
+          # to check for time taken to complete special
+          r_min = (seconds_since_start / 60).floor
+          r_sec = seconds_since_start.to_i % 60 # => 0
+          status = 'off'
+          if atoday >= 10
+            status = 'reset'
+            special.result = 'pass'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+            current_user.mode = 'pass'
+
+          elsif remaining_seconds <= 0
+            status = 'reset'
+            special.result = 'fail'
+            special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+            special.time_taken = "1 hour"
+            current_user.mode = 'fail'
+
+            if status == 'reset'
+            special.save
+            current_user.save
+            end
+          end
+        end
+
+      end
+
+      ######               END TEST              ############
+
+
+      @special = special
+      if special.present?
+        if Time.now > @special.updated_at.localtime + 7200
+          current_user.mode = 'off'
+        ## RESET TEST ##
+        # elsif current_user.mode == 'x'
+        #   current_user.mode = 'off'
+        end
+        current_user.save
+      end
+      #################### END SECTION ######################
     end
 
-
-
     def index
-
       documents_user = Document.all.where(user_id: current_user)
       documents = []
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      # p @documents
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
       documents_user.each do |doc|
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-
 
       @jobs = Job.all.where(user_id: current_user)
       @sorted
@@ -156,7 +245,7 @@ class JobsController < ApplicationController
         reverse = sorted_date.reverse
         @sorted = reverse + no_date
       else
-        @sorted = @jobs.sort_by{|job| job.status}
+        @sorted = @jobs.sort_by{|job| job.stat_index}
       end
     end
 
@@ -220,14 +309,16 @@ class JobsController < ApplicationController
 
 
 
-
-
     def update
       @job = Job.find(params[:id])
       status = ['Started', 'Submitted', '1st Interview', '2nd Interview', 'Awaiting Results', 'Offer Received', 'Rejected']
       status.each_with_index do |stat, index|
         if job_params[:status] == stat
           @job.stat_index = index+1
+        end
+
+        if job_params[:status] == 'Submitted'
+          @job.submit_date = Time.now
         end
       end
 
@@ -252,6 +343,7 @@ class JobsController < ApplicationController
         end
       end
       @job.update(job_params)
+      @job.save
 
       @message = Message.new(description:"Updated:", job: @job, user: current_user)
       @message.save
@@ -279,6 +371,113 @@ class JobsController < ApplicationController
         else
           redirect_to root_path
       end
+    end
+
+    def activate_easy_mode
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
+        end
+      end
+      @special = Special.new(mode: 'easy', user: current_user, jobs_applied_on_start: atoday)
+      @special.save
+      current_user.mode = 'easy'
+      current_user.start_special = @special.created_at
+      current_user.save
+      redirect_to root_path
+    end
+
+    def activate_hard_mode
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
+        end
+      end
+      @special = Special.new(mode: 'hard', user: current_user, jobs_applied_on_start: atoday)
+      @special.save
+      current_user.mode = 'hard'
+      current_user.start_special = @special.created_at
+      current_user.save
+      redirect_to root_path
+    end
+
+    def activate_test_mode
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
+        end
+      end
+      @special = Special.new(mode: 'test', user: current_user, jobs_applied_on_start: atoday)
+      @special.save
+      current_user.mode = 'test'
+      current_user.start_special = @special.created_at
+      current_user.save
+      redirect_to root_path
+    end
+
+    def deactivate_serious_mode
+      @jobs = Job.all.where(user_id: current_user)
+      applied = @jobs.where(status:"Submitted")
+      atoday = 0
+      applied.each do |job|
+        # if job.created_at.to_date == Date.today
+        #   atoday += 1
+        # end
+        if job.submit_date.present?
+          if job.submit_date.to_date == Date.today
+            atoday += 1
+          end
+        end
+      end
+      @specials = Special.all.where(user_id: current_user)
+      special = @specials.last
+      # add more 'or' conditions if got more than one mode here
+      if current_user.mode == 'easy' || current_user.mode == 'hard'
+        start_time = special.created_at.localtime
+        current_time = Time.now.localtime
+        seconds_since_start = current_time - start_time
+        r_min = (seconds_since_start / 60).floor
+        r_sec = seconds_since_start.to_i % 60 # => 0
+
+        special.result = 'cancel'
+        special.total_jobs_applied  = atoday - special.jobs_applied_on_start
+        special.time_taken = "#{r_min} minutes #{r_sec} seconds"
+        current_user.mode = 'off'
+
+        special.save
+        current_user.save
+      end
+      redirect_to root_path
+    end
+
+    def reset_mode
+      current_user.mode = 'off'
+      current_user.save
+      redirect_to root_path
     end
 
 private
