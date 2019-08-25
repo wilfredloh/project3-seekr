@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-before_action :authenticate_user!, :except => [ :home ]
 
     def home
       # for all jobs and messages under this user
