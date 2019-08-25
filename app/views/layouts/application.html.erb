@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Allerta" rel="stylesheet">
 </head>
 ​
 <body>
@@ -78,15 +80,60 @@
 	<%else%>
 
 		<div class="content">
+    <section id="home">
+
+      <div class="menu-btn">Menu</div>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#auditorium">Auditorium</a>
+        <a href="#sponsors">Sponsors</a>
+      </nav>
+
+      <div class="home-content">
+        <h1>The Conference</h1>
+        <h2 class="section-heading">Milano • Sat 20 September 2018 • Sala Pastore</h2>
+        <p>
+          With a warning label this big, you know they gotta be fun! Probably you're ready to do any of those.
+        </p>
+        <div class="social-icon">
+          <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+
+        <div class="social-icon">
+          <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <a class="register-btn hvr-buzz-out" href="#">Register Now</a>
+      </div>
+    </section>
+    <section id="speakers">
+      <img class="speaker-icon" src="https://image.ibb.co/ixMeYo/music_microphone_old.png" alt="Microphone Icon" />
+      <h2 class="section-heading">Speakers</h2>
+      <p>
+        Have you ever tried just turning off the TV, sitting down with your children, and hitting them? Noooooo! You can crush me but you can't crush my spirit! Uh, is the puppy mechanical in any way?
+      </p>
+
+      <div class="main-speaker">
+        <div class="main-speaker-img-container">
+          <img src="https://images.pexels.com/photos/897314/pexels-photo-897314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Photo of a woman" />
+        </div>
+
+        <div class="main-speaker-info">
+          <h3>Whatever Whomever</h3>
+
+          <p>And remember, don't do anything that affects anything, unless it turns out you were supposed to, in which case, for the love of God, don't not do it!</p>
+
+          <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+
+          <span class="tip1"></span>
+        </div>
+      </div>
+      <!-- main speaker -->
+  </div>
 
 
-			<div class="loginPage">
-				<h1 class="text-center">Job Seekr</h1>
-				<div class="text-center p-5">
-					<a href class = "btn btn-default btn-rounded btn-outline-dark waves-effect waves-light justify-content-center" data-toggle="modal" data-target="#loginForm" id="loginButton">Login</a>
-					<a href class = "btn btn-default btn-rounded waves-effect btn-outline-dark waves-light" data-toggle="modal" data-target="#registrationForm">Sign Up</a>
-				</div>
-</div>
 
 
 		<%= render "devise/sessions/new" %>

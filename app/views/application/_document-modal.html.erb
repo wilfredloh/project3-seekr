@@ -87,15 +87,15 @@
 							  </tr>
 							</tbody>
 						</table>
-						<div class = "text-center">
+						<div class = "text-center change-file">
 			    		<div class="btn-group" data-toggle="buttons">
-  							<label class="btn btn-primary	">
-									<%= f.radio_button :check, true, class: 'change-file' %>
+  							<label class="btn btn-primary">
+									<%= f.radio_button :check, true, class: 'hide'%>
 						  		<%= f.label :check, "Change this file", :value => "yes", class: 'm-0'%>
 						  	</label>
 							</div>
 			    	</div>
-						<div class = "col-3 offset-2 mt-2">
+						<div class = "col-3 offset-2 mt-2 to-hide">
 						<%= f.file_field :file%>
 						</div>
 				  </div>
