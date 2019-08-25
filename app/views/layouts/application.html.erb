@@ -47,6 +47,57 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav">
+
+				<li class="nav-item">
+
+					<%= form_with scope: :special, url: reset_special_path, local: true do |f| %>
+		      	<button type="submit" class="btn btn-outline-dark">Reset</button>
+					<% end %>
+
+				</li>
+
+
+				<% if current_user.mode == 'easy' %>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exitMode">
+					  IN EASY MODE
+					</button>
+				<% elsif current_user.mode == 'hard'  %>
+					<button type="button" class="btn btn-danger">
+					  IN HARD MODE
+					</button>
+				<% elsif current_user.mode == 'test'  %>
+					<button type="button" class="btn btn-danger">
+					  IN TEST MODE
+					</button>
+				<% end %>
+
+				<% if current_user.mode == 'off' %>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Mode</a>
+						<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#easyModeStart">
+							  EASY MODE
+							</button>
+							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#hardModeStart">
+							  HARD MODE
+							</button>
+							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#testModeStart">
+							  TEST MODE
+							</button>
+						</div>
+					</li>
+				<% end %>
+
+	      <%if current_user.mode == 'easy' || current_user.mode == 'hard' # add more 'or' conditions if got more than one mode here%>
+					<% if Time.now > current_user.start_special.localtime + 3600 %>
+			      <%controller.redirect_to root_path%>
+					<% end %>
+	      <%elsif current_user.mode == 'test'%>
+	      	<% if Time.now > current_user.start_special.localtime + 10 %>
+			      <%controller.redirect_to root_path%>
+					<% end %>
+				<% end %>
+
 				<li class="nav-item">
 					<%= link_to 'Logout', destroy_user_session_url, method: :delete, class: 'nav-link' %>
 				</li>
@@ -54,7 +105,107 @@
 		</div>
 	</nav>
 
-	​
+						<!-- MODAL FOR ACTIVATING EASY MODE HERE -->
+	<div class="modal fade" id="easyModeStart" tabindex="-1" role="dialog" aria-labelledby="easyTitleStart" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="easyTitleStart">ACTIVATING EASY MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>When activated, you will be given 1 HOUR to ensure that you have applied at least 10 jobs today.</p>
+        <p>You can turn off this mode at any time.</p>
+        <br>
+        <p>Continue?</p>
+      </div>
+      <div class="modal-footer">
+    		<%= form_with scope: :special, url: create_easy_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">LET'S GO</button>
+				<% end %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+						<!-- MODAL FOR ACTIVATING HARD MODE HERE -->
+	<div class="modal fade" id="hardModeStart" tabindex="-1" role="dialog" aria-labelledby="hardTitleStart" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hardTitleStart">ACTIVATING HARD MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>When activated, you will be given 1 HOUR to ensure that you have applied at least 10 jobs today.</p>
+        <p>Once activated, there is no turning back.</p>
+        <p>There will be consequences if you fail.</p>
+        <br>
+        <p><strong>Are you sure you want to proceed?</strong></p>
+      </div>
+      <div class="modal-footer">
+    		<%= form_with scope: :special, url: create_hard_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">LET'S GO</button>
+				<% end %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+						<!-- MODAL FOR ACTIVATING TEST MODE HERE -->
+	<div class="modal fade" id="testModeStart" tabindex="-1" role="dialog" aria-labelledby="testTitleStart" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="testTitleStart">ACTIVATING TEST MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        TEST!!!!
+      </div>
+      <div class="modal-footer">
+    		<%= form_with scope: :special, url: create_test_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">LET'S GO</button>
+				<% end %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+						<!-- MODAL TO DEACTIVATE CURRENT MODE -->
+	<div class="modal fade" id="exitMode" tabindex="-1" role="dialog" aria-labelledby="exitModeTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exitModeTitle">IN EASY MODE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you want to exit EASY MODE?
+      </div>
+      <div class="modal-footer">
+
+      	<%= form_with scope: :special, url: update_special_path, local: true do |f| %>
+	      	<button type="submit" class="btn btn-primary">YES</button>
+				<% end %>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+						<!-- 								END 								 -->
 	<div class="content">
 		<input type="checkbox" id="themeSwitch" name="theme-switch" class="theme-switch__input" />
 			<label for="themeSwitch" class="theme-switch__label">

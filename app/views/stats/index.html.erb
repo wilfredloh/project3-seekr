@@ -3,8 +3,35 @@
 <h3>Insights</h3>
 
 <ul>
-	<li># of jobs submitted vs offer received </li>
-	<li># of jobs applied in serious mode</li>
-	<li># of Jobs applied each day / week / month / year</li>
-	<li>Add job column, first time create/ update if empty, place a date on that job to show when submitted</li>
+	<li>Total # of companies applied to: <%=@total_applied%> </li>
+	<li>Total # of interview rounds reached: <%=@total_interview%> </li>
+	<li>Total # of job cycles completed: <%=@total_completed%> </li>
+	<li>Total # of offers: <%=@offer%> </li>
+	<li>Total # of rejections: <%=@rejected%> </li>
+
+	<li>Success rate: <%=@success_rate%> % </li>
 </ul>
+
+<h3>Latest session</h3>
+
+<%if @special.present?%>
+	<p>Start date: <%=@special.created_at.localtime.strftime("%d %b")%></p>
+	<p>Start time: <%=@special.created_at.localtime.strftime("%I:%M %p")%></p>
+	<%if @special.mode == 'hard' %>
+		<p>Mode: Hard</p>
+	<%end%>
+	<p>Jobs Applied: <%=@special.total_jobs_applied%></p>
+	<p>Time taken: <%=@special.time_taken %></p>
+	<%if @special.result == 'fail' %>
+		<p>Result: Failed</p>
+	<%end%>
+
+	<p># of sessions started today: <%=@specials_today.length%></p>
+	<p>All sessions: <%=@specials.length%></p>
+
+
+
+
+<%else%>
+	<p>Start a session to start tracking your stats</p>
+<%end%>
