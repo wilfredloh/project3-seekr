@@ -71,8 +71,6 @@ before_action :authenticate_user!, :except => [ :home ]
 
 
 
-
-
     def index
 
       documents_user = Document.all.where(user_id: current_user)
@@ -172,8 +170,6 @@ before_action :authenticate_user!, :except => [ :home ]
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-
-
 
 
       @jobs = Job.all.where(user_id: current_user)

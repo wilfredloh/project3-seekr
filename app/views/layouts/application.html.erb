@@ -52,7 +52,15 @@
 	<%end%>
 	​
 	<div class="content">
-		<%= yield %>
+		<input type="checkbox" id="themeSwitch" name="theme-switch" class="theme-switch__input" />
+			<label for="themeSwitch" class="theme-switch__label">
+				<span></span>
+			</label>
+		<main>
+			<div class="wrapper">
+				<%= yield %>
+			</div>
+		</main>
 	</div>
 	​
 	<% if user_signed_in? %>

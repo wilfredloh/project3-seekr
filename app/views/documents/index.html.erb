@@ -5,7 +5,7 @@
 		<% @documents.each do |document| %>
 			<% modal_id = "modal-id-#{document.id}" %>
 			<div class="m-4">
-					<div class="text-center mb-2 pt-2 border add-box-shadow recentAct-3">
+					<div class="text-center mb-2 pt-2 border add-box-shadow recentAct-3 bg-light">
 						<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
 							<%= cl_image_tag("#{document.file}.png", :width => 180, :height => 200, :crop => :fill) %>
 						</a>
