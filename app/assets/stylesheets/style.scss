@@ -1,3 +1,8 @@
+.content{
+	font-family: 'Open Sans', sans-serif;
+}
+
+
 #jobsTable{
     width: 950px;
 }
@@ -512,24 +517,26 @@ main, body{
 
 	&::before,
 	&::after {
-		font-size: 2rem;
 		position: absolute;
 		transform: translate3d(0, -50%, 0);
-		top: 50%;
 	}
 
 	&::before {
+		font-size: 3rem;
 		content: '\263C';
 		right: 100%;
-		margin-right: 10px;
+		margin-right: 6px;
 		color: orange;
+		top: 25%;
 	}
 
 	&::after {
+		font-size: 2rem;
 		content: '\263E';
 		left: 100%;
-		margin-left: 10px;
+		margin-left: 6px;
 		color: lightSlateGray;
+		top: 42%;
 	}
 
 	span {
@@ -566,7 +573,7 @@ main, body{
 	}
 
 	span::after {
-		transform: translate3d(51px, 0, 0);
+		transform: translate3d(38px, 0, 0);
 	}
 }
 
