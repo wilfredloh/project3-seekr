@@ -2,6 +2,7 @@ class JobsController < ApplicationController
 
     def home
       # for all jobs and messages under this user
+      @test = 100
       @jobs = Job.all.where(user_id: current_user)
 
       messages = Message.all.where(user_id: current_user)
@@ -30,7 +31,7 @@ class JobsController < ApplicationController
       atoday = 0
       applied.each do |job|
         if job.submit_date.present?
-          if job.submit_date.to_date == Date.today
+          if job.submit_date.localtime.to_date == Date.today
             atoday += 1
           end
         end
@@ -109,6 +110,7 @@ class JobsController < ApplicationController
             end
           end
         end
+        @js_seconds = seconds_since_start
 
 
       ######               START TEST              ############
@@ -146,6 +148,9 @@ class JobsController < ApplicationController
             end
           end
         end
+
+        @js_seconds_test = seconds_since_start
+
         # if @jobs_left == nil
         #   @jobs_left = 0
         # end
