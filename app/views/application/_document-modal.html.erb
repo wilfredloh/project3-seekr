@@ -1,0 +1,111 @@
+<!-- Document Modal -->
+<div class="modal fade bd-example-modal-lg" id= <%= modal_id %> tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+		  <div class="modal-header flex-column">
+		  	<div class = "col-12 p-0 mb-2">
+					<h3 class="modal-title p-0 d-inline">Document: <%= document.title %></h3>
+					<button type="button" class="close d-inline text-right" data-dismiss="modal" aria-label="Close">
+				  	<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<h5 class = "font-italic">File type:
+					<% if document.doc_type.present? %>
+						<%= document.doc_type %>
+					<%else%>
+						Unset
+					<%end%>
+				</h5>
+		  </div>
+
+
+			<%= form_with scope: :document, model: document, local: true do |f| %>
+			  <div class="modal-body row px-5	">
+			    <div class = "modal-left-content">
+			      <table class="table table-borderless border-right">
+			        <tbody>
+			        	<tr>
+						      <td class = "py-0 pr-4">
+										<a target="_blank" href = <%= document.url %>><%= cl_image_tag("#{document.file}.png", :width => 300, :height => 350, :crop => :fill, class: "border") %></a>
+									</td>
+			    			</tr>
+			    			<tr>
+			    				<td class = "text-center">
+										<a target="_blank" href = <%= document.url %>>View File</a>
+									</td>
+								</tr>
+			        </tbody>
+			      </table>
+			    </div>
+			    <div class = "col justify-content-center">
+
+			    		<p class = "m-0 font-weight-bold"><u>Applications using this document</u></p>
+			    		<% if document.jobs.length > 0 %>
+			    		<ul class = "pop-list m-0">
+				    		<% document.jobs.each_with_index do |doc, index| %>
+									<li><% app_name = @jobs.find(document.job_ids[index]).comp_name.titleize%>
+										<%= app_name%>
+									</li>
+								<%end%>
+							</ul>
+							<%else%>
+							<small> No application is using this document yet.</small>
+							<%end%>
+
+			    	<p class = "mt-4 mb-0 text-center font-weight-bold"><u>Edit this document</u><p>
+						<table class="table table-borderless" style = "margin-top: -1rem;" >
+							<tbody>
+								<tr>
+						      <td class = "font-weight-bold">Title: </td>
+							  	<td><%= f.text_field :title %></td>
+							  </tr>
+							  <tr>
+						      <td class = "font-weight-bold">Type: </td>
+							  	<td><% if document.doc_type == 'resume' %>
+									    <%= f.radio_button :doc_type, 'resume' %>
+									    <%= f.label :doc_type, "Resume", :value => "resume", :checked => true %>
+									    <%= f.radio_button :doc_type, 'cv' %>
+									    <%= f.label :doc_type, "CV", :value => "cv" %>
+									    <%= f.radio_button :doc_type, 'other' %>
+									    <%= f.label :doc_type, "Other", :value => "other" %>
+											<% elsif document.doc_type == 'cv' %>
+												<%= f.radio_button :doc_type, 'resume' %>
+										    <%= f.label :doc_type, "Resume", :value => "resume" %>
+										    <%= f.radio_button :doc_type, 'cv' %>
+										    <%= f.label :doc_type, "CV", :value => "cv", :checked => true %>
+										    <%= f.radio_button :doc_type, 'other' %>
+										    <%= f.label :doc_type, "Other", :value => "other" %>
+											<% else%>
+										    <%= f.radio_button :doc_type, 'resume' %>
+										    <%= f.label :doc_type, "Resume", :value => "resume" %>
+										    <%= f.radio_button :doc_type, 'cv' %>
+										    <%= f.label :doc_type, "CV", :value => "cv" %>
+										    <%= f.radio_button :doc_type, 'other' %>
+										    <%= f.label :doc_type, "Other", :value => "other", :checked => true%>
+											<% end %>
+									</td>
+							  </tr>
+							</tbody>
+						</table>
+						<div class = "text-center">
+			    		<div class="btn-group" data-toggle="buttons">
+  							<label class="btn btn-primary	">
+									<%= f.radio_button :check, true, class: 'change-file' %>
+						  		<%= f.label :check, "Change this file", :value => "yes", class: 'm-0'%>
+						  	</label>
+							</div>
+			    	</div>
+						<div class = "col-3 offset-2 mt-2">
+						<%= f.file_field :file%>
+						</div>
+				  </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+					<%= link_to 'Delete', document_path(document.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+				</div>
+			<% end %>
+		</div>
+  </div>
+</div>

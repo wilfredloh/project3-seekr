@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-before_action :authenticate_user! #, :except => [ :home ]
 
     def home
       # for all jobs and messages under this user
@@ -161,9 +160,6 @@ before_action :authenticate_user! #, :except => [ :home ]
       #################### END SECTION ######################
     end
 
-
-
-
     def index
       documents_user = Document.all.where(user_id: current_user)
       documents = []
@@ -254,9 +250,6 @@ before_action :authenticate_user! #, :except => [ :home ]
 
       documents_user = Document.all.where(user_id: current_user)
       documents = []
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
-      # p @documents
-      # p '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
       documents_user.each do |doc|
         documents.push(doc.title)
       end
@@ -264,12 +257,12 @@ before_action :authenticate_user! #, :except => [ :home ]
 
 
       @jobs = Job.all.where(user_id: current_user)
-      @job_started = @jobs.where(status: "Started").sort_by{|job| job.updated_at}
-      @job_submitted = @jobs.where(status: "Submitted").sort_by{|job| job.updated_at}
-      @job_interview = @jobs.where("status like ?", "%Interview%").sort_by{|job| job.interview}
-      @job_awaiting = @jobs.where("status like ?", "%Awaiting%").sort_by{|job| job.updated_at}
-      @job_offered = @jobs.where("status like ?", "%Offer%").sort_by{|job| job.updated_at}
-      @job_rejected = @jobs.where(status: "Rejected").sort_by{|job| job.updated_at}
+      @job_started = @jobs.where(status: "Started").sort_by{|job| job.updated_at}.reverse
+      @job_submitted = @jobs.where(status: "Submitted").sort_by{|job| job.updated_at}.reverse
+      @job_interview = @jobs.where("status like ?", "%Interview%").sort_by{|job| job.interview.to_s}.reverse
+      @job_awaiting = @jobs.where("status like ?", "%Awaiting%").sort_by{|job| job.updated_at}.reverse
+      @job_offered = @jobs.where("status like ?", "%Offer%").sort_by{|job| job.updated_at}.reverse
+      @job_rejected = @jobs.where(status: "Rejected").sort_by{|job| job.updated_at}.reverse
     end
 
     def show

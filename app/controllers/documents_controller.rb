@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   def index
     @documents = Document.all.where(user_id: current_user)
+    @jobs = Job.all.where(user_id: current_user)
   end
 
   def show

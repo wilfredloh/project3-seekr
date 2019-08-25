@@ -1,216 +1,199 @@
-<% if user_signed_in? %>
-<br>
-<div class="container">
-	<div class="row">
-		<div class="col-sm-3">
-			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
-				<div class="card-body">
-					<em class="greetings">
-						<% if Time.now < "12:00:00".to_time && Time.now >= "6:00:00".to_time %>
-						<p class="card-text text-center">Good morning</p>
-						<% elsif Time.now >= "12:00:00".to_time && Time.now < "17:00:00".to_time %>
-						<p class="card-text text-center">Good afternoon</p>
-						<% else %>
-							<p class="card-text text-center">Good evening</p>
-						<% end %>
-					</em>
-				</div>
-			</div>
+	<% if user_signed_in? %>
+	<br>
+	<div class="container">
+	    <div class="row">
+	        <div class="col-sm-3">
+	            <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;">
+	                <div class="card-body p-1">
+	                    <em class="greetings">
+	                       <% if Time.now < "12:00:00".to_time && Time.now >= "6:00:00".to_time %>
+												<p class="card-text"><img class="col-3 pl-0 pr-1 text-left" src = "https://image.flaticon.com/icons/svg/1146/1146869.svg">Good morning</p>
+												<% elsif Time.now >= "12:00:00".to_time && Time.now < "17:00:00".to_time %>
+												<p class="card-text"><img class="col-3 pl-0 pr-1 text-left" src = "https://image.flaticon.com/icons/svg/439/439842.svg">Good afternoon</p>
+												<% else %>
+													<p class="card-text"><img class="col-3 pl-0 pr-1 text-left" src = "https://image.flaticon.com/icons/svg/414/414942.svg">Good evening</p>
+												<% end %>
+	                    </em>
+	                </div>
+	            </div>
+	            <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;">
+	                <div class="card-body">
+	                    <% if @atoday == 1 %>
+	                    <p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
+	                    <% else %>
+	                    <p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
+	                    <% end %>
+	                </div>
+	            </div>
+	            <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;">
+	                <div class="card-body">
+                    <% if @to_submit == 1 %>
+	                    <p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> job pending submission</p>
+                    <% else %>
+	                    <p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> jobs pending submission</p>
+                    <% end %>
+	                </div>
+	            </div>
+	            <div class="card mb-3 mx-auto add-box-shadow" style="max-width: 18rem;"id="dash-recent" >
+	                <div class="card-header text-center">Recent Activities</div>
+	                <div class="card-body">
+	                        <% if @messages.length == 0 %>
+	                        <p> No messages </p>
+	                        <% else %>
+	                        <% @messages.each do |message| %>
+	                            <% if message.job.present? %>
+	                                <% modal_id = "modal-id-#{message.job.id}" %>
+	                                <a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+	                                    <p class="recentAct offset-1"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
+	                                    <%= render "modal-status", job: message.job, modal_id: modal_id%>
+	                            <% end %>
+	                            <% end %>
+	                            <% end %>
+	                    </div>
+	                </div>
+	            </div>
 
-			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
-				<div class="card-body">
-					<% if @atoday == 1 %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> job applied today</p>
-					<% else %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @atoday %></span> jobs applied today</p>
-					<% end %>
-				</div>
-			</div>
+	            <div class="col-sm-6 p-0">
 
-			<div class="card mb-2 mx-auto" style="max-width: 18rem;">
-				<div class="card-body">
-					<% if @to_submit == 1 %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> job pending submission</p>
-					<% else %>
-					<p class="card-text text-center"><span id="numbs-dash"><%= @to_submit %></span> jobs pending submission</p>
-					<% end %>
-				</div>
-			</div>
+	            	<% if current_user.mode == 'easy' || current_user.mode == 'hard' || current_user.mode == 'test' %>
+                <div>
+                    <div class="alert-time">
+                        <p>Time remaining:</p>
+                        <h1><%= @alert_m%> </h1>m
+                        <h1><%= @alert_s%> </h1>s
+                    </div>
+                    <div class="alert-app">
+                        <p>Remaining applications to submit:</p>
+                        <h1><%= @alert_app%> </h1>
+                    </div>
+                </div>
+                <% end %>
 
-			<div class="card mb-3 mx-auto" style="max-width: 18rem;"id="dash-recent" >
-				<div class="card-header text-center">Recent Activities</div>
-				<div class="card-body">
-						<% if @messages.length == 0 %>
-						<p> No messages </p>
-						<% else %>
-						<% @messages.each do |message| %>
-							<% if message.job.present? %>
-								<% modal_id = "modal-id-#{message.job.id}" %>
-								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-									<p class="recentAct offset-1"><%=message.description%> <%=message.job.comp_name.capitalize%> <br> [ <%=message.updated_at.localtime.strftime("%d %b, %I:%M %p") %> ] </p><hr></a>
-									<%= render "modal-status", job: message.job, modal_id: modal_id%>
-								<% end %>
-							<% end %>
-						<% end %>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-6 p-0">
-
-				<% if current_user.mode == 'easy' || current_user.mode == 'hard' || current_user.mode == 'test' %>
-				<div>
-					<div class="alert-time">
-						<p>Time remaining:</p>
-						<h1><%= @alert_m%> </h1>m
-						<h1><%= @alert_s%> </h1>s
-					</div>
-					<div class="alert-app">
-						<p>Remaining applications to submit:</p>
-						<h1><%= @alert_app%> </h1>
-					</div>
-				</div>
-				<% end %>
-
-				<% if @current_user.mode == 'pass' %>
-					<img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
-				<% elsif @current_user.mode == 'fail' %>
-					<img src="https://media.giphy.com/media/cr9vIO7NsP5cY/giphy.gif">
-				<% end %>
-
-				<div class="card border-dark mb-3" >
-					<div class="card-header text-center">Application Summary</div>
-					<div class="card-body">
-						<div id="status">
-							<div class="row">
-								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@active%></span> Active Applications</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Interview Stage</p>
-								</div>
-								<div class="col-6">
-									<p class="offset-2"><span id="numbs-dash"><%=@result%></span> Awaiting Results</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@offer%></span> Offers</p>
-									<p class="offset-2"><span id="numbs-dash"><%=@rejected%></span> Rejected</p>
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body jobsPic cardpic">
-						  	<p class="text-light text-center wordings">Jobs</p>
-									<div class="col text-center" id="addButtDash">
-										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">List View</button>'.html_safe, jobs_path %>
-										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Grid View</button>'.html_safe, status_job_path %>
-									</div>
-						  </div>
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body statsPic cardpic">
-						  		<p class="text-light text-center wordings">Statistics</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
-						  		</div>
-						  </div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body docPics cardpic">
-						  	<p class="text-light text-center wordings">Documents</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
-						  		</div>
-						  </div>
-						</div>
-					</div>
-
-					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body contactPics cardpic">
-						  	<p class="text-light text-center wordings">Contacts</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
-						  		</div>
-						  </div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<div class="card mb-2 mx-auto" style="max-width: 18rem;">
-					<div class="card-body row justify-content-center align-items-center">
-						<span class="display-4"><%= Date.today.strftime("%d")%></span>
-						<div class = "p-1">
-							<p class="card-text m-0 font-italic"><%= Date.today.strftime("%B")%></p>
-							<small class="card-text"><%= Date.today.strftime("%Y")%></small>
-						</div>
-					</div>
-				</div>
-				<div class="card mb-2 mx-auto" style="max-width: 18rem;" id="dash-list">
-					<div class="card-header text-center">Upcoming Interviews</div>
-					<div class="card-body">
-
-							<% if @interview.length == 0 %>
-								<p> No upcoming interviews </p>
-							<% else %>
-							<% @interview.each do |job| %>
-							<% if job.interview != nil %>
-
-								<% modal_id = "modal-id-#{job.id}" %>
-								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p class="recentAct-2 offset-1"><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
-							</a>
-							<%= render "modal-status", job: job, modal_id: modal_id%>
-							<% end %>
-							<% end %>
-							<% end %>
-					</div>
-				</div>
-
-				<div class="card mb-2 mx-auto" style="max-width: 18rem;" id="dash-list">
-					<div class="card-header text-center">Application Deadlines</div>
-					<div class="card-body">
-
-							<% if @deadline.length == 0 %>
-							<p> No upcoming deadlines </p>
-							<% else %>
-							<% @deadline.each do |job| %>
-							<% if job.deadline != nil %>
-
-								<% modal_id = "modal-id-#{job.id}" %>
-								<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
-								<p class="recentAct-2 offset-1"><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
-
-							</a>
-							<%= render "modal-status", job: job, modal_id: modal_id%>
-							<% end %>
-							<% end %>
-							<% end %>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                <% if @current_user.mode == 'pass' %>
+                    <img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
+                <% elsif @current_user.mode == 'fail' %>
+                    <img src="https://media.giphy.com/media/cr9vIO7NsP5cY/giphy.gif">
+                <% end %>
 
 
-	<% else%>
-	<h1>Please Login</h1>
-	<%= link_to 'log in', new_user_session_url %>
-	<% end %>
 
-	<div class="add-job-btn">
-		<button type="button" class="btn btn-outline-secondary" id="addButton">+</button>
-	</div>
+	                <div class="card border-dark mb-3 add-box-shadow" >
+	                    <div class="card-header text-center">Application Summary</div>
+	                    <div class="card-body">
+	                        <div id="status">
+	                            <div class="row">
+	                                <div class="col-6">
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@created%></span> Active</p>
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
+	                                </div>
+	                                <div class="col-6">
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@result%></span> Awaiting Results</p>
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@offer%></span> Offers</p>
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@rejected%></span> Rejected</p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row">
+	                    <div class="col-6">
+	                        <div class="card mb-3 mx-auto add-box-shadow jobsPic fullCard">
+	                          <div class="card-body">
+	                            <p class="title">Jobs</p>
+	                            <div class="overlay">
+	                                    <%= link_to 'List view', jobs_path, :class => 'btn btn-secondary buttons1' %>
+	                                    <%= link_to 'Grid view', status_job_path, :class => 'btn btn-secondary buttons2'%>
+	                                </div>
+	                          </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-6">
+	                        <div class="card mb-3 mx-auto add-box-shadow statsPic fullCard">
+	                          <div class="card-body">
+	                                <p class="title">Statistics</p>
+	                                <div class="overlay offset-4">
+	                                    <%= link_to 'Statistics', documents_path, :class => 'btn btn-secondary buttons5'%>
+	                                </div>
+	                          </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row">
+	                    <div class="col-6">
+	                        <div class="card mb-3 mx-auto add-box-shadow docPics fullCard">
+	                          <div class="card-body">
+	                            <p class="title">Documents</p>
+	                                <div class="overlay offset-4">
+	                                    <%= link_to 'Resume/CV', documents_path, :class => 'btn btn-secondary buttons3'%>
+	                                </div>
+	                          </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-6">
+	                        <div class="card mb-3 mx-auto add-box-shadow contactPics fullCard">
+	                          <div class="card-body ">
+	                            <p class="title">Contacts</p>
+	                            <div class="overlay">
+	                                <%= link_to 'List view', contacts_path, :class => 'btn btn-secondary buttons4' %>
+	                                    <%= link_to 'Grid view', grid_contact_path, :class => 'btn btn-secondary buttons6'%>
+	                                </div>
+	                          </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-sm-3">
+	                <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;">
+	                    <div class="card-body row justify-content-center align-items-center">
+	                        <span class="display-4"><%= Date.today.strftime("%d")%></span>
+	                        <div class = "p-1">
+	                            <p class="card-text m-0 font-italic"><%= Date.today.strftime("%B")%></p>
+	                            <small class="card-text"><%= Date.today.strftime("%Y")%></small>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;" id="dash-list">
+	                    <div class="card-header text-center">Upcoming Interviews</div>
+	                    <div class="card-body">
+	                            <% if @interview.length == 0 %>
+	                            <p> No upcoming interviews </p>
+	                            <% else %>
+	                            <% @interview.each do |job| %>
+	                            <% if job.interview != nil %>
+	                                <% modal_id = "modal-id-#{job.id}" %>
+	                                <a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+	                                <p class="recentAct-2 offset-1"><%=job.interview.strftime("%d %b")%> : <%=job.title.capitalize%> at <%=job.comp_name.capitalize%>  </p><hr>
+	                            </a>
+	                            <%= render "modal-status", job: job, modal_id: modal_id%>
+	                            <% end %>
+	                            <% end %>
+	                            <% end %>
+	                    </div>
+	                </div>
+	                <div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;" id="dash-list">
+	                    <div class="card-header text-center">Application Deadlines</div>
+	                    <div class="card-body">
+	                            <% if @deadline.length == 0 %>
+	                            <p> No upcoming deadlines </p>
+	                            <% else %>
+	                            <% @deadline.each do |job| %>
+	                            <% if job.deadline != nil %>
+	                                <% modal_id = "modal-id-#{job.id}" %>
+	                                <a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+	                                <p class="recentAct-2 offset-1"><%=job.deadline.strftime("%d %b")%> : <%=job.comp_name.capitalize%></p><hr>
+	                            </a>
+	                            <%= render "modal-status", job: job, modal_id: modal_id%>
+	                            <% end %>
+	                            <% end %>
+	                            <% end %>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <% else%>
+      <% end %>
+	    <div class="add-job-btn">
+	        <button type="button" class="btn btn-outline-secondary" id="addButton">+</button>
+	    </div>

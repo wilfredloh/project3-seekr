@@ -118,12 +118,15 @@
 }
 
 .jobsPic{
+	  position: absolute;
+  left: 0;
 	 background-image: url("jobs.jpg");
 	 background: contain;
 	 background-size: 100% 100%;
 	height: 190px;
 	width: 100%;
 	opacity: 0.7;
+	position: relative;
 }
 
 .statsPic{
@@ -151,19 +154,12 @@
 	opacity: 0.7;
 }
 
-.wordings{
-  font-size: 30px;
-  color: white;
-   position:absolute;
-    top:35%;
-    left:0;
-    right:0;
-    bottom:0;
-    background-color:rgba(0, 0, 0, 0.4);
-    z-index:9999;
-    color:white;
-    height: 30%
-  }
+.loginPage{
+	background: url( asset-path('login.jpg') ) no-repeat;
+  background-size: 100%;
+  min-height: inherit;
+
+}
 
   #addButtDash{
 	padding: 10px 5px;
@@ -179,44 +175,168 @@
   background-color: #008CBA;
 }
 
- .cardpic:hover  {
-  opacity: 0.3;
-  overflow: hidden;
-  background-image: none;
+///////////hovering dashboard/////////
+.fullCard{
+	position: relative;
+}
+.title{
+	text-align: center;
+  font-size: 30px;
+  color: white;
+   position:absolute;
+    top:35%;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(0, 0, 0, 0.4);
+    z-index:9999;
+    color:white;
+    height: 30%
+  }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.5s ease;
+  transition: 0.5s;
 }
 
-// .wordings:hover{
-// 	opacity: 0;
-//   overflow: hidden;
-// 	background-image: none;
-// }
+.jobsPic:hover {
+	.buttons1, .buttons2 {
+		opacity:1;
+		font-size: 0.75rem;
+	}
+	.title {
+		opacity:0;
+		display:none;
+	}
+}
+
+.statsPic:hover {
+	.buttons5{
+		opacity:1;
+		font-size: 0.65rem;
+	}
+	.title {
+		opacity:0;
+		display:none;
+	}
+}
+
+.docPics:hover {
+	.buttons3{
+		opacity:1;
+		font-size: 0.65rem;
+	}
+	.title {
+		opacity:0;
+		display:none;
+	}
+}
+
+.contactPics:hover {
+	.buttons4, .buttons6{
+		opacity:1;
+		font-size: 0.65rem;
+	}
+	.title {
+		opacity:0;
+		display:none;
+	}
+}
+
+.fullCard:hover .overlay {
+  display: block;
+}
+
+.text {
+  position: absolute;
+  opacity: 0;
+  width: 100px;;
+  left:20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  transition: 0.3s;
+  color: white;
+}
+
+.buttons1 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;;
+  left:20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  transition: 0.3s;
+}
+.buttons2 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;
+  right:20px;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
 
 
-// .card:hover .middle {
-//   opacity: 1;
-// }
-// .middle {
-//   transition: .5s ease;
-//   opacity: 0;
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   -ms-transform: translate(-50%, -50%);
-//   text-align: center;
-// }
+.buttons3 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
 
-// .text {
-//   background-color: #4CAF50;
-//   color: white;
-//   font-size: 16px;
-//   padding: 16px 32px;
-// }
+.buttons4 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;;
+  left:20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  transition: 0.3s;
+}
+.buttons6 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;
+  right:20px;
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
 
+.buttons5 {
+  position: absolute;
+  opacity: 0;
+  width: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//////////////////////////////////////////////////
 .job-list {
  overflow-y: scroll;
  height: 27rem;
  margin-bottom: 2rem;
+}
+
+.contact-list{
+ overflow-y: scroll;
+ height: 33rem;
+ margin-bottom: 2rem;
+ width: 75rem;
 }
 .regular{
     margin: 0px 5px 7px 5px
@@ -263,13 +383,22 @@
 .add-contact-btn{
 	position: fixed;
 	bottom: 7rem;
-	right: 9em;
+	right: 5em;
 	font-size: 15px;
 	border: 2px solid black;
   border-radius: 15px;
   height: 30px;
   width: 32px;
 }
+.add-btn{
+	position: fixed;
+	bottom: 7rem;
+	right: 9em;
+	font-size: 15px;
+  height: 30px;
+  width: 32px;
+}
+
 
 #contactCard{
 	display: inline-block;
@@ -307,4 +436,139 @@ box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
 
 .alert-time p, .alert-app p {
 	margin-right: 0.5rem
+}
+
+.block-out{
+  background-color: white;
+  top: 50px;
+  left: 50px;
+  padding: 10px;
+  opacity: .3;
+}
+
+.change-file {
+  display: none;
+ }
+
+.hide {
+  display: none;
+ }
+
+.pop-list{
+ 	padding-inline-start: 10px
+ }
+
+
+// label, main{
+// 	background: var(--bg, white);
+// 	color: var(--text, black);
+// }
+
+main, body{
+	--gradDark: hsl(144, 100%, 89%);
+	--gradLight: hsl(42, 94%, 76%);
+	background: linear-gradient(to bottom, var(--gradDark), var(--gradLight));
+	min-height: inherit	;
+}
+
+.theme-switch__input:checked ~ main,
+.theme-switch__input:checked ~ theme-switch__label {
+	--text: black;
+}
+
+.theme-switch__input:checked ~ main, body {
+	--gradDark: hsl(198, 44%, 11%);
+	--gradLight: hsl(198, 39%, 29%);
+}
+
+
+// Toggle switch
+.theme-switch__input,
+.theme-switch__label {
+	position: absolute;
+	z-index: 1;
+}
+
+.theme-switch__input {
+	opacity: 0;
+
+	&:hover,
+	&:focus {
+		+ .theme-switch__label {
+			background-color: lightSlateGray;
+		}
+
+		+ .theme-switch__label span::after {
+			background-color: lighten(lightBlue, 10%);
+		}
+	}
+}
+
+.theme-switch__label {
+	padding: 15px;
+	margin: 10px 40px 0 40px	;
+	transition: background-color 200ms ease-in-out;
+	width: 70px;
+	border-radius: 50px;
+	background-color: slateGray;
+	box-shadow: -4px 4px 15px inset rgba(0, 0, 0, 0.4);
+
+	&::before,
+	&::after {
+		font-size: 2rem;
+		position: absolute;
+		transform: translate3d(0, -50%, 0);
+		top: 50%;
+	}
+
+	&::before {
+		content: '\263C';
+		right: 100%;
+		margin-right: 10px;
+		color: orange;
+	}
+
+	&::after {
+		content: '\263E';
+		left: 100%;
+		margin-left: 10px;
+		color: lightSlateGray;
+	}
+
+	span {
+		position: absolute;
+		bottom: calc(100% + 10px);
+		left: 0;
+		width: 100%;
+	}
+
+	span::after {
+		position: absolute;
+		top: calc(100% + 10px);
+		left: 3px;
+		width: 28px;
+		height: 28px;
+		content: '';
+		border-radius: 50%;
+		background-color: lightBlue;
+		transition: transform 200ms, background-color 200ms;
+		box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.4);
+	}
+}
+
+// Checked label styles
+.theme-switch__input:checked ~ .theme-switch__label {
+		background-color: lightSlateGray;
+
+	&::before {
+		color: lightSlateGray;
+	}
+
+	&::after {
+		color: turquoise;
+	}
+
+	span::after {
+		transform: translate3d(51px, 0, 0);
+	}
 }
