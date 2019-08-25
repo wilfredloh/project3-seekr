@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 <div class="container">
 	<div class="row">
-		<h1 class="mx-auto headerTitle"> Contacts
+		<h1 class="mx-auto offset-3"> Contacts
 		</h1>
 		<div class="row justify-content-end">
 			<div class="changeViewIcons mr-5">
@@ -11,10 +11,11 @@
 		</div>
 	</div>
 			<div class="row p-1">
-			<input class="form-control homepage-searchbar mx-auto" style="width:540px;" id="contactIndex" type="text" placeholder="Search by document title and type "/>
+			<input class="mb-3 form-control homepage-searchbar mx-auto" style="width:540px;" id="contactIndex" type="text" placeholder="Search by document title and type "/>
 		</div>
-	<div class="text-center mx-auto contact-list" id="contactsTable">
-		<table class="table table-striped">
+
+	<div class="text-center mx-auto my-0 contact-list" id="contactsTable">
+		<table class="table table-striped bg-light">
 		  <thead>
 		    <tr>
 		    	<th scope="col">No.</th>
