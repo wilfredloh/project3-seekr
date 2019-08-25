@@ -81,22 +81,23 @@
 				</div>
 				<div class="row">
 					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body jobsPic cardpic">
-						  	<p class="text-light text-center wordings">Jobs</p>
-									<div class="col text-center" id="addButtDash">
-										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">List View</button>'.html_safe, jobs_path %>
-										<%= link_to '<button type="button" class="btn btn-outline-secondary" id="dash-button">Grid View</button>'.html_safe, status_job_path %>
-									</div>
+						<div class="card mb-3 mx-auto jobsPic fullCard">
+						  <div class="card-body">
+						  	<p class="title">Jobs</p>
+						  	<div class="overlay">
+									<%= link_to 'List view', jobs_path, :class => 'btn btn-secondary buttons1' %>
+									<%= link_to 'Grid view', status_job_path, :class => 'btn btn-secondary buttons2'%>
+								</div>
 						  </div>
 						</div>
 					</div>
+
 					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body statsPic cardpic">
-						  		<p class="text-light text-center wordings">Statistics</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
+						<div class="card mb-3 mx-auto statsPic fullCard">
+						  <div class="card-body">
+						  		<p class="title">Statistics</p>
+						  		<div class="overlay offset-4">
+						  			<%= link_to 'Statistics', documents_path, :class => 'btn btn-secondary buttons5'%>
 						  		</div>
 						  </div>
 						</div>
@@ -105,23 +106,24 @@
 
 				<div class="row">
 					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body docPics cardpic">
-						  	<p class="text-light text-center wordings">Documents</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
+						<div class="card mb-3 mx-auto docPics fullCard">
+						  <div class="card-body">
+						  	<p class="title">Documents</p>
+						  		<div class="overlay offset-4">
+						  			<%= link_to 'Resume/CV', documents_path, :class => 'btn btn-secondary buttons3'%>
 						  		</div>
 						  </div>
 						</div>
 					</div>
 
 					<div class="col-6">
-						<div class="card mb-3 mx-auto">
-						  <div class="card-body contactPics cardpic">
-						  	<p class="text-light text-center wordings">Contacts</p>
-						  		<div class="middle">
-						  			<p class="text">test</p>
-						  		</div>
+						<div class="card mb-3 mx-auto contactPics fullCard">
+						  <div class="card-body ">
+						  	<p class="title">Contacts</p>
+						  	<div class="overlay">
+						  		<%= link_to 'List view', contacts_path, :class => 'btn btn-secondary buttons4' %>
+									<%= link_to 'Grid view', grid_contact_path, :class => 'btn btn-secondary buttons6'%>
+								</div>
 						  </div>
 						</div>
 					</div>
@@ -187,9 +189,7 @@
 
 
 	<% else%>
-	<h1>Please Login</h1>
-	<%= link_to 'log in', new_user_session_url %>
-	<% end %>
+		<% end %>
 
 	<div class="add-job-btn">
 		<button type="button" class="btn btn-outline-secondary" id="addButton">+</button>

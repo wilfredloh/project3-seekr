@@ -1,10 +1,12 @@
 <% if user_signed_in? %>
 <div class="container">
-	</div>
-	<div class="row justify-content-end">
-		<div class="changeViewIcons mr-5">
-			<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 176h80V96H96v80zm120 240h80v-80h-80v80zm-120 0h80v-80H96v80zm0-120h80v-80H96v80zm120 0h80v-80h-80v80zM336 96v80h80V96h-80zm-120 80h80V96h-80v80zm120 120h80v-80h-80v80zm0 120h80v-80h-80v80z"/></svg>'.html_safe, status_job_path %>
-			<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 348h320v36H96zM96 128h320v36H96zM96 200.7h320v35.6H96zM96 275.8h320v35.6H96z"/></svg>'.html_safe, jobs_path %>
+	<div class="row">
+		<h1 class="mx-auto headerTitle"> Applications</h1>
+		<div class="row justify-content-end">
+			<div class="changeViewIcons mr-5">
+				<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 176h80V96H96v80zm120 240h80v-80h-80v80zm-120 0h80v-80H96v80zm0-120h80v-80H96v80zm120 0h80v-80h-80v80zM336 96v80h80V96h-80zm-120 80h80V96h-80v80zm120 120h80v-80h-80v80zm0 120h80v-80h-80v80z"/></svg>'.html_safe, status_job_path %>
+				<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 348h320v36H96zM96 128h320v36H96zM96 200.7h320v35.6H96zM96 275.8h320v35.6H96z"/></svg>'.html_safe, jobs_path %>
+			</div>
 		</div>
 	</div>
 	​
@@ -39,7 +41,7 @@
 			</div>
 			​
 ​
-	<div class=" justify-content-center text-center mx-auto my-0" id="jobsTable">
+	<div class=" justify-content-center text-center mx-auto my-0 job-list" id="jobsTable">
 			<table class="table table-striped">
 			  <thead>
 			    <!-- <tr class="table table-info"> -->
@@ -92,18 +94,17 @@
 				</table>
 			</div>
 		</div>
-	​</div>
+	​
 
 <% @sorted.each do |job| %>
 	<% modal_id = "modal-id-#{job.id}" %>
 	<%= render "modal-status", job: job, modal_id: modal_id%>
 	<% end%>
 	​
-	​
 	<% else%>
-	<h1>Please Login</h1>
-	<%= link_to 'log in', new_user_session_url %>
-	<% end %>
+		<h1>Please Login</h1>
+		<%= controller.redirect_to root_path %>
+		<% end %>
 	<div class="add-job-btn">
 		<button type="button" class="btn btn-outline-secondary" id="addButton">+</button>
 	</div>

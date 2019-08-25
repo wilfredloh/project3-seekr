@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2019_08_23_030342) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "name"
+    t.string "title"
+    t.string "company"
     t.string "phone"
     t.string "email"
     t.bigint "user_id"
