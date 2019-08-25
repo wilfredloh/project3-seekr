@@ -126,6 +126,7 @@
 	height: 190px;
 	width: 100%;
 	opacity: 0.7;
+	position: relative;
 }
 
 .statsPic{
@@ -427,6 +428,141 @@
  -webkit-box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
 -moz-box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
 box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
+}
+
+.block-out{
+  background-color: white;
+  top: 50px;
+  left: 50px;
+  padding: 10px;
+  opacity: .3;
+}
+
+.change-file {
+  display: none;
+ }
+
+.hide {
+  display: none;
+ }
+
+.pop-list{
+ 	padding-inline-start: 10px
+ }
+
+
+// label, main{
+// 	background: var(--bg, white);
+// 	color: var(--text, black);
+// }
+
+main, body{
+	--gradDark: hsl(144, 100%, 89%);
+	--gradLight: hsl(42, 94%, 76%);
+	background: linear-gradient(to bottom, var(--gradDark), var(--gradLight));
+	min-height: inherit	;
+}
+
+.theme-switch__input:checked ~ main,
+.theme-switch__input:checked ~ theme-switch__label {
+	--text: black;
+}
+
+.theme-switch__input:checked ~ main, body {
+	--gradDark: hsl(198, 44%, 11%);
+	--gradLight: hsl(198, 39%, 29%);
+}
+
+
+// Toggle switch
+.theme-switch__input,
+.theme-switch__label {
+	position: absolute;
+	z-index: 1;
+}
+
+.theme-switch__input {
+	opacity: 0;
+
+	&:hover,
+	&:focus {
+		+ .theme-switch__label {
+			background-color: lightSlateGray;
+		}
+
+		+ .theme-switch__label span::after {
+			background-color: lighten(lightBlue, 10%);
+		}
+	}
+}
+
+.theme-switch__label {
+	padding: 15px;
+	margin: 10px 40px 0 40px	;
+	transition: background-color 200ms ease-in-out;
+	width: 70px;
+	border-radius: 50px;
+	background-color: slateGray;
+	box-shadow: -4px 4px 15px inset rgba(0, 0, 0, 0.4);
+
+	&::before,
+	&::after {
+		font-size: 2rem;
+		position: absolute;
+		transform: translate3d(0, -50%, 0);
+		top: 50%;
+	}
+
+	&::before {
+		content: '\263C';
+		right: 100%;
+		margin-right: 10px;
+		color: orange;
+	}
+
+	&::after {
+		content: '\263E';
+		left: 100%;
+		margin-left: 10px;
+		color: lightSlateGray;
+	}
+
+	span {
+		position: absolute;
+		bottom: calc(100% + 10px);
+		left: 0;
+		width: 100%;
+	}
+
+	span::after {
+		position: absolute;
+		top: calc(100% + 10px);
+		left: 3px;
+		width: 28px;
+		height: 28px;
+		content: '';
+		border-radius: 50%;
+		background-color: lightBlue;
+		transition: transform 200ms, background-color 200ms;
+		box-shadow: -3px 3px 8px rgba(0, 0, 0, 0.4);
+	}
+}
+
+// Checked label styles
+.theme-switch__input:checked ~ .theme-switch__label {
+		background-color: lightSlateGray;
+
+	&::before {
+		color: lightSlateGray;
+	}
+
+	&::after {
+		color: turquoise;
+	}
+
+	span::after {
+		transform: translate3d(51px, 0, 0);
+	}
 }
 
 .headerTitle{

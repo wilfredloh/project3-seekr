@@ -1,18 +1,54 @@
-<%= link_to 'New Document', new_document_path %>
-
 <div class = "container">
 	<h1 class = "text-center mx-auto mb-4">All Documents</h1>
 	<input class="form-control homepage-searchbar mx-auto" style="width:540px;" id="myDocu" type="text" placeholder="Search by document title and type "/>
 	<div class = "row justify-content-center my-3" id = "docu-cards">
-		<% @documents.each do |doc| %>
-			<div class="text-center m-3 pt-2 border add-box-shadow recentAct-3">
-				<a href = <%= document_path(doc) %>>
-					<%= cl_image_tag("#{doc.file}.png", :width => 180, :height => 200, :crop => :fill) %>
-				</a>
-				<p class = "font-weight-bold mt-2 mb-0">Title: <%= doc.title %></p>
-				<p class = "m-0">Type: <%= doc.doc_type %></p>
-				</p>
+		<% @documents.each do |document| %>
+			<% modal_id = "modal-id-#{document.id}" %>
+			<div class="m-4">
+					<div class="text-center mb-2 pt-2 border add-box-shadow recentAct-3 bg-light">
+						<a class = "card-link pointer-cursor" data-toggle="modal" data-target="#<%=modal_id%>">
+							<%= cl_image_tag("#{document.file}.png", :width => 180, :height => 200, :crop => :fill) %>
+						</a>
+						<p class = "font-weight-bold mt-2 mb-0">Title: <%= document.title %></p>
+						<small class = "m-0">Type:
+					<% if document.doc_type.present? %>
+						<%= document.doc_type %>
+					<%else%>
+						Unset
+					<%end%>
+					</small>
+						</p>
+					</div>
+
+							<div class = "text-center">
+							<button <% if document.jobs.length > 0 %> class="btn btn-primary py-0 px-1 text-lowercase" data-toggle="popover" title="Applications"
+								<%else%> class =' btn btn-secondary py-0 px-1 text-lowercase'
+								<%end%>>
+							<small>	🔗<%=document.jobs.length%>
+								<% if document.jobs.length < 2%> application
+								<%else%> applications <%end%>
+							</small>
+							</button>
+					</div>
+					<%= render "document-modal", document: document, modal_id: modal_id%>
+
+					<div id = "popover-content" class = "hide">
+						<ul class = "pop-list m-0">
+							<% document.jobs.each_with_index do |doc, index| %>
+								<li><% app_name = @jobs.find(document.job_ids[index]).comp_name.titleize%>
+									<%= app_name%>
+								</li>
+							<%end%>
+							<%= link_to 'See Jobs Page', jobs_path %>
+						</ul>
+					</div>
 			</div>
 		<% end %>
 	</div>
 </div>
+
+
+<%= render "modal-add-new-document"%>
+<div class="add-job-btn">
+		<button type="button" class="btn btn-outline-secondary" id="addDocu">+</button>
+	</div>

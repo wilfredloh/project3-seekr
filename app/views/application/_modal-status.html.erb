@@ -5,13 +5,14 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <div class="modal-header flex-column p-4">
-        <h3><%= job.comp_name.capitalize %></h3>
-        <h5 class = "font-italic"><%= job.title.capitalize %></h5>
-        <div class = "col text-right">
-        	<p class="modal-title ">Status: <%= job.status.capitalize %></p>
-        	<%=link_to "Link to job listing", "http://#{job.url}" %>
-        </div>
-
+      	<div class = "row col-12 justify-content-between px-3">
+	        <h3><%= job.comp_name.capitalize %></h3>
+	        <p class="modal-title "><u>Status:</u> <%= job.status.capitalize %></p>
+	      </div>
+	     	<div class = "row col-12 justify-content-between px-3">
+	        <h5 class = "font-italic"><%= job.title.capitalize %></h5>
+	        <%=link_to "Link to job listing", "http://#{job.url}" %>
+	      </div>
          <% if job.documents.length > 0 %>
 	        <a href = <%= document_path(job.documents[0].id) %>> Link to Document </a>
         <% end %>
@@ -94,13 +95,6 @@
 		      		<p class = "m-0 font-weight-bold">Notes</p>
 						    <%= form.text_area :notes, class: 'form-control', rows: "5", placeholder: "Feel free to add notes here"%>
 						</div>
-
-
-
-
-
-
-
 					</div>
       	</div>
       </div>
