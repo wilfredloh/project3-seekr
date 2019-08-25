@@ -58,7 +58,7 @@
 
 			<div class="col-sm-6 p-0">
 
-				<% if current_user.mode == 'hard' %>
+				<% if current_user.mode == 'easy' || current_user.mode == 'hard' || current_user.mode == 'test' %>
 				<div>
 					<div class="alert-time">
 						<p>Time remaining:</p>
