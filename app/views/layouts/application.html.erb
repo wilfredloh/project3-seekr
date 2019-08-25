@@ -232,56 +232,18 @@
 
 		<div class="content">
     <section id="home">
+      <div class="menu-btn">seekr</div>
 
-      <div class="menu-btn">Menu</div>
-
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#speakers">Speakers</a>
-        <a href="#agenda">Agenda</a>
-        <a href="#auditorium">Auditorium</a>
-        <a href="#sponsors">Sponsors</a>
-      </nav>
-
-      <div class="home-content">
-        <h1>The Conference</h1>
-        <h2 class="section-heading">Milano • Sat 20 September 2018 • Sala Pastore</h2>
-        <p>
-          With a warning label this big, you know they gotta be fun! Probably you're ready to do any of those.
-        </p>
-        <div class="social-icon">
-          <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-        </div>
-
-        <div class="social-icon">
-          <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        </div>
-        <a class="register-btn hvr-buzz-out" href="#">Register Now</a>
+	      <div class="home-content">
+	        <h1>Take Control</h1>
+	        <h2 class="section-heading">of your job applications</h2>
+	        <p>
+	          There must be something better than Google sheets
+	        </p>
+        <a class="register-btn" data-toggle="modal" data-target="#registrationForm">Sign up</a>
+        <small class ="pl-3">Have an account? <u><a data-toggle="modal" data-target="#loginForm">Login</a></u></small>
       </div>
     </section>
-    <section id="speakers">
-      <img class="speaker-icon" src="https://image.ibb.co/ixMeYo/music_microphone_old.png" alt="Microphone Icon" />
-      <h2 class="section-heading">Speakers</h2>
-      <p>
-        Have you ever tried just turning off the TV, sitting down with your children, and hitting them? Noooooo! You can crush me but you can't crush my spirit! Uh, is the puppy mechanical in any way?
-      </p>
-
-      <div class="main-speaker">
-        <div class="main-speaker-img-container">
-          <img src="https://images.pexels.com/photos/897314/pexels-photo-897314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Photo of a woman" />
-        </div>
-
-        <div class="main-speaker-info">
-          <h3>Whatever Whomever</h3>
-
-          <p>And remember, don't do anything that affects anything, unless it turns out you were supposed to, in which case, for the love of God, don't not do it!</p>
-
-          <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-
-          <span class="tip1"></span>
-        </div>
-      </div>
-      <!-- main speaker -->
   </div>
 
 
@@ -290,16 +252,15 @@
 		<%= render "devise/sessions/new" %>
 		<%= render "devise/registrations/new" %>
 		<%= yield %>
-	</div>
 
 		<footer class= "col-12 page-footer font-small bg-dark pt-4">
-			<div class="container-fluid">
+			<div class="container-fluid py-5">
 				<div class="row footer-row">
-					<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+					<h5 class="text-uppercase font-weight-bold footer-row"> Now available on Appstore and Googleplay.</h5>
 				</div>
 				​
 				<div class="row footer-text footer-row">
-					<p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
+					<p>Download your Seekr today!</p>
 				</div>
 				​
 				<div class="row footer-row">
