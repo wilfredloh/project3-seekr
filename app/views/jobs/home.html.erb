@@ -57,24 +57,70 @@
 
 	            	<% if current_user.mode == 'easy' || current_user.mode == 'hard' || current_user.mode == 'test' %>
                 <div>
-                    <div class="alert-time">
-                        <p>Time remaining:</p>
-                        <h1><%= @alert_m%> </h1>m
-                        <h1><%= @alert_s%> </h1>s
-                    </div>
-                    <div class="alert-app">
-                        <p>Remaining applications to submit:</p>
-                        <h1><%= @alert_app%> </h1>
-                    </div>
+                    <div class="card border-dark mb-3 add-box-shadow alert-box" >
+	                    <div class="card-header text-center">In FOCUS MODE</div>
+	                    <div class="card-body text-center">
+	                      <p>Time Remaining: <span id="numbs-dash"><span id="min-js"></span></span>m <span id="numbs-dash"><span id="sec-js"></span></span>s</p>
+	                      <p>Applications left to submit: <span id="numbs-dash"><%=@alert_app%></span></p>
+	                    </div>
+		                </div>
                 </div>
                 <% end %>
 
-                <% if @current_user.mode == 'pass' %>
-                    <img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
-                <% elsif @current_user.mode == 'fail' %>
-                    <img src="https://media.giphy.com/media/cr9vIO7NsP5cY/giphy.gif">
+	            	<% if current_user.mode == 'easy' || current_user.mode == 'hard' %>
+									<script>
+									var timePassed = <%=@js_seconds%>;
+									var time = 3600 - timePassed;
+									var x = setInterval(function() {
+									  if (time < 0) {
+									    clearInterval(x);
+									  }
+									  let mins = Math.floor(time/60);
+									  let secs = Math.floor(time%60);
+									  document.getElementById("min-js").innerHTML = mins;
+									  document.getElementById("sec-js").innerHTML = secs;
+									  time -= 1;
+									}, 1000);
+									</script>
+                <% elsif current_user.mode == 'test' %>
+                	<script>
+									var timePassed = <%=@js_seconds_test%>;
+									var time = 10 - timePassed;
+									var x = setInterval(function() {
+									  if (time <= 0) {
+									    clearInterval(x);
+									  }
+									  if (time <= 0){
+									  	time = 0
+									  }
+									  let mins = Math.floor(time/60);
+									  let secs = Math.floor(time%60);
+									  document.getElementById("min-js").innerHTML = mins;
+									  document.getElementById("sec-js").innerHTML = secs;
+									  time -= 1;
+									}, 1000);
+									</script>
                 <% end %>
 
+
+	                <% if @current_user.mode == 'pass' %>
+	                    <div>
+		                    <img src="http://mrwgifs.com/wp-content/uploads/2013/08/Success-Kid-Meme-Gif.gif">
+		                  </div>
+	                <% elsif @current_user.mode == 'fail' %>
+
+	                	<div class="alert-result">
+	                		<div class="card mb-2 mx-auto add-box-shadow" style="max-width: 18rem;">
+		                    <div class="card-body">
+		                    	<p class="card-text">YOU FAILED! </p>
+		                    	<p>You had <span id="numbs-dash"><%= @jobs_left %></span> applications to go...</p>
+			                    <p class="card-text ">Try again in <span id="numbs-dash"> <%= @reset_h %> </span> h <span id="numbs-dash"><%= @reset_m %> </span> m</p>
+			                    <p><i>"Don’t give up. The beginning is always the hardest. Life rewards those who work hard at it."</i></p>
+				                </div>
+			                </div>
+	                    <img src="https://media.giphy.com/media/XK8mxqg1vy6QxfIRQj/giphy.gif" width="300px" height="auto">
+	                  </div>
+	                <% end %>
 
 
 	                <div class="card border-dark mb-3 add-box-shadow" >
@@ -83,7 +129,7 @@
 	                        <div id="status">
 	                            <div class="row">
 	                                <div class="col-6">
-	                                    <p class="offset-2"><span id="numbs-dash"><%=@created%></span> Active</p>
+	                                    <p class="offset-2"><span id="numbs-dash"><%=@active%></span> Active</p>
 	                                    <p class="offset-2"><span id="numbs-dash"><%=@applied%></span> Submitted</p>
 	                                    <p class="offset-2"><span id="numbs-dash"><%=@progress%></span> Prep Interview</p>
 	                                </div>
@@ -113,7 +159,7 @@
 	                          <div class="card-body">
 	                                <p class="title">Statistics</p>
 	                                <div class="overlay offset-4">
-	                                    <%= link_to 'Statistics', documents_path, :class => 'btn btn-secondary buttons5'%>
+	                                    <%= link_to 'Statistics', stats_path, :class => 'btn btn-secondary buttons5'%>
 	                                </div>
 	                          </div>
 	                        </div>

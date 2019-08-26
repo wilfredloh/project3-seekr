@@ -1,37 +1,60 @@
-<h1> All stats here</h1>
+<div class="container">
+	<h1 class="text-center p-2">Statistic</h1>
 
-<h3>Insights</h3>
-
-<ul>
-	<li>Total # of companies applied to: <%=@total_applied%> </li>
-	<li>Total # of interview rounds reached: <%=@total_interview%> </li>
-	<li>Total # of job cycles completed: <%=@total_completed%> </li>
-	<li>Total # of offers: <%=@offer%> </li>
-	<li>Total # of rejections: <%=@rejected%> </li>
-
-	<li>Success rate: <%=@success_rate%> % </li>
-</ul>
-
-<h3>Latest session</h3>
-
-<%if @special.present?%>
-	<p>Start date: <%=@special.created_at.localtime.strftime("%d %b")%></p>
-	<p>Start time: <%=@special.created_at.localtime.strftime("%I:%M %p")%></p>
-	<%if @special.mode == 'hard' %>
-		<p>Mode: Hard</p>
-	<%end%>
-	<p>Jobs Applied: <%=@special.total_jobs_applied%></p>
-	<p>Time taken: <%=@special.time_taken %></p>
-	<%if @special.result == 'fail' %>
-		<p>Result: Failed</p>
-	<%end%>
-
-	<p># of sessions started today: <%=@specials_today.length%></p>
-	<p>All sessions: <%=@specials.length%></p>
+	<div class="row">
+		<div class="col-6">
+			<%if @jobs.present?%>
+			<div class="card bg-secondary mb-3" style="width: 35rem; height:25rem">
+				<div class="card-header text-center text-light">Insights</div>
+				<div class="card-body text-light">
+					<p class="offset-2">Total number of companies applied to: <%=@total_applied%> </p>
+					<p class="offset-2">Total number of interview rounds reached: <%=@total_interview%> </p>
+					<p class="offset-2">Total number of job cycles completed: <%=@total_completed%> </p>
+					<p class="offset-2">Total number of offers: <%=@offer%> </p>
+					<p class="offset-2">Total number of rejections: <%=@rejected%> </p>
+					<p class="offset-2">Success rate: <%=@success_rate%> % </p>
+					<p class="offset-2"> Number of jobs applied this month: <%=@this_month%></p>
+					<%else%>
+					<p class="offset-2">Create a job application to start tracking job stats</p>
+					<%end%>
+				</div>
+			</div>
+		</div>
 
 
+		<div class="col-6">
+			<div class="card bg-secondary mb-3" style="width: 35rem; height:25rem">
+				<div class="card-header text-center text-light">Latest Session</div>
+				<%if @special.present?%>
+				<div class="card-body text-light">
+					<p class="offset-3">Start date: <%=@special.created_at.localtime.strftime("%d %b")%></p>
+					<p class="offset-3">Start time: <%=@special.created_at.localtime.strftime("%I:%M %p")%></p>
+					<%if @special.mode == 'hard' %>
+					<p class="offset-3">Mode: Hard</p>
+					<%elsif @special.mode == 'easy' %>
+					<p class="offset-3">Mode: Easy</p>
+					<%else%>
+					<p class="offset-3">Mode: -</p>
+					<%end%>
 
+					<p class="offset-3"> Jobs Applied: <%=@special.total_jobs_applied%></p>
+					<p class="offset-3">Time taken: <%=@special.time_taken %></p>
+					<%if @special.result == 'pass' %>
+					<p class="offset-3">Result: <span class="successWord">Success</span></p>
+					<%elsif @special.result == 'fail' %>
+					<p class="offset-3">Result: <span class="failWord">Failed</span></p>
+					<%elsif @special.result == 'cancel' %>
+					<p class="offset-3">Result: Cancelled</p>
+					<%end%>
 
-<%else%>
-	<p>Start a session to start tracking your stats</p>
-<%end%>
+					<p class="offset-3"> Number of sessions started today: <%=@specials_today.length%></p>
+					<p class="offset-3">All sessions: <%=@specials.length%></p>
+					<%else%>
+					<p class="offset-3">Start a session to start tracking your stats</p>
+					<%end%>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
