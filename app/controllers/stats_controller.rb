@@ -14,17 +14,19 @@ class StatsController < ApplicationController
         @offer = @jobs.where(status:"Offer Received").length
         @rejected = @jobs.where(status:"Rejected").length
 
-        # @this_month = 0
-        #  applied.each do |job|
-        #   if job.created_at.localtime.strftime("%B") == Date.today.strftime("%B")
-        #     @this_month += 1
-        #   end
-        # end
+        @this_month = 0
+        applied.each do |job|
+          if job.submit_date.present?
+            if job.submit_date.localtime.strftime("%B") == Date.today.strftime("%B")
+              @this_month += 1
+            end
+          end
+        end
 
         @total_applied = @applied + @progress + @result + @offer + @rejected
         @total_interview = @progress + @result + @offer + @rejected
         @total_completed = @result + @offer + @rejected
-        @success_rate = (@offer / @total_applied) * 100
+        # @success_rate = (@offer / @total_applied) * 100
 
 
 
