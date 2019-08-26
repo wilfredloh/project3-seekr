@@ -1,13 +1,9 @@
-<<<<<<< HEAD
+
 .content{
 	font-family: 'Open Sans', sans-serif;
 }
 
-
-#jobsTable{
-=======
 #jobsTable, #contactsTable{
->>>>>>> 10f9077a3a3d497b628c773d807bb3bc9615d342
     width: 950px;
 }
 
@@ -15,6 +11,7 @@
     margin: 12px;
     padding: 12px;
 }
+
 .footer-row{
     justify-content: center;
     text-align: center;
@@ -648,6 +645,7 @@ main, body{
   font-size: 1.3em;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
    font-family: Montserrat, sans-serif;
+}
 
 .headerTitle{
 	text-align: center;
