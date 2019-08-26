@@ -43,7 +43,7 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href=<%= stats_path%>>STATS</a>
+					<a class="nav-link" href=<%= stats_path%>>Statistics</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav">
@@ -74,14 +74,14 @@
 				<% if current_user.mode == 'off' %>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown"role="button" aria-haspopup="true" aria-expanded="false" href='<%=jobs_path%>'>Mode</a>
-						<div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+						<div class="dropdown-menu text-center" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
 							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#easyModeStart">
 							  EASY MODE
 							</button>
-							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#hardModeStart">
+							<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#hardModeStart">
 							  HARD MODE
 							</button>
-							<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#testModeStart">
+							<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#testModeStart">
 							  TEST MODE
 							</button>
 						</div>

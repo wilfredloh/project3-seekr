@@ -1,4 +1,4 @@
-#jobsTable{
+#jobsTable, #contactsTable{
     width: 950px;
 }
 
@@ -334,9 +334,8 @@
 
 .contact-list{
  overflow-y: scroll;
- height: 33rem;
+ height: 29rem;
  margin-bottom: 2rem;
- width: 75rem;
 }
 .regular{
     margin: 0px 5px 7px 5px
@@ -575,4 +574,15 @@ main, body{
 	span::after {
 		transform: translate3d(51px, 0, 0);
 	}
+}
+
+.headerTitle{
+	text-align: center;
+}
+
+.failWord{
+	color: #ad1e2b;
+}
+.successWord{
+	color: #1db51b;
 }

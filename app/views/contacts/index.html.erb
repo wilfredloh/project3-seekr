@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
 <div class="container">
 	<div class="row">
-		<h1 class="mx-auto headerTitle"> Contacts
+		<h1 class="offset-5">Contacts
 		</h1>
-		<div class="row justify-content-end">
+		<div class="row offset-3 justify-content-end">
 			<div class="changeViewIcons mr-5">
 				<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 176h80V96H96v80zm120 240h80v-80h-80v80zm-120 0h80v-80H96v80zm0-120h80v-80H96v80zm120 0h80v-80h-80v80zM336 96v80h80V96h-80zm-120 80h80V96h-80v80zm120 120h80v-80h-80v80zm0 120h80v-80h-80v80z"/></svg>'.html_safe, grid_contact_path %>
 				<%= link_to '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M96 348h320v36H96zM96 128h320v36H96zM96 200.7h320v35.6H96zM96 275.8h320v35.6H96z"/></svg>'.html_safe, contacts_path %>
@@ -11,10 +11,11 @@
 		</div>
 	</div>
 			<div class="row p-1">
-			<input class="form-control homepage-searchbar mx-auto" style="width:540px;" id="contactIndex" type="text" placeholder="Search by document title and type "/>
+			<input class="mb-3 form-control homepage-searchbar mx-auto" style="width:540px;" id="contactIndex" type="text" placeholder="Search by document title and type "/>
 		</div>
-	<div class="text-center mx-auto contact-list" id="contactsTable">
-		<table class="table table-striped">
+
+	<div class="text-center mx-auto my-0 contact-list" id="contactsTable">
+		<table class="table table-striped bg-light">
 		  <thead>
 		    <tr>
 		    	<th scope="col">No.</th>
