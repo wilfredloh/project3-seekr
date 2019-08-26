@@ -10,6 +10,7 @@ class StatsController < ApplicationController
         @result = @jobs.where(status:"Awaiting Result").length
         @offer = @jobs.where(status:"Offer Received").length
         @rejected = @jobs.where(status:"Rejected").length
+
         @this_month = 0
         applied.each do |job|
           if job.submit_date.present?
@@ -18,10 +19,12 @@ class StatsController < ApplicationController
             end
           end
         end
+
         @total_applied = @applied + @progress + @result + @offer + @rejected
         @total_interview = @progress + @result + @offer + @rejected
         @total_completed = @result + @offer + @rejected
         # @success_rate = (@offer / @total_applied) * 100
+
         @documents = Document.all.where(user_id: current_user)
         @specials = Special.all.where(user_id: current_user)
         @special = @specials.last
