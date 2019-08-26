@@ -54,7 +54,7 @@ https://proj-seekr.herokuapp.com/
 ![alt_text](https://dl.dropbox.com/s/u571cbnbid5lqck/wireframe-proj3.png?dl=0)
 
 # Presentation file
-https://docs.google.com/document/d/1AOEffGVfOXMVPorUxuuzU2pmKlcYUsLmAE32V2KOym0/edit
+https://docs.google.com/presentation/d/12J5vekPoWoLlCF5s1WV65DCks_YPDOvzdgNgq5bkpQo/edit#slide=id.p
 
 # Descriptions of any unsolved problems or major hurdles your team had to overcome)
 
