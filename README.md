@@ -22,7 +22,7 @@
 - Git collaboration (merge, pull, push)
 - Deploy on Heroku, uploaded to Github
 
-#Installation instructions for any dependencies
+# Installation instructions for any dependencies
 - Install Ruby & Rails (latest versions)
 - Install Postgres Database
 - Run bundle install
