@@ -1,10 +1,7 @@
 class StatsController < ApplicationController
   def index
-
       @jobs = Job.all.where(user_id: current_user)
-
       if @jobs.present?
-
         @to_submit = @jobs.where(status:"Started").length
         applied = @jobs.where(status:"Submitted")
         @applied = applied.length
@@ -13,28 +10,22 @@ class StatsController < ApplicationController
         @result = @jobs.where(status:"Awaiting Result").length
         @offer = @jobs.where(status:"Offer Received").length
         @rejected = @jobs.where(status:"Rejected").length
-
-        # @this_month = 0
-        #  applied.each do |job|
-        #   if job.created_at.localtime.strftime("%B") == Date.today.strftime("%B")
-        #     @this_month += 1
-        #   end
-        # end
-
+        @this_month = 0
+        applied.each do |job|
+          if job.submit_date.present?
+            if job.submit_date.localtime.strftime("%B") == Date.today.strftime("%B")
+              @this_month += 1
+            end
+          end
+        end
         @total_applied = @applied + @progress + @result + @offer + @rejected
         @total_interview = @progress + @result + @offer + @rejected
         @total_completed = @result + @offer + @rejected
-        @success_rate = (@offer / @total_applied) * 100
-
-
-
-
+        # @success_rate = (@offer / @total_applied) * 100
         @documents = Document.all.where(user_id: current_user)
         @specials = Special.all.where(user_id: current_user)
-
         @special = @specials.last
         # @specials_today = specials.where(created_at: Date.today)
-
         @specials_today = []
         @specials.each do |s|
           if s.created_at.localtime.to_date == Date.today
@@ -42,7 +33,6 @@ class StatsController < ApplicationController
           end
         end
       end
-
       documents_user = Document.all.where(user_id: current_user)
       sorted_doc = documents_user.sort_by{|doc| doc.title}
       documents = []
@@ -50,10 +40,5 @@ class StatsController < ApplicationController
         documents.push(doc.title)
       end
       @documents = ['-'] + documents
-
   end
-
-
-
-
 end

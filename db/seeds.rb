@@ -25,9 +25,14 @@ job6 = Job.create(:comp_name => 'fitness first', :title => 'instructor', :locati
 job7 = Job.create(:comp_name => 'ninja van', :title => 'junior dev', :location => '333 ninja rd', :salary => '$4,000 - 4,999', :url => 'www.indeed.com', :deadline => "2019-10-01", :status => 'Submitted', :ind => 'tech', :user_id => '1', :stat_index => 2)
 
 
-# Contacts.create(name: 'Eric', phone: '12345678', company: 'Google', email: 'eric@google.com', position: 'Recruiter')
-# Contacts.create(name: 'Susan', phone: '98765432', company: 'Facebook', email: 'susan@facebook.com', position: 'HR')
-# Contacts.create(name: 'John', phone: '88888888', company: 'Apple', email: 'john@apple.com', position: 'Recruiter')
-# Contacts.create(name: 'Sandy', phone: '09090909', company: 'Yahoo', email: 'sandy@yahoo.com', position: 'Manager')
-# Contacts.create(name: 'Sam', phone: '99999999', company: 'Airbnb', email: 'sam@airbnb.com', position: 'Executive')
-# Contacts.create(name: 'Samantha', phone: '14561234', company: 'Grab', email: 'samantha@grab.com', position: 'Recruiter')
+# contact1 = Contact.create(:name => 'Eric', :title => 'Recruiter', :company => 'Google', :phone => '12345678', :email => 'eric@google.com', :user_id => '1')
+# contact2 = Contact.create(:name =>  'Susan', :title => 'HR', :company => 'Facebook', :phone =>  '98765432', :email => 'susan@facebook.com', :user_id => '1')
+# contact3 = Contact.create(:name =>  'John',:title => 'Recruiter',:company => 'Apple', :phone =>  '88888888', :email => 'john@apple.com', :user_id => '1')
+# contact4 = Contact.create(:name =>  'Sandy', :title => 'Manager', :company => 'Yahoo', :phone =>  '09090909', :email => 'sandy@yahoo.com', :user_id => '1')
+# contact5 = Contact.create(:name =>  'Sam', :title => 'Executive', :company => 'Airbnb', :phone =>  '99999999', :email => 'sam@airbnb.com', :user_id => '1')
+# contact6 = Contact.create(:name =>  'Samantha', :title => 'Recruiter',:company => 'Grab', :phone =>  '14561234', :email => 'samantha@grab.com', :user_id => '1')
+
+# contact7 = Contact.create(:name =>  'Timothy', :title => 'HR',:company => 'GoJek', :phone =>  '87388238', :email => 'Timothy@gojek.com', :user_id => '1')
+# contact8 = Contact.create(:name =>  'Roger', :title => 'Engineer',:company => 'Carousell', :phone =>  '99823564', :email => 'Roger@carousell.com', :user_id => '1')
+# contact9 = Contact.create(:name =>  'Desmond', :title => 'CEO',:company => 'Fintech', :phone =>  '98372636', :email => 'Desmond@fintech.com', :user_id => '1')
+# contact10 = Contact.create(:name =>  'Nancy', :title => 'HR',:company => 'Singtel', :phone =>  '84762637', :email => 'Nancy@singtel.com', :user_id => '1')
