@@ -1,4 +1,13 @@
+<<<<<<< HEAD
+.content{
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+#jobsTable{
+=======
 #jobsTable, #contactsTable{
+>>>>>>> 10f9077a3a3d497b628c773d807bb3bc9615d342
     width: 950px;
 }
 
@@ -449,9 +458,6 @@ box-shadow: 18px 19px 8px -17px rgba(189,187,189,1);
   opacity: .3;
 }
 
-.change-file {
-  display: none;
- }
 
 .hide {
   display: none;
@@ -518,24 +524,26 @@ main, body{
 
 	&::before,
 	&::after {
-		font-size: 2rem;
 		position: absolute;
 		transform: translate3d(0, -50%, 0);
-		top: 50%;
 	}
 
 	&::before {
+		font-size: 3rem;
 		content: '\263C';
 		right: 100%;
-		margin-right: 10px;
+		margin-right: 6px;
 		color: orange;
+		top: 25%;
 	}
 
 	&::after {
+		font-size: 2rem;
 		content: '\263E';
 		left: 100%;
-		margin-left: 10px;
+		margin-left: 6px;
 		color: lightSlateGray;
+		top: 42%;
 	}
 
 	span {
@@ -572,9 +580,74 @@ main, body{
 	}
 
 	span::after {
-		transform: translate3d(51px, 0, 0);
+		transform: translate3d(38px, 0, 0);
 	}
 }
+
+
+#home {
+  background-image: url(https://images.unsplash.com/photo-1508835045823-2e9b67c7feb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=2901&q=80);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-attachment: fixed;
+  color: #fff;
+  width: 100%;
+    background-size: cover;
+}
+
+#home {
+  padding-bottom: 1.4em;
+}
+
+.menu-btn{
+	letter-spacing: 6px;
+  margin-left: 4rem;
+  padding-top: 1rem;
+  color: black;
+  font-size: 3rem;
+  font-family: Montserrat, sans-serif;
+}
+
+.home-content {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 0.5em;
+  transition: margin-top 0.5s ease;
+   padding: 9em 4.5em;
+    margin: 0;
+    text-align: left;
+}
+
+
+.section-heading {
+  text-transform: uppercase;
+  position: relative;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.3em;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.home-content p {
+  padding: 0.7em 0;
+  font-size: 1.3em;
+  max-width: 550px;
+}
+
+.register-btn {
+  text-transform: uppercase;
+  width: 230px;
+  display: block;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #42a8bf;
+  padding: .5em;
+  text-align: center;
+  font-size: 1.3em;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+   font-family: Montserrat, sans-serif;
 
 .headerTitle{
 	text-align: center;

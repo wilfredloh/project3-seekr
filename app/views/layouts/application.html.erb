@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap" rel="stylesheet">
 </head>
 ​
 <body>
@@ -229,30 +230,36 @@
 	<%else%>
 
 		<div class="content">
+    <section id="home">
+      <div class="menu-btn">seekr</div>
+
+	      <div class="home-content">
+	        <h1>Take Control</h1>
+	        <h2 class="section-heading">of your job applications</h2>
+	        <p>
+	          There must be something better than Google sheets
+	        </p>
+        <a class="register-btn" data-toggle="modal" data-target="#registrationForm">Sign up</a>
+        <small class ="pl-3">Have an account? <u><a data-toggle="modal" data-target="#loginForm">Login</a></u></small>
+      </div>
+    </section>
+  </div>
 
 
-			<div class="loginPage">
-				<h1 class="text-center">Job Seekr</h1>
-				<div class="text-center p-5">
-					<a href class = "btn btn-default btn-rounded btn-outline-dark waves-effect waves-light justify-content-center" data-toggle="modal" data-target="#loginForm" id="loginButton">Login</a>
-					<a href class = "btn btn-default btn-rounded waves-effect btn-outline-dark waves-light" data-toggle="modal" data-target="#registrationForm">Sign Up</a>
-				</div>
-</div>
 
 
 		<%= render "devise/sessions/new" %>
 		<%= render "devise/registrations/new" %>
 		<%= yield %>
-	</div>
 
 		<footer class= "col-12 page-footer font-small bg-dark pt-4">
-			<div class="container-fluid">
+			<div class="container-fluid py-5">
 				<div class="row footer-row">
-					<h5 class="text-uppercase font-weight-bold footer-row"> Seekr! Get it now!</h5>
+					<h5 class="text-uppercase font-weight-bold footer-row"> Now available on Appstore and Googleplay.</h5>
 				</div>
 				​
 				<div class="row footer-text footer-row">
-					<p>Now available on Appstore and Googleplay! Download your Seekr today!</p>
+					<p>Download your Seekr today!</p>
 				</div>
 				​
 				<div class="row footer-row">

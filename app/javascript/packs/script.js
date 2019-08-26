@@ -65,13 +65,19 @@ window.onload = () => {
         }})
 })
 
+// var element = document.getElementsByClassName('change-file')
+
+// console.log("********", element)
+// function myFunction(event) {
+//     var x = event.target.nextSibiling
+//   x.classList.remove("to-hide");
+// }
+
+// element.addEventListener('click', myFunction);
+
+
+
 
 
 
 };
-
-
-// function myFunction() {
-//   var element = document.getElementsByClassName('change-file')
-//   element.classList.remove("to-hide");
-// }
