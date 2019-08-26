@@ -7,7 +7,7 @@
 - YOU! aka professionals and students in the midst of active job-application process
 
 # User Flow/Wireframes
-![Test Image 1](wireframe-proj3.png)
+![alt_text](https://dl.dropbox.com/s/u571cbnbid5lqck/wireframe-proj3.png?dl=0)
 Explanations of the technologies used
 A couple paragraphs about the general approach you took
 Installation instructions for any dependencies
