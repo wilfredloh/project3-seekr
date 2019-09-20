@@ -75,9 +75,4 @@ window.onload = () => {
 
 // element.addEventListener('click', myFunction);
 
-
-
-
-
-
 };

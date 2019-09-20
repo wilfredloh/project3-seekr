@@ -306,6 +306,10 @@ class JobsController < ApplicationController
         end
       end
 
+      if @job.status == 'Submitted'
+        @job.submit_date = Time.now
+      end
+
       @documents = Document.all.where(user_id: current_user)
 
       if params[:job][:doc] == '-'

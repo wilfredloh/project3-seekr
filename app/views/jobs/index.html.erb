@@ -49,6 +49,7 @@
 			      <th scope="col">Company</th>
 			      <th scope="col">Title</th>
 			      <th scope="col">Status</th>
+			      <th scope="col">Submit Date</th>
 			      <th scope="col">Deadline</th>
 			      <th scope="col">Interview</th>
 			      <th scope="col">Salary</th>
@@ -65,8 +66,19 @@
 ​
 			      <td><%= job.comp_name.titleize %></td>
 			      <td><%= job.title.titleize %></td>
-			      <td><%= job.status.titleize %></td>
-				    <% if job.deadline.present?  %>
+				  <td><%= job.status.titleize %></td>
+				  
+				    <% if job.submit_date.present?  %>
+				      <% if job.submit_date >= Date.today %>
+					      <td><%= job.submit_date.localtime.strftime("%d %b %Y") %></td>
+				      <% else%>
+					    	<td style="color:#bdbdbd"><%= job.submit_date.localtime.strftime("%d %b %Y") %></td>
+					    <% end %>
+				    <% else %>
+				    	<td>-</td>
+				    <% end %>
+					
+					<% if job.deadline.present?  %>
 				      <% if job.deadline >= Date.today %>
 					      <td><%= job.deadline.strftime("%d %b %Y") %></td>
 				      <% else%>
